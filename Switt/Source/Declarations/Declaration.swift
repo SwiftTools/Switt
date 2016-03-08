@@ -1,0 +1,41 @@
+//
+// Copyright (c) 2016 Switt contributors
+// This program is made available under the terms of the MIT License.
+//
+
+public enum Declaration {
+    case Class(ClassDeclaration)
+    case Enum(EnumDeclaration)
+    case Enumcase(EnumcaseDeclaration)
+    case Enumelement(EnumelementDeclaration)
+    case Extension(ExtensionDeclaration)
+    case ExtensionClass(ExtensionClassDeclaration)
+    case ExtensionEnum(ExtensionEnumDeclaration)
+    case ExtensionProtocol(ExtensionProtocolDeclaration)
+    case ExtensionStruct(ExtensionStructDeclaration)
+    case FunctionAccessorAddress(FunctionAccessorAddressDeclaration)
+    case FunctionAccessorDidset(FunctionAccessorDidsetDeclaration)
+    case FunctionAccessorGetter(FunctionAccessorGetterDeclaration)
+    case FunctionAccessorMutableaddress(FunctionAccessorMutableaddressDeclaration)
+    case FunctionAccessorSetter(FunctionAccessorSetterDeclaration)
+    case FunctionAccessorWillset(FunctionAccessorWillsetDeclaration)
+    case FunctionConstructor(FunctionConstructorDeclaration)
+    case FunctionDestructor(FunctionDestructorDeclaration)
+    case FunctionFree(FunctionFreeDeclaration)
+    case FunctionMethodClass(FunctionMethodClassDeclaration)
+    case FunctionMethodInstance(FunctionMethodInstanceDeclaration)
+    case FunctionMethodStatic(FunctionMethodStaticDeclaration)
+    case FunctionOperator(FunctionOperatorDeclaration)
+    case FunctionSubscript(FunctionSubscriptDeclaration)
+    case GenericTypeParam(GenericTypeParamDeclaration)
+    case Module(ModuleDeclaration)
+    case Protocol(ProtocolDeclaration)
+    case Struct(StructDeclaration)
+    case Typealias(TypealiasDeclaration)
+    case VarClass(VarClassDeclaration)
+    case VarGlobal(VarGlobalDeclaration)
+    case VarInstance(VarInstanceDeclaration)
+    case VarLocal(VarLocalDeclaration)
+    case VarParameter(VarParameterDeclaration)
+    case VarStatic(VarStaticDeclaration)
+}
