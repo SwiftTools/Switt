@@ -5,16 +5,16 @@
 
 import SwiftFelisCatus
 
-final class SwiftFileScanner {
+public final class SwiftFileScanner {
     private let file: SourceKitFile
     private let logger: SourceKitStructureScanningLogger
     
-    init(file: SourceKitFile, logger: SourceKitStructureScanningLogger) {
+    public init(file: SourceKitFile, logger: SourceKitStructureScanningLogger) {
         self.file = file
         self.logger = logger
     }
     
-    convenience init?(path: String, logger: SourceKitStructureScanningLogger, reader: SourceKitFileReader) {
+    public convenience init?(path: String, logger: SourceKitStructureScanningLogger, reader: SourceKitFileReader) {
         if let file = reader.readFile(path) {
             self.init(file: file, logger: logger)
         } else {
@@ -22,7 +22,7 @@ final class SwiftFileScanner {
         }
     }
     
-    func scanDeclarations() -> TopLevelDeclarations {
+    public func scanDeclarations() -> TopLevelDeclarations {
         var topLevelDeclarations = TopLevelDeclarations()
         
         var declarations: [Declaration] = []
