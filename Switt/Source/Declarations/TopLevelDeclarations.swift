@@ -3,8 +3,8 @@
 // This program is made available under the terms of the MIT License.
 //
 
-struct TopLevelDeclarations {
-    var classes: [ClassDeclaration] = []
-    var structs: [StructDeclaration] = []
-    var protocols: [ProtocolDeclaration] = []
+public struct TopLevelDeclarations {
+    public var classes: [ClassDeclaration] = []
+    public var structs: [StructDeclaration] = []
+    public var protocols: [ProtocolDeclaration] = []
 }
