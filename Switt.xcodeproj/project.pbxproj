@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F80D92CD1C942C28009A36B0 /* FunctionScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */; };
+		F80D92D01C944333009A36B0 /* Grammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92CF1C944333009A36B0 /* Grammar.swift */; };
+		F80D92D31C94433E009A36B0 /* Lexeme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92D21C94433E009A36B0 /* Lexeme.swift */; };
+		F80D92D61C944344009A36B0 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92D51C944344009A36B0 /* Lexer.swift */; };
+		F80D92D91C944352009A36B0 /* CompoundLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92D81C944352009A36B0 /* CompoundLexer.swift */; };
+		F80D92DC1C944364009A36B0 /* LexemeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92DB1C944364009A36B0 /* LexemeType.swift */; };
+		F80D92DF1C9454FC009A36B0 /* LexemeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92DE1C9454FC009A36B0 /* LexemeBuilder.swift */; };
 		F836842C1C8F0055005442E5 /* Switt.h in Headers */ = {isa = PBXBuildFile; fileRef = F836842B1C8F0055005442E5 /* Switt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F83684331C8F0055005442E5 /* Switt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83684281C8F0055005442E5 /* Switt.framework */; };
 		F83684B21C8F00C5005442E5 /* Declaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684441C8F00C5005442E5 /* Declaration.swift */; };
@@ -88,7 +95,7 @@
 		F83684FE1C8F00C5005442E5 /* SourceKitStructureCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A11C8F00C5005442E5 /* SourceKitStructureCodeScanner.swift */; };
 		F83684FF1C8F00C5005442E5 /* SourceKitStructureScanningLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A21C8F00C5005442E5 /* SourceKitStructureScanningLogger.swift */; };
 		F83685001C8F00C5005442E5 /* SubDeclarationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A31C8F00C5005442E5 /* SubDeclarationsSorter.swift */; };
-		F83685011C8F00C5005442E5 /* TypeInferer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A41C8F00C5005442E5 /* TypeInferer.swift */; };
+		F83685011C8F00C5005442E5 /* VarScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A41C8F00C5005442E5 /* VarScanner.swift */; };
 		F83685021C8F00C5005442E5 /* UnexpectedDeclarationsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A51C8F00C5005442E5 /* UnexpectedDeclarationsLogger.swift */; };
 		F83685031C8F00C6005442E5 /* DeclarationsExpectance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A71C8F00C5005442E5 /* DeclarationsExpectance.swift */; };
 		F83685041C8F00C6005442E5 /* SortedSubDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684A81C8F00C5005442E5 /* SortedSubDeclarations.swift */; };
@@ -96,10 +103,6 @@
 		F83685061C8F00C6005442E5 /* DeclarationPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684AB1C8F00C5005442E5 /* DeclarationPath.swift */; };
 		F83685071C8F00C6005442E5 /* DeclarationTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684AC1C8F00C5005442E5 /* DeclarationTreeNode.swift */; };
 		F83685081C8F00C6005442E5 /* GenericPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684AD1C8F00C5005442E5 /* GenericPlaceholder.swift */; };
-		F83685091C8F00C6005442E5 /* VarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684AE1C8F00C5005442E5 /* VarType.swift */; };
-		F836850A1C8F00C6005442E5 /* VarTypeInferenceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684AF1C8F00C5005442E5 /* VarTypeInferenceError.swift */; };
-		F836850B1C8F00C6005442E5 /* VarTypeInferenceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684B01C8F00C5005442E5 /* VarTypeInferenceInfo.swift */; };
-		F836850C1C8F00C6005442E5 /* VarTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684B11C8F00C5005442E5 /* VarTypeInfo.swift */; };
 		F836876C1C8F018D005442E5 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685141C8F016C005442E5 /* SourceKittenFramework.framework */; };
 		F836876D1C8F018E005442E5 /* SwiftFelisCatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685161C8F016C005442E5 /* SwiftFelisCatus.framework */; };
 		F836876E1C8F0191005442E5 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685181C8F016C005442E5 /* SWXMLHash.framework */; };
@@ -121,6 +124,32 @@
 		F84706221C8F0F98007902CE /* TestSwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84706211C8F0F98007902CE /* TestSwiftFile.swift */; };
 		F84706241C8F0FCB007902CE /* SwiftFileScannerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84706231C8F0FCB007902CE /* SwiftFileScannerSpec.swift */; };
 		F84706261C8F104E007902CE /* SourceKitStructureScanningLoggerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84706251C8F104E007902CE /* SourceKitStructureScanningLoggerMock.swift */; };
+		F88155B31C947A5B00396F19 /* SwiftGrammarAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155A81C947A5B00396F19 /* SwiftGrammarAttributes.swift */; };
+		F88155B41C947A5B00396F19 /* SwiftGrammarDeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155AA1C947A5B00396F19 /* SwiftGrammarDeclarations.swift */; };
+		F88155B51C947A5B00396F19 /* SwiftGrammarExpressions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155AC1C947A5B00396F19 /* SwiftGrammarExpressions.swift */; };
+		F88155B61C947A5B00396F19 /* SwiftGrammarPatterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155AE1C947A5B00396F19 /* SwiftGrammarPatterns.swift */; };
+		F88155B71C947A5B00396F19 /* SwiftGrammarStatements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155B01C947A5B00396F19 /* SwiftGrammarStatements.swift */; };
+		F88155B81C947A5B00396F19 /* SwiftGrammarTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155B21C947A5B00396F19 /* SwiftGrammarTypes.swift */; };
+		F88155BA1C947BF500396F19 /* SwiftGrammarLoopStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155B91C947BF500396F19 /* SwiftGrammarLoopStatement.swift */; };
+		F88155BC1C947CBA00396F19 /* SwiftGrammarBranchStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155BB1C947CBA00396F19 /* SwiftGrammarBranchStatement.swift */; };
+		F88155BE1C947D8F00396F19 /* SwiftGrammarAvailabilityStatements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155BD1C947D8F00396F19 /* SwiftGrammarAvailabilityStatements.swift */; };
+		F88155C01C947DF200396F19 /* SwiftGrammarCompilerControlStatements.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155BF1C947DF200396F19 /* SwiftGrammarCompilerControlStatements.swift */; };
+		F88155C31C947EB300396F19 /* SwiftGrammarGenericParametersAndArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155C21C947EB300396F19 /* SwiftGrammarGenericParametersAndArguments.swift */; };
+		F88155C51C947FBD00396F19 /* SwiftGrammarVariableDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155C41C947FBD00396F19 /* SwiftGrammarVariableDeclaration.swift */; };
+		F88155C71C947FFE00396F19 /* SwiftGrammarTypealiasDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155C61C947FFE00396F19 /* SwiftGrammarTypealiasDeclaration.swift */; };
+		F88155C91C94800800396F19 /* SwiftGrammarFunctionDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155C81C94800800396F19 /* SwiftGrammarFunctionDeclaration.swift */; };
+		F88155CB1C94804600396F19 /* SwiftGrammarEnumDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155CA1C94804600396F19 /* SwiftGrammarEnumDeclaration.swift */; };
+		F88155CD1C9480A600396F19 /* SwiftGrammarStructDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155CC1C9480A600396F19 /* SwiftGrammarStructDeclaration.swift */; };
+		F88155CF1C9480C600396F19 /* SwiftGrammarClassDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155CE1C9480C600396F19 /* SwiftGrammarClassDeclaration.swift */; };
+		F88155D11C9480F300396F19 /* SwiftGrammarProtocolDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155D01C9480F300396F19 /* SwiftGrammarProtocolDeclaration.swift */; };
+		F88155D31C94814800396F19 /* SwiftGrammarInitializarDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155D21C94814800396F19 /* SwiftGrammarInitializarDeclaration.swift */; };
+		F88155D51C94815400396F19 /* SwiftGrammarDeinitializerDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155D41C94815400396F19 /* SwiftGrammarDeinitializerDeclaration.swift */; };
+		F88155D71C94816100396F19 /* SwiftGrammarExtensionDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155D61C94816100396F19 /* SwiftGrammarExtensionDeclaration.swift */; };
+		F88155D91C94816A00396F19 /* SwiftGrammarSubscriptDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155D81C94816A00396F19 /* SwiftGrammarSubscriptDeclaration.swift */; };
+		F88155DB1C94817300396F19 /* SwiftGrammarOperatorDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155DA1C94817300396F19 /* SwiftGrammarOperatorDeclaration.swift */; };
+		F88155DD1C94891900396F19 /* SwiftGrammarLiteralExpressions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155DC1C94891900396F19 /* SwiftGrammarLiteralExpressions.swift */; };
+		F88155DF1C948F6500396F19 /* SwiftGrammarClosureExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155DE1C948F6500396F19 /* SwiftGrammarClosureExpression.swift */; };
+		F88155E21C94AAC000396F19 /* SwiftGrammarLexicalStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88155E11C94AAC000396F19 /* SwiftGrammarLexicalStructure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +181,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionScanner.swift; sourceTree = "<group>"; };
+		F80D92CF1C944333009A36B0 /* Grammar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grammar.swift; sourceTree = "<group>"; };
+		F80D92D21C94433E009A36B0 /* Lexeme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexeme.swift; sourceTree = "<group>"; };
+		F80D92D51C944344009A36B0 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		F80D92D81C944352009A36B0 /* CompoundLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompoundLexer.swift; sourceTree = "<group>"; };
+		F80D92DB1C944364009A36B0 /* LexemeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexemeType.swift; sourceTree = "<group>"; };
+		F80D92DE1C9454FC009A36B0 /* LexemeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexemeBuilder.swift; sourceTree = "<group>"; };
 		F83684281C8F0055005442E5 /* Switt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Switt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F836842B1C8F0055005442E5 /* Switt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Switt.h; sourceTree = "<group>"; };
 		F836842D1C8F0055005442E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -236,7 +272,7 @@
 		F83684A11C8F00C5005442E5 /* SourceKitStructureCodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitStructureCodeScanner.swift; sourceTree = "<group>"; };
 		F83684A21C8F00C5005442E5 /* SourceKitStructureScanningLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitStructureScanningLogger.swift; sourceTree = "<group>"; };
 		F83684A31C8F00C5005442E5 /* SubDeclarationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubDeclarationsSorter.swift; sourceTree = "<group>"; };
-		F83684A41C8F00C5005442E5 /* TypeInferer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeInferer.swift; sourceTree = "<group>"; };
+		F83684A41C8F00C5005442E5 /* VarScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarScanner.swift; sourceTree = "<group>"; };
 		F83684A51C8F00C5005442E5 /* UnexpectedDeclarationsLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnexpectedDeclarationsLogger.swift; sourceTree = "<group>"; };
 		F83684A71C8F00C5005442E5 /* DeclarationsExpectance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeclarationsExpectance.swift; sourceTree = "<group>"; };
 		F83684A81C8F00C5005442E5 /* SortedSubDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedSubDeclarations.swift; sourceTree = "<group>"; };
@@ -244,10 +280,6 @@
 		F83684AB1C8F00C5005442E5 /* DeclarationPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeclarationPath.swift; sourceTree = "<group>"; };
 		F83684AC1C8F00C5005442E5 /* DeclarationTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeclarationTreeNode.swift; sourceTree = "<group>"; };
 		F83684AD1C8F00C5005442E5 /* GenericPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericPlaceholder.swift; sourceTree = "<group>"; };
-		F83684AE1C8F00C5005442E5 /* VarType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarType.swift; sourceTree = "<group>"; };
-		F83684AF1C8F00C5005442E5 /* VarTypeInferenceError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarTypeInferenceError.swift; sourceTree = "<group>"; };
-		F83684B01C8F00C5005442E5 /* VarTypeInferenceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarTypeInferenceInfo.swift; sourceTree = "<group>"; };
-		F83684B11C8F00C5005442E5 /* VarTypeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VarTypeInfo.swift; sourceTree = "<group>"; };
 		F83685101C8F016C005442E5 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
 		F83685121C8F016C005442E5 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
 		F83685141C8F016C005442E5 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SourceKittenFramework.framework; sourceTree = "<group>"; };
@@ -261,6 +293,32 @@
 		F84706211C8F0F98007902CE /* TestSwiftFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftFile.swift; sourceTree = "<group>"; };
 		F84706231C8F0FCB007902CE /* SwiftFileScannerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftFileScannerSpec.swift; sourceTree = "<group>"; };
 		F84706251C8F104E007902CE /* SourceKitStructureScanningLoggerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitStructureScanningLoggerMock.swift; sourceTree = "<group>"; };
+		F88155A81C947A5B00396F19 /* SwiftGrammarAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarAttributes.swift; sourceTree = "<group>"; };
+		F88155AA1C947A5B00396F19 /* SwiftGrammarDeclarations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarDeclarations.swift; sourceTree = "<group>"; };
+		F88155AC1C947A5B00396F19 /* SwiftGrammarExpressions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarExpressions.swift; sourceTree = "<group>"; };
+		F88155AE1C947A5B00396F19 /* SwiftGrammarPatterns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarPatterns.swift; sourceTree = "<group>"; };
+		F88155B01C947A5B00396F19 /* SwiftGrammarStatements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarStatements.swift; sourceTree = "<group>"; };
+		F88155B21C947A5B00396F19 /* SwiftGrammarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarTypes.swift; sourceTree = "<group>"; };
+		F88155B91C947BF500396F19 /* SwiftGrammarLoopStatement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarLoopStatement.swift; sourceTree = "<group>"; };
+		F88155BB1C947CBA00396F19 /* SwiftGrammarBranchStatement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarBranchStatement.swift; sourceTree = "<group>"; };
+		F88155BD1C947D8F00396F19 /* SwiftGrammarAvailabilityStatements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarAvailabilityStatements.swift; sourceTree = "<group>"; };
+		F88155BF1C947DF200396F19 /* SwiftGrammarCompilerControlStatements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarCompilerControlStatements.swift; sourceTree = "<group>"; };
+		F88155C21C947EB300396F19 /* SwiftGrammarGenericParametersAndArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarGenericParametersAndArguments.swift; sourceTree = "<group>"; };
+		F88155C41C947FBD00396F19 /* SwiftGrammarVariableDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarVariableDeclaration.swift; sourceTree = "<group>"; };
+		F88155C61C947FFE00396F19 /* SwiftGrammarTypealiasDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarTypealiasDeclaration.swift; sourceTree = "<group>"; };
+		F88155C81C94800800396F19 /* SwiftGrammarFunctionDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarFunctionDeclaration.swift; sourceTree = "<group>"; };
+		F88155CA1C94804600396F19 /* SwiftGrammarEnumDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarEnumDeclaration.swift; sourceTree = "<group>"; };
+		F88155CC1C9480A600396F19 /* SwiftGrammarStructDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarStructDeclaration.swift; sourceTree = "<group>"; };
+		F88155CE1C9480C600396F19 /* SwiftGrammarClassDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarClassDeclaration.swift; sourceTree = "<group>"; };
+		F88155D01C9480F300396F19 /* SwiftGrammarProtocolDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarProtocolDeclaration.swift; sourceTree = "<group>"; };
+		F88155D21C94814800396F19 /* SwiftGrammarInitializarDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarInitializarDeclaration.swift; sourceTree = "<group>"; };
+		F88155D41C94815400396F19 /* SwiftGrammarDeinitializerDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarDeinitializerDeclaration.swift; sourceTree = "<group>"; };
+		F88155D61C94816100396F19 /* SwiftGrammarExtensionDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarExtensionDeclaration.swift; sourceTree = "<group>"; };
+		F88155D81C94816A00396F19 /* SwiftGrammarSubscriptDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarSubscriptDeclaration.swift; sourceTree = "<group>"; };
+		F88155DA1C94817300396F19 /* SwiftGrammarOperatorDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarOperatorDeclaration.swift; sourceTree = "<group>"; };
+		F88155DC1C94891900396F19 /* SwiftGrammarLiteralExpressions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarLiteralExpressions.swift; sourceTree = "<group>"; };
+		F88155DE1C948F6500396F19 /* SwiftGrammarClosureExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarClosureExpression.swift; sourceTree = "<group>"; };
+		F88155E11C94AAC000396F19 /* SwiftGrammarLexicalStructure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGrammarLexicalStructure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +347,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F80D92CE1C94432B009A36B0 /* Grammar */ = {
+			isa = PBXGroup;
+			children = (
+				F881559E1C9479EA00396F19 /* Swift */,
+				F80D92CF1C944333009A36B0 /* Grammar.swift */,
+				F80D92D21C94433E009A36B0 /* Lexeme.swift */,
+				F80D92D51C944344009A36B0 /* Lexer.swift */,
+				F80D92D81C944352009A36B0 /* CompoundLexer.swift */,
+				F80D92DB1C944364009A36B0 /* LexemeType.swift */,
+				F80D92DE1C9454FC009A36B0 /* LexemeBuilder.swift */,
+			);
+			path = Grammar;
+			sourceTree = "<group>";
+		};
 		F836841E1C8F0055005442E5 = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +405,7 @@
 		F83684421C8F00C5005442E5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F80D92CE1C94432B009A36B0 /* Grammar */,
 				F83684431C8F00C5005442E5 /* Declarations */,
 				F83684701C8F00C5005442E5 /* Scanning */,
 				F83684A91C8F00C5005442E5 /* Types */,
@@ -551,9 +624,10 @@
 				F83684A11C8F00C5005442E5 /* SourceKitStructureCodeScanner.swift */,
 				F83684A21C8F00C5005442E5 /* SourceKitStructureScanningLogger.swift */,
 				F83684A31C8F00C5005442E5 /* SubDeclarationsSorter.swift */,
-				F83684A41C8F00C5005442E5 /* TypeInferer.swift */,
+				F83684A41C8F00C5005442E5 /* VarScanner.swift */,
 				F83684A51C8F00C5005442E5 /* UnexpectedDeclarationsLogger.swift */,
 				F83687781C8F034D005442E5 /* GenericPlaceholdersScanner.swift */,
+				F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -575,10 +649,6 @@
 				F83684AB1C8F00C5005442E5 /* DeclarationPath.swift */,
 				F83684AC1C8F00C5005442E5 /* DeclarationTreeNode.swift */,
 				F83684AD1C8F00C5005442E5 /* GenericPlaceholder.swift */,
-				F83684AE1C8F00C5005442E5 /* VarType.swift */,
-				F83684AF1C8F00C5005442E5 /* VarTypeInferenceError.swift */,
-				F83684B01C8F00C5005442E5 /* VarTypeInferenceInfo.swift */,
-				F83684B11C8F00C5005442E5 /* VarTypeInfo.swift */,
 				F83687761C8F027E005442E5 /* GenericPlaceholders.swift */,
 			);
 			path = Types;
@@ -618,6 +688,103 @@
 				F836877D1C8F0533005442E5 /* Optional+TryUnwrap.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		F881559E1C9479EA00396F19 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				F88155A71C947A5B00396F19 /* Attributes */,
+				F88155A91C947A5B00396F19 /* Declarations */,
+				F88155AB1C947A5B00396F19 /* Expressions */,
+				F88155C11C947EA700396F19 /* GenericParametersAndArguments */,
+				F88155E01C94AA6600396F19 /* LexicalStructure */,
+				F88155AD1C947A5B00396F19 /* Patterns */,
+				F88155AF1C947A5B00396F19 /* Statements */,
+				F88155B11C947A5B00396F19 /* Types */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		F88155A71C947A5B00396F19 /* Attributes */ = {
+			isa = PBXGroup;
+			children = (
+				F88155A81C947A5B00396F19 /* SwiftGrammarAttributes.swift */,
+			);
+			path = Attributes;
+			sourceTree = "<group>";
+		};
+		F88155A91C947A5B00396F19 /* Declarations */ = {
+			isa = PBXGroup;
+			children = (
+				F88155AA1C947A5B00396F19 /* SwiftGrammarDeclarations.swift */,
+				F88155C41C947FBD00396F19 /* SwiftGrammarVariableDeclaration.swift */,
+				F88155C61C947FFE00396F19 /* SwiftGrammarTypealiasDeclaration.swift */,
+				F88155C81C94800800396F19 /* SwiftGrammarFunctionDeclaration.swift */,
+				F88155CA1C94804600396F19 /* SwiftGrammarEnumDeclaration.swift */,
+				F88155CC1C9480A600396F19 /* SwiftGrammarStructDeclaration.swift */,
+				F88155CE1C9480C600396F19 /* SwiftGrammarClassDeclaration.swift */,
+				F88155D01C9480F300396F19 /* SwiftGrammarProtocolDeclaration.swift */,
+				F88155D21C94814800396F19 /* SwiftGrammarInitializarDeclaration.swift */,
+				F88155D41C94815400396F19 /* SwiftGrammarDeinitializerDeclaration.swift */,
+				F88155D61C94816100396F19 /* SwiftGrammarExtensionDeclaration.swift */,
+				F88155D81C94816A00396F19 /* SwiftGrammarSubscriptDeclaration.swift */,
+				F88155DA1C94817300396F19 /* SwiftGrammarOperatorDeclaration.swift */,
+			);
+			path = Declarations;
+			sourceTree = "<group>";
+		};
+		F88155AB1C947A5B00396F19 /* Expressions */ = {
+			isa = PBXGroup;
+			children = (
+				F88155AC1C947A5B00396F19 /* SwiftGrammarExpressions.swift */,
+				F88155DC1C94891900396F19 /* SwiftGrammarLiteralExpressions.swift */,
+				F88155DE1C948F6500396F19 /* SwiftGrammarClosureExpression.swift */,
+			);
+			path = Expressions;
+			sourceTree = "<group>";
+		};
+		F88155AD1C947A5B00396F19 /* Patterns */ = {
+			isa = PBXGroup;
+			children = (
+				F88155AE1C947A5B00396F19 /* SwiftGrammarPatterns.swift */,
+			);
+			path = Patterns;
+			sourceTree = "<group>";
+		};
+		F88155AF1C947A5B00396F19 /* Statements */ = {
+			isa = PBXGroup;
+			children = (
+				F88155B01C947A5B00396F19 /* SwiftGrammarStatements.swift */,
+				F88155B91C947BF500396F19 /* SwiftGrammarLoopStatement.swift */,
+				F88155BB1C947CBA00396F19 /* SwiftGrammarBranchStatement.swift */,
+				F88155BD1C947D8F00396F19 /* SwiftGrammarAvailabilityStatements.swift */,
+				F88155BF1C947DF200396F19 /* SwiftGrammarCompilerControlStatements.swift */,
+			);
+			path = Statements;
+			sourceTree = "<group>";
+		};
+		F88155B11C947A5B00396F19 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				F88155B21C947A5B00396F19 /* SwiftGrammarTypes.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		F88155C11C947EA700396F19 /* GenericParametersAndArguments */ = {
+			isa = PBXGroup;
+			children = (
+				F88155C21C947EB300396F19 /* SwiftGrammarGenericParametersAndArguments.swift */,
+			);
+			path = GenericParametersAndArguments;
+			sourceTree = "<group>";
+		};
+		F88155E01C94AA6600396F19 /* LexicalStructure */ = {
+			isa = PBXGroup;
+			children = (
+				F88155E11C94AAC000396F19 /* SwiftGrammarLexicalStructure.swift */,
+			);
+			path = LexicalStructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -732,15 +899,19 @@
 				F83684E91C8F00C5005442E5 /* SourceKitStructureFunctionMethodInstanceScanner.swift in Sources */,
 				F83684DF1C8F00C5005442E5 /* SourceKitStructureFunctionAccessorAddressScanner.swift in Sources */,
 				F83684DD1C8F00C5005442E5 /* SourceKitStructureExtensionScanner.swift in Sources */,
+				F88155BC1C947CBA00396F19 /* SwiftGrammarBranchStatement.swift in Sources */,
 				F83684F31C8F00C5005442E5 /* SourceKitStructureTypealiasScanner.swift in Sources */,
 				F83684B51C8F00C5005442E5 /* EnumelementDeclaration.swift in Sources */,
 				F83684C11C8F00C5005442E5 /* FunctionConstructorDeclaration.swift in Sources */,
+				F88155DF1C948F6500396F19 /* SwiftGrammarClosureExpression.swift in Sources */,
 				F83684D41C8F00C5005442E5 /* VarParameterDeclaration.swift in Sources */,
 				F83684FB1C8F00C5005442E5 /* SourceKitSubstructureScanner.swift in Sources */,
 				F83684C31C8F00C5005442E5 /* FunctionFreeDeclaration.swift in Sources */,
 				F83684C41C8F00C5005442E5 /* FunctionMethodClassDeclaration.swift in Sources */,
+				F88155C31C947EB300396F19 /* SwiftGrammarGenericParametersAndArguments.swift in Sources */,
 				F83687801C8F079A005442E5 /* SourceKitStructureScanningDependencies.swift in Sources */,
 				F83684F11C8F00C5005442E5 /* SourceKitStructureProtocolScanner.swift in Sources */,
+				F88155D51C94815400396F19 /* SwiftGrammarDeinitializerDeclaration.swift in Sources */,
 				F83684C51C8F00C5005442E5 /* FunctionMethodInstanceDeclaration.swift in Sources */,
 				F83684F41C8F00C5005442E5 /* SourceKitStructureVarClassScanner.swift in Sources */,
 				F83685001C8F00C5005442E5 /* SubDeclarationsSorter.swift in Sources */,
@@ -749,59 +920,83 @@
 				F83684D31C8F00C5005442E5 /* VarLocalDeclaration.swift in Sources */,
 				F83684E81C8F00C5005442E5 /* SourceKitStructureFunctionMethodClassScanner.swift in Sources */,
 				F83684B91C8F00C5005442E5 /* ExtensionProtocolDeclaration.swift in Sources */,
+				F80D92DC1C944364009A36B0 /* LexemeType.swift in Sources */,
 				F83684E71C8F00C5005442E5 /* SourceKitStructureFunctionFreeScanner.swift in Sources */,
+				F88155BE1C947D8F00396F19 /* SwiftGrammarAvailabilityStatements.swift in Sources */,
 				F83684DE1C8F00C5005442E5 /* SourceKitStructureExtensionStructScanner.swift in Sources */,
-				F836850C1C8F00C6005442E5 /* VarTypeInfo.swift in Sources */,
+				F88155E21C94AAC000396F19 /* SwiftGrammarLexicalStructure.swift in Sources */,
+				F88155C51C947FBD00396F19 /* SwiftGrammarVariableDeclaration.swift in Sources */,
 				F83684B81C8F00C5005442E5 /* ExtensionEnumDeclaration.swift in Sources */,
+				F80D92D01C944333009A36B0 /* Grammar.swift in Sources */,
 				F83685051C8F00C6005442E5 /* Accessibility.swift in Sources */,
 				F83684FD1C8F00C5005442E5 /* SourceKitAccessibilityConverter.swift in Sources */,
 				F83684F61C8F00C5005442E5 /* SourceKitStructureVarInstanceScanner.swift in Sources */,
+				F88155C91C94800800396F19 /* SwiftGrammarFunctionDeclaration.swift in Sources */,
+				F88155D31C94814800396F19 /* SwiftGrammarInitializarDeclaration.swift in Sources */,
 				F83684FE1C8F00C5005442E5 /* SourceKitStructureCodeScanner.swift in Sources */,
 				F83684EE1C8F00C5005442E5 /* SourceKitStructureClassScanner.swift in Sources */,
 				F83684DC1C8F00C5005442E5 /* SourceKitStructureExtensionProtocolScanner.swift in Sources */,
 				F83684CC1C8F00C5005442E5 /* ModuleDeclaration.swift in Sources */,
 				F83684EF1C8F00C5005442E5 /* SourceKitStructureGenericTypeParamScanner.swift in Sources */,
 				F83684CB1C8F00C5005442E5 /* GenericTypeParamDeclaration.swift in Sources */,
+				F88155CD1C9480A600396F19 /* SwiftGrammarStructDeclaration.swift in Sources */,
+				F88155B41C947A5B00396F19 /* SwiftGrammarDeclarations.swift in Sources */,
 				F83684BE1C8F00C5005442E5 /* FunctionAccessorMutableaddressDeclaration.swift in Sources */,
 				F83684E61C8F00C5005442E5 /* SourceKitStructureFunctionDestructorScanner.swift in Sources */,
 				F83685031C8F00C6005442E5 /* DeclarationsExpectance.swift in Sources */,
 				F83684D01C8F00C5005442E5 /* VarClassDeclaration.swift in Sources */,
+				F80D92D31C94433E009A36B0 /* Lexeme.swift in Sources */,
 				F83684E01C8F00C5005442E5 /* SourceKitStructureFunctionAccessorDidsetScanner.swift in Sources */,
 				F83684F71C8F00C5005442E5 /* SourceKitStructureVarLocalScanner.swift in Sources */,
 				F83684D81C8F00C5005442E5 /* SourceKitStructureEnumelementScanner.swift in Sources */,
+				F88155DD1C94891900396F19 /* SwiftGrammarLiteralExpressions.swift in Sources */,
+				F88155B81C947A5B00396F19 /* SwiftGrammarTypes.swift in Sources */,
+				F88155BA1C947BF500396F19 /* SwiftGrammarLoopStatement.swift in Sources */,
 				F83684C01C8F00C5005442E5 /* FunctionAccessorWillsetDeclaration.swift in Sources */,
-				F836850B1C8F00C6005442E5 /* VarTypeInferenceInfo.swift in Sources */,
 				F83684C71C8F00C5005442E5 /* FunctionOperatorDeclaration.swift in Sources */,
 				F83684DA1C8F00C5005442E5 /* SourceKitStructureExtensionClassScanner.swift in Sources */,
+				F80D92D61C944344009A36B0 /* Lexer.swift in Sources */,
 				F83684BD1C8F00C5005442E5 /* FunctionAccessorGetterDeclaration.swift in Sources */,
+				F80D92DF1C9454FC009A36B0 /* LexemeBuilder.swift in Sources */,
 				F83684D61C8F00C5005442E5 /* PropertyDeclaration.swift in Sources */,
+				F80D92CD1C942C28009A36B0 /* FunctionScanner.swift in Sources */,
 				F83684F81C8F00C5005442E5 /* SourceKitStructureVarParameterScanner.swift in Sources */,
 				F83684BF1C8F00C5005442E5 /* FunctionAccessorSetterDeclaration.swift in Sources */,
+				F88155CF1C9480C600396F19 /* SwiftGrammarClassDeclaration.swift in Sources */,
 				F83684B41C8F00C5005442E5 /* EnumDeclaration.swift in Sources */,
+				F80D92D91C944352009A36B0 /* CompoundLexer.swift in Sources */,
+				F88155D91C94816A00396F19 /* SwiftGrammarSubscriptDeclaration.swift in Sources */,
 				F83684CD1C8F00C5005442E5 /* ProtocolDeclaration.swift in Sources */,
 				F83684B31C8F00C5005442E5 /* EnumcaseDeclaration.swift in Sources */,
 				F83684E41C8F00C5005442E5 /* SourceKitStructureFunctionAccessorWillsetScanner.swift in Sources */,
 				F83684F21C8F00C5005442E5 /* SourceKitStructureStructScanner.swift in Sources */,
 				F83685061C8F00C6005442E5 /* DeclarationPath.swift in Sources */,
+				F88155D71C94816100396F19 /* SwiftGrammarExtensionDeclaration.swift in Sources */,
 				F83684CA1C8F00C5005442E5 /* ClassDeclaration.swift in Sources */,
 				F83685071C8F00C6005442E5 /* DeclarationTreeNode.swift in Sources */,
 				F83684FF1C8F00C5005442E5 /* SourceKitStructureScanningLogger.swift in Sources */,
+				F88155D11C9480F300396F19 /* SwiftGrammarProtocolDeclaration.swift in Sources */,
 				F83684DB1C8F00C5005442E5 /* SourceKitStructureExtensionEnumScanner.swift in Sources */,
 				F83684E21C8F00C5005442E5 /* SourceKitStructureFunctionAccessorMutableaddressScanner.swift in Sources */,
 				F83684C61C8F00C5005442E5 /* FunctionMethodStaticDeclaration.swift in Sources */,
 				F83687791C8F034D005442E5 /* GenericPlaceholdersScanner.swift in Sources */,
+				F88155CB1C94804600396F19 /* SwiftGrammarEnumDeclaration.swift in Sources */,
+				F88155B51C947A5B00396F19 /* SwiftGrammarExpressions.swift in Sources */,
 				F83684D21C8F00C5005442E5 /* VarInstanceDeclaration.swift in Sources */,
 				F83684EC1C8F00C5005442E5 /* SourceKitStructureFunctionSubscriptScanner.swift in Sources */,
 				F83684D11C8F00C5005442E5 /* VarGlobalDeclaration.swift in Sources */,
 				F83684BB1C8F00C5005442E5 /* FunctionAccessorAddressDeclaration.swift in Sources */,
 				F83687771C8F027E005442E5 /* GenericPlaceholders.swift in Sources */,
-				F83685011C8F00C5005442E5 /* TypeInferer.swift in Sources */,
+				F88155B31C947A5B00396F19 /* SwiftGrammarAttributes.swift in Sources */,
+				F88155B71C947A5B00396F19 /* SwiftGrammarStatements.swift in Sources */,
+				F83685011C8F00C5005442E5 /* VarScanner.swift in Sources */,
 				F83684F51C8F00C5005442E5 /* SourceKitStructureVarGlobalScanner.swift in Sources */,
 				F83684C91C8F00C5005442E5 /* TopLevelDeclarations.swift in Sources */,
 				F83684C21C8F00C5005442E5 /* FunctionDestructorDeclaration.swift in Sources */,
 				F83685041C8F00C6005442E5 /* SortedSubDeclarations.swift in Sources */,
 				F836877E1C8F0533005442E5 /* Optional+TryUnwrap.swift in Sources */,
 				F83684ED1C8F00C5005442E5 /* SourceKitStructureBaseScanner.swift in Sources */,
+				F88155DB1C94817300396F19 /* SwiftGrammarOperatorDeclaration.swift in Sources */,
 				F83684F01C8F00C5005442E5 /* SourceKitStructureModuleScanner.swift in Sources */,
 				F83684D51C8F00C5005442E5 /* VarStaticDeclaration.swift in Sources */,
 				F83684BA1C8F00C5005442E5 /* ExtensionStructDeclaration.swift in Sources */,
@@ -810,18 +1005,19 @@
 				F83684C81C8F00C5005442E5 /* FunctionSubscriptDeclaration.swift in Sources */,
 				F83684CE1C8F00C5005442E5 /* StructDeclaration.swift in Sources */,
 				F83685081C8F00C6005442E5 /* GenericPlaceholder.swift in Sources */,
-				F83685091C8F00C6005442E5 /* VarType.swift in Sources */,
+				F88155C01C947DF200396F19 /* SwiftGrammarCompilerControlStatements.swift in Sources */,
 				F83684B71C8F00C5005442E5 /* ExtensionDeclaration.swift in Sources */,
-				F836850A1C8F00C6005442E5 /* VarTypeInferenceError.swift in Sources */,
 				F83684EB1C8F00C5005442E5 /* SourceKitStructureFunctionOperatorScanner.swift in Sources */,
 				F83684F91C8F00C5005442E5 /* SourceKitStructureVarStaticScanner.swift in Sources */,
 				F83684E51C8F00C5005442E5 /* SourceKitStructureFunctionConstructorScanner.swift in Sources */,
 				F83684BC1C8F00C5005442E5 /* FunctionAccessorDidsetDeclaration.swift in Sources */,
+				F88155B61C947A5B00396F19 /* SwiftGrammarPatterns.swift in Sources */,
 				F83684FA1C8F00C5005442E5 /* SourceKitStructureScanner.swift in Sources */,
 				F83684D71C8F00C5005442E5 /* SourceKitStructureEnumcaseScanner.swift in Sources */,
 				F83684E31C8F00C5005442E5 /* SourceKitStructureFunctionAccessorSetterScanner.swift in Sources */,
 				F83685021C8F00C5005442E5 /* UnexpectedDeclarationsLogger.swift in Sources */,
 				F83684B61C8F00C5005442E5 /* ExtensionClassDeclaration.swift in Sources */,
+				F88155C71C947FFE00396F19 /* SwiftGrammarTypealiasDeclaration.swift in Sources */,
 				F83684CF1C8F00C5005442E5 /* TypealiasDeclaration.swift in Sources */,
 				F83684D91C8F00C5005442E5 /* SourceKitStructureEnumScanner.swift in Sources */,
 			);

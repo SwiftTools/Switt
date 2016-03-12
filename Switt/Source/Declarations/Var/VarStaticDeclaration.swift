@@ -5,15 +5,18 @@
 
 public struct VarStaticDeclaration {
     public var name: String
-    public var varType: VarType
+    public var type: String?
+    public var expression: String
     public var accessibility: Accessibility
     
     public init(name: String,
-        varType: VarType,
+        type: String?,
+        expression: String,
         accessibility: Accessibility)
     {
         self.name = name
-        self.varType = varType
+        self.type = type
+        self.expression = expression
         self.accessibility = accessibility
     }
 }

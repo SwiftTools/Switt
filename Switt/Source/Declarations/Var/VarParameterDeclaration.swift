@@ -4,11 +4,16 @@
 //
 
 public struct VarParameterDeclaration {
-    public var name: String
-    public var varType: VarType
+    public var externalName: String?
+    public var localName: String
+    public var type: String
     
-    public init(name: String, varType: VarType) {
-        self.name = name
-        self.varType = varType
+    public init(externalName: String?,
+        localName: String,
+        type: String)
+    {
+        self.externalName = externalName
+        self.localName = localName
+        self.type = type
     }
 }

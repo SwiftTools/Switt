@@ -4,7 +4,16 @@
 //
 
 public struct TopLevelDeclarations {
-    public var classes: [ClassDeclaration] = []
-    public var structs: [StructDeclaration] = []
-    public var protocols: [ProtocolDeclaration] = []
+    public var classes: [ClassDeclaration]
+    public var structs: [StructDeclaration]
+    public var protocols: [ProtocolDeclaration]
+    
+    public init(classes: [ClassDeclaration] = [],
+        structs: [StructDeclaration] = [],
+        protocols: [ProtocolDeclaration] = [])
+    {
+        self.classes = classes
+        self.structs = structs
+        self.protocols = protocols
+    }
 }

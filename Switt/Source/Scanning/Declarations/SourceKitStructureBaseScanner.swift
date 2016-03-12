@@ -11,8 +11,9 @@ class SourceKitStructureBaseScanner {
     private let declarationPath: DeclarationPath
     private let unexpectedDeclarationsLogger: UnexpectedDeclarationsLogger
     
-    private let typeInferer: TypeInferer
-    private let sourceKitStructureCodeScanner: SourceKitStructureCodeScanner
+    private let varScanner: VarScanner
+    private let functionScanner: FunctionScanner
+    private let codeScanner: SourceKitStructureCodeScanner
     private let subDeclarationsSorter: SubDeclarationsSorter
     private let sourceKitAccessibilityConverter = SourceKitAccessibilityConverter()
     private let genericPlaceholdersScanner = GenericPlaceholdersScanner()
@@ -24,10 +25,11 @@ class SourceKitStructureBaseScanner {
         file = dependencies.file
         declarationPath = dependencies.declarationPath
         
-        typeInferer = TypeInferer(dependencies: dependencies)
+        varScanner = VarScanner(dependencies: dependencies)
+        functionScanner = FunctionScanner(dependencies: dependencies)
         unexpectedDeclarationsLogger = UnexpectedDeclarationsLogger(logger: dependencies.logger)
         subDeclarationsSorter = SubDeclarationsSorter(dependencies: dependencies)
-        sourceKitStructureCodeScanner = SourceKitStructureCodeScanner(sourceKitStructure: dependencies.sourceKitStructure, file: dependencies.file)
+        codeScanner = SourceKitStructureCodeScanner(sourceKitStructure: dependencies.sourceKitStructure, file: dependencies.file)
     }
     
     // MARK: - Scanning
@@ -44,8 +46,28 @@ class SourceKitStructureBaseScanner {
         return sourceKitAccessibilityConverter.accessibility(try sourceKitStructure.accessibility.unwrap())
     }
     
-    func varType() -> VarType {
-        return typeInferer.varType()
+    func functionName() throws -> String {
+        return try functionScanner.name().unwrap()
+    }
+    
+    func functionNameAndArguments() throws -> String {
+        return try functionScanner.nameAndArguments().unwrap()
+    }
+    
+    func functionReturnType() throws -> String {
+        return try functionScanner.returnType().unwrap()
+    }
+    
+    func varType() -> String? {
+        return varScanner.type()
+    }
+    
+    func varExpression() -> String? {
+        return varScanner.expression()
+    }
+    
+    func varParameterName() -> String? {
+        return codeScanner.scanName()
     }
     
     func inits() -> [FunctionConstructorDeclaration] {
@@ -104,7 +126,7 @@ class SourceKitStructureBaseScanner {
     }
     
     func genericPlaceholders() -> GenericPlaceholders {
-        if let functionName = sourceKitStructureCodeScanner.scanName() {
+        if let functionName = codeScanner.scanName() {
             return genericPlaceholdersScanner.scanGenericPlaceholdersInFunctionName(functionName)
         } else {
             // TODO: error and better result

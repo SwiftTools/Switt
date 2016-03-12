@@ -10,7 +10,8 @@ final class SourceKitStructureVarStaticScanner: SourceKitStructureBaseScanner {
         do {
             return VarStaticDeclaration(
                 name: try name(),
-                varType: varType(),
+                type: varType(),
+                expression: try varExpression().unwrap(),
                 accessibility: try accessibility()
             )
         } catch {

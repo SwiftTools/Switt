@@ -11,7 +11,11 @@ final class SourceKitStructureFunctionMethodInstanceScanner: SourceKitStructureB
             resetExpectations()
             
             let declaration = FunctionMethodInstanceDeclaration(
+                name: try functionName(),
+                nameAndArguments: try functionNameAndArguments(),
+                accessibility: try accessibility(),
                 parameters: parameters(),
+                returnType: try functionReturnType(),
                 genericPlaceholders: genericPlaceholders()
             )
             

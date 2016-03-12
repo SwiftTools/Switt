@@ -4,5 +4,5 @@
 //
 
 public protocol SourceKitStructureScanningLogger {
-    func logUnexpectedDeclaration(declaration: Declaration, inScanner: AnyObject)
+    func logUnexpectedDeclaration(declaration: Declaration, inScanner scanner: AnyObject)
 }

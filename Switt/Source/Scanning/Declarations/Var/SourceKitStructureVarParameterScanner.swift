@@ -11,8 +11,9 @@ final class SourceKitStructureVarParameterScanner: SourceKitStructureBaseScanner
             resetExpectations()
             
             let declaration = VarParameterDeclaration(
-                name: try name(),
-                varType: varType()
+                externalName: varParameterName(),
+                localName: try name(),
+                type: try varType().unwrap()
             )
             
             logUnexpectedDeclarations()

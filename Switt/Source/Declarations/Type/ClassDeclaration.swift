@@ -31,22 +31,22 @@ public struct ClassDeclaration {
         accessibility: Accessibility,
         
         // Construction
-        inits: [FunctionConstructorDeclaration],
-        deinits: [FunctionDestructorDeclaration],
+        inits: [FunctionConstructorDeclaration] = [],
+        deinits: [FunctionDestructorDeclaration] = [],
         
         // Methods
-        instanceMethods: [FunctionMethodInstanceDeclaration],
-        classMethods: [FunctionMethodClassDeclaration],
-        staticMethods: [FunctionMethodStaticDeclaration],
+        instanceMethods: [FunctionMethodInstanceDeclaration] = [],
+        classMethods: [FunctionMethodClassDeclaration] = [],
+        staticMethods: [FunctionMethodStaticDeclaration] = [],
         
         // Types
-        nestedClasses: [ClassDeclaration],
-        nestedStructs: [StructDeclaration],
-        nestedTypealiases: [TypealiasDeclaration],
+        nestedClasses: [ClassDeclaration] = [],
+        nestedStructs: [StructDeclaration] = [],
+        nestedTypealiases: [TypealiasDeclaration] = [],
         
         // Vars
-        staticVars: [VarStaticDeclaration],
-        instanceVars: [VarInstanceDeclaration])
+        staticVars: [VarStaticDeclaration] = [],
+        instanceVars: [VarInstanceDeclaration] = [])
     {
         self.name = name
         self.runtimeName = runtimeName

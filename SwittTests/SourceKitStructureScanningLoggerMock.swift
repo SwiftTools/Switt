@@ -4,9 +4,11 @@
 //
 
 import Switt
+import XCTest
 
 class SourceKitStructureScanningLoggerMock: SourceKitStructureScanningLogger {
-    func logUnexpectedDeclaration(declaration: Declaration, inScanner: AnyObject) {
-        // I am dummy
+    func logUnexpectedDeclaration(declaration: Declaration, inScanner scanner: AnyObject) {
+        // Temp, helps to develop this project at this stage
+        XCTFail("unexpected declaration: \(declaration), scanner: \(scanner)")
     }
 }
