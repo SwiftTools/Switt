@@ -1,9 +1,8 @@
-class SwiftGrammarTypes: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarTypes: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.type,
             "[" ~ .type ~ "]"

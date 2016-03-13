@@ -1,9 +1,8 @@
-class SwiftGrammarDeinitializerDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarDeinitializerDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.deinitializer_declaration,
             compound(

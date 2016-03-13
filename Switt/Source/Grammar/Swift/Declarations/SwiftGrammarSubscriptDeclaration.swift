@@ -1,9 +1,8 @@
-class SwiftGrammarSubscriptDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarSubscriptDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.subscript_declaration,
             any(

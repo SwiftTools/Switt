@@ -1,9 +1,8 @@
-class SwiftGrammarStructDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarStructDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.struct_declaration,
             compound(

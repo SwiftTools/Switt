@@ -1,9 +1,8 @@
-class SwiftGrammarLiteralExpressions: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.literal_expression,
             any(

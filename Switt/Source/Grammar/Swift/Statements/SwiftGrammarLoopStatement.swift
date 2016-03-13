@@ -1,9 +1,8 @@
-class SwiftGrammarLoopStatement: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarLoopStatement: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         // loop
         
@@ -18,7 +17,7 @@ class SwiftGrammarLoopStatement: LexemeBuilder {
         
         // for
         
-        let forStatementLexemes: [Lexeme] = [
+        let forStatementRules: [ProductionRule] = [
             compound(
                 required("for"),
                 required(.for_init),
@@ -42,7 +41,7 @@ class SwiftGrammarLoopStatement: LexemeBuilder {
         ]
         register(.for_statement,
             any(
-                forStatementLexemes
+                forStatementRules
             )
         )
         

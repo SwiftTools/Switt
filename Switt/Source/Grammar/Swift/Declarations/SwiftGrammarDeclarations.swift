@@ -1,9 +1,8 @@
-class SwiftGrammarDeclarations: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarDeclarations: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         append(SwiftGrammarVariableDeclaration())
         append(SwiftGrammarTypealiasDeclaration())
@@ -12,6 +11,11 @@ class SwiftGrammarDeclarations: LexemeBuilder {
         append(SwiftGrammarStructDeclaration())
         append(SwiftGrammarClassDeclaration())
         append(SwiftGrammarProtocolDeclaration())
+        append(SwiftGrammarInitializarDeclaration())
+        append(SwiftGrammarDeinitializerDeclaration())
+        append(SwiftGrammarExtensionDeclaration())
+        append(SwiftGrammarSubscriptDeclaration())
+        append(SwiftGrammarOperatorDeclaration())
         
         // declaration
         
@@ -143,7 +147,7 @@ class SwiftGrammarDeclarations: LexemeBuilder {
         
         // "expression was too complex to be solved in reasonable time",
         // so I've extracted it to an array
-        let declarationModifierLexemes: [Lexeme] = [
+        let declarationModifierRules: [ProductionRule] = [
             required("class"),
             required("convenience"),
             required("dynamic"),
@@ -177,7 +181,7 @@ class SwiftGrammarDeclarations: LexemeBuilder {
         
         register(.declaration_modifier,
             any(
-                declarationModifierLexemes
+                declarationModifierRules
             )
         )
         
@@ -188,7 +192,7 @@ class SwiftGrammarDeclarations: LexemeBuilder {
             )
         )
         
-        let accessLevelModifierLexemes: [Lexeme] = [
+        let accessLevelModifierRules: [ProductionRule] = [
             required("internal"),
             compound(
                 required("internal"),
@@ -213,7 +217,7 @@ class SwiftGrammarDeclarations: LexemeBuilder {
         ]
         register(.access_level_modifier,
             any(
-                accessLevelModifierLexemes
+                accessLevelModifierRules
             )
         )
     }

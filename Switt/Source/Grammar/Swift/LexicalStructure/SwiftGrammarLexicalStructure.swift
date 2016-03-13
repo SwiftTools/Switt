@@ -1,20 +1,27 @@
 class SwiftSupport {
-    static func isBinaryOp() {}
-    static func isPrefixOp() {}
-    static func isPostfixOp() {}
-    static func checkOperatorHead() {}
+    static func isBinaryOp() -> Bool {
+        return true
+    }
+    static func isPrefixOp() -> Bool {
+        return true
+    }
+    static func isPostfixOp() -> Bool {
+        return true
+    }
+    static func checkOperatorHead() -> Bool {
+        return true
+    }
     
-    static func isOperator(string: String) -> () -> () {
+    static func isOperator(string: String) -> ProductionRuleCheckFunction {
         return isBinaryOp
     }
 }
 
-class SwiftGrammarLexicalStructure: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.identifier,
             ~.Identifier | ~.context_sensitive_keyword
@@ -31,7 +38,7 @@ class SwiftGrammarLexicalStructure: LexemeBuilder {
             .identifier ~ zeroOrMore("," ~ .identifier)
         )
         
-        let identifierHeadChars: [Lexeme] = [
+        let identifierHeadChars: [ProductionRule] = [
             char("a", "z"),
             char("A", "Z"),
             char(0x00A8),
@@ -235,7 +242,7 @@ class SwiftGrammarLexicalStructure: LexemeBuilder {
         
         // ANTLR comment:
         // valid operator chars not used by Swift itself
-        let operatorHeadOtherChars: [Lexeme] = [
+        let operatorHeadOtherChars: [ProductionRule] = [
             char(0x00A1, 0x00A7),
             char(0x00A9),
             char(0x00AB),

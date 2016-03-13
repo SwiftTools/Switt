@@ -1,9 +1,8 @@
-class SwiftGrammarAvailabilityStatements: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.availability_condition,
             compound(
@@ -35,17 +34,26 @@ class SwiftGrammarAvailabilityStatements: LexemeBuilder {
         register(.Platform,
             compound(
                 required(.Platform_name),
-                optional(.WS), // TODO
+                optional(.WS),
                 required(.Platform_version)
             )
         )
         
-        /*
-        fragment
-        register(.Platform_name, compound( required("iOS") | required("iOSApplicationExtension") | required("OSX") | required("OSXApplicationExtension") | required("watchOS") | required("tvOS")  )
+        registerFragment(.Platform_name,
+            any(
+                "iOS",
+                "iOSApplicationExtension",
+                "OSX",
+                "OSXApplicationExtension",
+                "watchOS",
+                "tvOS"
+            )
+        )
         
-        fragment
-        register(.Platform_version, compound(  required(.Pure_decimal_digits) | Pure_decimal_digits required(".") Pure_decimal_digits | Pure_decimal_digits required(".") Pure_decimal_digits required(".") Pure_decimal_digits )
-        */
+        registerFragment(.Platform_version,
+            ~.Pure_decimal_digits
+            | ~.Pure_decimal_digits ~ "." ~ .Pure_decimal_digits
+            | ~.Pure_decimal_digits ~ "." ~ .Pure_decimal_digits ~ "." ~ .Pure_decimal_digits
+        )
     }
 }

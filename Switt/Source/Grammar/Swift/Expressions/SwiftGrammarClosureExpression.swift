@@ -1,9 +1,8 @@
-class SwiftGrammarClosureExpression: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarClosureExpression: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.closure_expression,
             compound(
@@ -16,7 +15,7 @@ class SwiftGrammarClosureExpression: LexemeBuilder {
         
         // "expression was too complex to be solved in reasonable time",
         // so I've extracted it to an array
-        let closureSignatureLexemes: [Lexeme] = [
+        let closureSignatureRules: [ProductionRule] = [
             compound(
                 required(.parameter_clause),
                 optional(.function_result),
@@ -46,7 +45,7 @@ class SwiftGrammarClosureExpression: LexemeBuilder {
         ]
         register(.closure_signature,
             any(
-                closureSignatureLexemes
+                closureSignatureRules
             )
         )
         

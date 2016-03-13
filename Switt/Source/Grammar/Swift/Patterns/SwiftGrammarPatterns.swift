@@ -1,11 +1,10 @@
-class SwiftGrammarPatterns: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarPatterns: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
-        let patternLexemes: [Lexeme] = [
+        let patternRules: [ProductionRule] = [
             compound(
                 required(.wildcard_pattern),
                 optional(.type_annotation)
@@ -34,7 +33,7 @@ class SwiftGrammarPatterns: LexemeBuilder {
         ]
         register(.pattern,
             any(
-                patternLexemes
+                patternRules
             )
         )
         

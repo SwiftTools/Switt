@@ -1,9 +1,8 @@
-class SwiftGrammarAttributes: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarAttributes: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.attribute,
             compound(
@@ -34,7 +33,7 @@ class SwiftGrammarAttributes: LexemeBuilder {
             oneOrMore(.balanced_token)
         )
         
-        let balancedTokenLexemes: [Lexeme] = [
+        let balancedTokenRules: [ProductionRule] = [
             compound(
                 required("("),
                 optional(.balanced_tokens),
@@ -58,7 +57,7 @@ class SwiftGrammarAttributes: LexemeBuilder {
         ]
         register(.balanced_token,
             any(
-                balancedTokenLexemes
+                balancedTokenRules
             )
         )
     }

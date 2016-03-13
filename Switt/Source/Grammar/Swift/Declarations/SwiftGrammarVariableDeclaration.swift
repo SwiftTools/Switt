@@ -1,9 +1,8 @@
-class SwiftGrammarVariableDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.variable_declaration,
             any(
@@ -60,20 +59,8 @@ class SwiftGrammarVariableDeclaration: LexemeBuilder {
         )
         
         register(.getter_setter_block,
-            any(
-                compound(
-                    required("{"),
-                    required(.getter_clause),
-                    optional(.setter_clause),
-                    required("}")
-                ),
-                compound(
-                    required("{"),
-                    required(.setter_clause),
-                    required(.getter_clause),
-                    required("}")
-                )
-            )
+            "{" ~ .getter_clause ~ optional(.setter_clause) ~ "}"
+            | "{" ~ .getter_clause ~ .setter_clause ~ "}"
         )
         
         register(.getter_clause,

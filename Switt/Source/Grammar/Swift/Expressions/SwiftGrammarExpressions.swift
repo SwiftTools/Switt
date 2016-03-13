@@ -1,9 +1,11 @@
-class SwiftGrammarExpressions: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarExpressions: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
+        
+        append(SwiftGrammarLiteralExpressions())
+        append(SwiftGrammarClosureExpression())
         
         register(.expression,
             compound(
@@ -213,7 +215,7 @@ class SwiftGrammarExpressions: LexemeBuilder {
             required("_")
         )
         
-        let postfixExpressionLexemes: [Lexeme] = [
+        let postfixExpressionRules: [ProductionRule] = [
             required(.postfix_operator),
             required(.parenthesized_expression),
             compound(
@@ -245,7 +247,7 @@ class SwiftGrammarExpressions: LexemeBuilder {
             compound(
                 required(.primary_expression),
                 any(
-                    postfixExpressionLexemes
+                    postfixExpressionRules
                 )
             )
         )

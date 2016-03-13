@@ -1,9 +1,8 @@
-class SwiftGrammarFunctionDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.function_declaration,
             compound(
@@ -88,7 +87,7 @@ class SwiftGrammarFunctionDeclaration: LexemeBuilder {
             )
         )
         
-        let paramaterLexemes: [Lexeme] = [
+        let paramaterRules: [ProductionRule] = [
             compound(
                 required("let"),
                 optional(.external_parameter_name),
@@ -118,7 +117,7 @@ class SwiftGrammarFunctionDeclaration: LexemeBuilder {
         ]
         register(.parameter,
             any(
-                paramaterLexemes
+                paramaterRules
             )
         )
         

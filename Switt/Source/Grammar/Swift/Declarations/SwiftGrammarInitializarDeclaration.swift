@@ -1,9 +1,8 @@
-class SwiftGrammarInitializarDeclaration: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarInitializarDeclaration: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
-        clearLexemes()
+    func registerRules() {
+        clearRules()
         
         register(.initializer_declaration,
             any(
@@ -24,25 +23,28 @@ class SwiftGrammarInitializarDeclaration: LexemeBuilder {
             )
         )
         
+        let initializerHeadRules : [ProductionRule] = [
+            compound(
+                optional(.attributes),
+                optional(.declaration_modifiers),
+                required("init")
+            ),
+            compound(
+                optional(.attributes),
+                optional(.declaration_modifiers),
+                required("init"),
+                required("?")
+            ),
+            compound(
+                optional(.attributes),
+                optional(.declaration_modifiers),
+                required("init"),
+                required("!")
+            )
+        ]
         register(.initializer_head,
             any(
-                compound(
-                    optional(.attributes),
-                    optional(.declaration_modifiers),
-                    required("init")
-                ),
-                compound(
-                    optional(.attributes),
-                    optional(.declaration_modifiers),
-                    required("init"),
-                    required("?")
-                ),
-                compound(
-                    optional(.attributes),
-                    optional(.declaration_modifiers),
-                    required("init"),
-                    required("!")
-                )
+                initializerHeadRules
             )
         )
         

@@ -1,8 +1,9 @@
-class SwiftGrammarStatements: LexemeBuilder {
-    var lexemes: [LexemeType: Lexeme] = [:]
-    var fragments: [LexemeType: Lexeme] = [:]
+class SwiftGrammarStatements: GrammarRulesBuilder {
+    var grammarRules: GrammarRules = GrammarRules()
     
-    func registerLexemes() {
+    func registerRules() {
+        clearRules()
+        
         append(SwiftGrammarLoopStatement())
         append(SwiftGrammarBranchStatement())
         append(SwiftGrammarAvailabilityStatements())
@@ -10,7 +11,7 @@ class SwiftGrammarStatements: LexemeBuilder {
         
         // statements
         
-        let statementLexemes: [Lexeme] = [
+        let statementRules: [ProductionRule] = [
             compound(
                 required(.expression),
                 optional(";")
@@ -47,7 +48,7 @@ class SwiftGrammarStatements: LexemeBuilder {
         ]
         register(.statement,
             any(
-                statementLexemes
+                statementRules
             )
         )
         
