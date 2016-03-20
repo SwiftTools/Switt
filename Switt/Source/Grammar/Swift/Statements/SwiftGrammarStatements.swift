@@ -1,4 +1,4 @@
-class SwiftGrammarStatements: GrammarRulesBuilder {
+class SwiftGrammarStatements: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
@@ -46,19 +46,19 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
             ),
             required(.compiler_control_statement)
         ]
-        register(.statement,
+        parserRule(.statement,
             any(
                 statementRules
             )
         )
         
-        register(.statements,
+        parserRule(.statements,
             oneOrMore(.statement)
         )
         
         // labeled
         
-        register(.labeled_statement,
+        parserRule(.labeled_statement,
             any(
                 compound(
                     required(.statement_label),
@@ -76,14 +76,14 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         )
         
         
-        register(.statement_label,
+        parserRule(.statement_label,
             compound(
                 required(.label_name),
                 required(":")
             )
         )
         
-        register(.label_name,
+        parserRule(.label_name,
             compound(
                 required(.identifier)
             )
@@ -91,7 +91,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // control transfer
         
-        register(.control_transfer_statement,
+        parserRule(.control_transfer_statement,
             any(
                 .break_statement,
                 .continue_statement,
@@ -103,7 +103,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // break
         
-        register(.break_statement,
+        parserRule(.break_statement,
             compound(
                 required("break"),
                 optional(.label_name)
@@ -112,7 +112,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // continue
         
-        register(.continue_statement,
+        parserRule(.continue_statement,
             compound(
                 required("continue"),
                 optional(.label_name)
@@ -121,13 +121,13 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // fallthrough
         
-        register(.fallthrough_statement,
+        parserRule(.fallthrough_statement,
             required("fallthrough")
         )
         
         // return
         
-        register(.return_statement,
+        parserRule(.return_statement,
             compound(
                 required("return"),
                 optional(.expression)
@@ -136,7 +136,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // throw
         
-        register(.throw_statement,
+        parserRule(.throw_statement,
             compound(
                 required("throw"),
                 required(.expression)
@@ -145,7 +145,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // defer
         
-        register(.defer_statement,
+        parserRule(.defer_statement,
             compound(
                 required("defer"),
                 required(.code_block)
@@ -154,7 +154,7 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // do
         
-        register(.do_statement,
+        parserRule(.do_statement,
             compound(
                 required("do"),
                 required(.code_block),
@@ -164,14 +164,14 @@ class SwiftGrammarStatements: GrammarRulesBuilder {
         
         // catch
         
-        register(.catch_clauses,
+        parserRule(.catch_clauses,
             compound(
                 required(.catch_clause),
                 optional(.catch_clauses)
             )
         )
         
-        register(.catch_clause,
+        parserRule(.catch_clause,
             compound(
                 required("catch"),
                 optional(.pattern),

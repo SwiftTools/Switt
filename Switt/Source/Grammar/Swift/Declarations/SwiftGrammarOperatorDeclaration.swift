@@ -1,10 +1,10 @@
-class SwiftGrammarOperatorDeclaration: GrammarRulesBuilder {
+class SwiftGrammarOperatorDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.operator_declaration,
+        parserRule(.operator_declaration,
             any(
                 .prefix_operator_declaration,
                 .postfix_operator_declaration,
@@ -12,7 +12,7 @@ class SwiftGrammarOperatorDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.prefix_operator_declaration,
+        parserRule(.prefix_operator_declaration,
             compound(
                 required("prefix"),
                 required("operator"),
@@ -23,7 +23,7 @@ class SwiftGrammarOperatorDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.postfix_operator_declaration,
+        parserRule(.postfix_operator_declaration,
             compound(
                 required("postfix"),
                 required("operator"),
@@ -34,7 +34,7 @@ class SwiftGrammarOperatorDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.infix_operator_declaration,
+        parserRule(.infix_operator_declaration,
             compound(
                 required("infix"),
                 required("operator"),
@@ -45,32 +45,32 @@ class SwiftGrammarOperatorDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.infix_operator_attributes,
+        parserRule(.infix_operator_attributes,
             compound(
                 optional(.precedence_clause),
                 optional(.associativity_clause)
             )
         )
         
-        register(.precedence_clause,
+        parserRule(.precedence_clause,
             compound(
                 required("precedence"),
                 required(.precedence_level)
             )
         )
         
-        register(.precedence_level,
+        parserRule(.precedence_level,
             required(.integer_literal)
         )
         
-        register(.associativity_clause,
+        parserRule(.associativity_clause,
             compound(
                 required("associativity"),
                 required(.associativity)
             )
         )
         
-        register(.associativity,
+        parserRule(.associativity,
             any(
                 required("left"),
                 required("right"),

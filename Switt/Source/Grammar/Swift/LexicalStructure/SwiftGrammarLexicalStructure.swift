@@ -17,24 +17,24 @@ class SwiftSupport {
     }
 }
 
-class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
+class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.identifier,
+        parserRule(.identifier,
             ~.Identifier | ~.context_sensitive_keyword
         )
         
-        register(.Identifier,
+        lexerRule(.Identifier,
             ~.Identifier_head ~ ??.Identifier_characters
                 | "_" ~ .Identifier_characters
                 | "`" ~ (~.Identifier_head | ~"_") ~ ??.Identifier_characters ~ "`"
                 | .Implicit_parameter_name
         )
         
-        register(.identifier_list,
+        parserRule(.identifier_list,
             .identifier ~ zeroOrMore("," ~ .identifier)
         )
         
@@ -77,13 +77,13 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             char(0xFE47, 0xFFFD)
         ]
         
-        registerFragment(.Identifier_head,
+        lexerFragment(.Identifier_head,
             any(
                 identifierHeadChars
             )
         )
         
-        registerFragment(.Identifier_character,
+        lexerFragment(.Identifier_character,
             any(
                 char("0", "9"),
                 char(0x0300, 0x036F),
@@ -95,7 +95,11 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.context_sensitive_keyword,
+        lexerFragment(.Identifier_characters,
+            oneOrMore(.Identifier_character)
+        )
+        
+        parserRule(.context_sensitive_keyword,
             any(
                 "associativity",
                 "convenience",
@@ -128,61 +132,61 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.assignment_operator,
+        parserRule(.assignment_operator,
             check(SwiftSupport.isBinaryOp) ~ "="
         )
         
-        register(.DOT, char("."))
-        register(.LCURLY, char("{"))
-        register(.LPAREN, char("("))
-        register(.LBRACK, char("["))
-        register(.RCURLY, char("}"))
-        register(.RPAREN, char(")"))
-        register(.RBRACK, char("]"))
-        register(.COMMA, char(","))
-        register(.COLON, char(":"))
-        register(.SEMI, char(";"))
-        register(.LT, char("<"))
-        register(.GT, char(">"))
-        register(.UNDERSCORE, char("_"))
-        register(.BANG, char("!"))
-        register(.QUESTION, char("?"))
-        register(.AT, char("@"))
-        register(.AND, char("&"))
-        register(.SUB, char("-"))
-        register(.EQUAL, char("="))
-        register(.OR, char("|"))
-        register(.DIV, char("/"))
-        register(.ADD, char("+"))
-        register(.MUL, char("*"))
-        register(.MOD, char("%"))
-        register(.CARET, char("^"))
-        register(.TILDE, char("~"))
+        lexerRule(.DOT, char("."))
+        lexerRule(.LCURLY, char("{"))
+        lexerRule(.LPAREN, char("("))
+        lexerRule(.LBRACK, char("["))
+        lexerRule(.RCURLY, char("}"))
+        lexerRule(.RPAREN, char(")"))
+        lexerRule(.RBRACK, char("]"))
+        lexerRule(.COMMA, char(","))
+        lexerRule(.COLON, char(":"))
+        lexerRule(.SEMI, char(";"))
+        lexerRule(.LT, char("<"))
+        lexerRule(.GT, char(">"))
+        lexerRule(.UNDERSCORE, char("_"))
+        lexerRule(.BANG, char("!"))
+        lexerRule(.QUESTION, char("?"))
+        lexerRule(.AT, char("@"))
+        lexerRule(.AND, char("&"))
+        lexerRule(.SUB, char("-"))
+        lexerRule(.EQUAL, char("="))
+        lexerRule(.OR, char("|"))
+        lexerRule(.DIV, char("/"))
+        lexerRule(.ADD, char("+"))
+        lexerRule(.MUL, char("*"))
+        lexerRule(.MOD, char("%"))
+        lexerRule(.CARET, char("^"))
+        lexerRule(.TILDE, char("~"))
         
         // ANTLR comment:
         // Need to separate this out from Prefix_operator as it's referenced in numeric_literal
         
-        register(.negate_prefix_operator,
+        parserRule(.negate_prefix_operator,
             check(SwiftSupport.isPrefixOp) ~ "-"
         )
         
-        register(.build_AND,
+        parserRule(.build_AND,
             check(SwiftSupport.isOperator("&&")) ~ "&" ~ "&"
         )
         
-        register(.build_OR,
+        parserRule(.build_OR,
             check(SwiftSupport.isOperator("||")) ~ "|" ~ "|"
         )
         
-        register(.arrow_operator,
+        parserRule(.arrow_operator,
             check(SwiftSupport.isOperator("->")) ~ "-" ~ ">"
         )
         
-        register(.range_operator,
+        parserRule(.range_operator,
             check(SwiftSupport.isOperator("...")) ~ "." ~ "." ~ "."
         )
         
-        register(.same_type_equals,
+        parserRule(.same_type_equals,
             check(SwiftSupport.isOperator("==")) ~ "=" ~ "="
         )
         
@@ -192,7 +196,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
         it is treated as a binary operator. As an example, the + operator in a+b
         and a + b is treated as a binary operator."
         */
-        register(.binary_operator,
+        parserRule(.binary_operator,
             check(SwiftSupport.isBinaryOp) ~ ._operator
         )
         
@@ -202,7 +206,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
         prefix unary operator. As an example, the ++ operator in a ++b is treated
         as a prefix unary operator."
         */
-        register(.prefix_operator,
+        parserRule(.prefix_operator,
             check(SwiftSupport.isPrefixOp) ~ ._operator
         )
         
@@ -216,11 +220,11 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
         the ++ operator in a++.b is treated as a postfix unary operator (a++ .b
         rather than a ++ .b)."
         */
-        register(.postfix_operator,
+        parserRule(.postfix_operator,
             check(SwiftSupport.isPostfixOp) ~ ._operator
         )
         
-        register(._operator,
+        parserRule(._operator,
             any(
                 .operator_head ~ oneOrMore(
                     check(SwiftSupport.checkOperatorHead) ~ .operator_character
@@ -231,11 +235,11 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.operator_character,
+        parserRule(.operator_character,
             ~.operator_head | ~.Operator_following_character
         )
         
-        register(.operator_head,
+        parserRule(.operator_head,
             ~"/" | ~"=" | ~"-" | ~"+" | ~"!" | ~"*" | ~"%" | ~"&" | ~"|" | ~"<" | ~">" | ~"^" | ~"~" | ~"?"
             | .Operator_head_other
         )
@@ -266,13 +270,13 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             char(0x3001, 0x3003),
             char(0x3008, 0x3030)
         ]
-        register(.Operator_head_other,
+        lexerRule(.Operator_head_other,
             any(
                 operatorHeadOtherChars
             )
         )
         
-        register(.Operator_following_character,
+        lexerRule(.Operator_following_character,
             any(
                 char(0x0300, 0x036F),
                 char(0x1DC0, 0x1DFF),
@@ -285,14 +289,14 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.dot_operator_head, "." ~ ".") // ANTLR comment: TODO: adjacent cols
-        register(.dot_operator_character,  ~"." | ~.operator_character)
+        parserRule(.dot_operator_head, "." ~ ".") // ANTLR comment: TODO: adjacent cols
+        parserRule(.dot_operator_character,  ~"." | ~.operator_character)
         
-        register(.Implicit_parameter_name, "$" ~ .Pure_decimal_digits)
+        lexerRule(.Implicit_parameter_name, "$" ~ .Pure_decimal_digits)
         
         // GRAMMAR OF A LITERAL
         
-        register(.literal,
+        parserRule(.literal,
             any(
                 .numeric_literal,
                 .string_literal,
@@ -301,7 +305,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.numeric_literal,
+        parserRule(.numeric_literal,
             any(
                 compound(
                     optional(.negate_prefix_operator),
@@ -314,12 +318,12 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.boolean_literal, "true" ~ "false")
-        register(.nil_literal, ~"nil")
+        parserRule(.boolean_literal, ~"true" | ~"false")
+        parserRule(.nil_literal, ~"nil")
         
         // GRAMMAR OF AN INTEGER LITERAL
         
-        register(.integer_literal,
+        parserRule(.integer_literal,
             any(
                 .Binary_literal,
                 .Octal_literal,
@@ -331,40 +335,40 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
         
         // binary
         
-        register(.Binary_literal, "0b" ~ .Binary_digit ~ ??.Binary_literal_characters)
+        lexerRule(.Binary_literal, "0b" ~ .Binary_digit ~ ??.Binary_literal_characters)
         
-        registerFragment(.Binary_digit, char("0", "1"))
-        registerFragment(.Binary_literal_character, ~.Binary_digit | ~"_")
-        registerFragment(.Binary_literal_characters, oneOrMore(.Binary_literal_character))
+        lexerFragment(.Binary_digit, char("0", "1"))
+        lexerFragment(.Binary_literal_character, ~.Binary_digit | ~"_")
+        lexerFragment(.Binary_literal_characters, oneOrMore(.Binary_literal_character))
         
         // octal
         
-        register(.Octal_literal, "0o" ~ .Binary_digit ~ ??.Binary_literal_characters)
+        lexerRule(.Octal_literal, "0o" ~ .Binary_digit ~ ??.Binary_literal_characters)
         
-        registerFragment(.Octal_digit, char("0", "7"))
-        registerFragment(.Octal_literal_character, ~.Octal_digit | ~"_")
-        registerFragment(.Octal_literal_characters, oneOrMore(.Octal_literal_character))
+        lexerFragment(.Octal_digit, char("0", "7"))
+        lexerFragment(.Octal_literal_character, ~.Octal_digit | ~"_")
+        lexerFragment(.Octal_literal_characters, oneOrMore(.Octal_literal_character))
         
         // decimal
         
-        register(.Decimal_literal, char("0", "9") ~ zeroOrMore(char("0", "9")))
-        register(.Pure_decimal_digits, oneOrMore(char("0", "9")))
+        lexerRule(.Decimal_literal, char("0", "9") ~ zeroOrMore(char("0", "9")))
+        lexerRule(.Pure_decimal_digits, oneOrMore(char("0", "9")))
         
-        registerFragment(.Decimal_digit, char("0", "9"))
-        registerFragment(.Decimal_literal_character, ~.Decimal_digit | ~"_")
-        registerFragment(.Decimal_literal_characters, oneOrMore(.Decimal_literal_character))
+        lexerFragment(.Decimal_digit, char("0", "9"))
+        lexerFragment(.Decimal_literal_character, ~.Decimal_digit | ~"_")
+        lexerFragment(.Decimal_literal_characters, oneOrMore(.Decimal_literal_character))
 
         // hex
         
-        register(.Hexadecimal_literal, "0x" ~ .Hexadecimal_digit ~ ??.Hexadecimal_literal_characters)
+        lexerRule(.Hexadecimal_literal, "0x" ~ .Hexadecimal_digit ~ ??.Hexadecimal_literal_characters)
         
-        registerFragment(.Hexadecimal_digit, char("0", "9") | char("a", "f") | char("A", "F"))
-        registerFragment(.Hexadecimal_literal_character, ~.Hexadecimal_digit | ~"_")
-        registerFragment(.Hexadecimal_literal_characters, oneOrMore(.Hexadecimal_literal_character))
+        lexerFragment(.Hexadecimal_digit, char("0", "9") | char("a", "f") | char("A", "F"))
+        lexerFragment(.Hexadecimal_literal_character, ~.Hexadecimal_digit | ~"_")
+        lexerFragment(.Hexadecimal_literal_characters, oneOrMore(.Hexadecimal_literal_character))
         
         // GRAMMAR OF A FLOATING_POINT LITERAL
 
-        register(.Floating_point_literal,
+        lexerRule(.Floating_point_literal,
             any(
                 compound(
                     ~.Decimal_literal,
@@ -379,26 +383,26 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        registerFragment(.Decimal_fraction, "." ~ .Decimal_literal)
-        registerFragment(.Decimal_exponent, .Floating_point_e ~ ??.Sign ~ .Decimal_literal)
+        lexerFragment(.Decimal_fraction, "." ~ .Decimal_literal)
+        lexerFragment(.Decimal_exponent, .Floating_point_e ~ ??.Sign ~ .Decimal_literal)
         
-        registerFragment(.Hexadecimal_fraction, "." ~ .Hexadecimal_digit ~ ??.Hexadecimal_literal_characters)
-        registerFragment(.Hexadecimal_exponent, .Floating_point_p ~ ??.Sign ~ .Decimal_literal)
+        lexerFragment(.Hexadecimal_fraction, "." ~ .Hexadecimal_digit ~ ??.Hexadecimal_literal_characters)
+        lexerFragment(.Hexadecimal_exponent, .Floating_point_p ~ ??.Sign ~ .Decimal_literal)
         
-        registerFragment(.Floating_point_e, "e" ~ "E")
-        registerFragment(.Floating_point_p, "p" ~ "P")
+        lexerFragment(.Floating_point_e, "e" ~ "E")
+        lexerFragment(.Floating_point_p, "p" ~ "P")
         
-        registerFragment(.Sign, "+" ~ "\\" ~ "-")
+        lexerFragment(.Sign, "+" ~ "\\" ~ "-")
         
         // GRAMMAR OF A STRING LITERAL
         
-        register(.string_literal, .Static_string_literal ~ .Interpolated_string_literal)
-        register(.Static_string_literal, "\"" ~ "\"")
+        parserRule(.string_literal, .Static_string_literal ~ .Interpolated_string_literal)
+        lexerRule(.Static_string_literal, "\"" ~ "\"")
         
-        register(.Quoted_text, oneOrMore(.Quoted_text_item))
-        register(.Quoted_text_item, notChar(["\"", "\n", "\r", "\\"]))
+        lexerRule(.Quoted_text, oneOrMore(.Quoted_text_item))
+        lexerRule(.Quoted_text_item, notChar(["\"", "\n", "\r", "\\"]))
         
-        registerFragment(.Escaped_character,
+        lexerFragment(.Escaped_character,
             any(
                 "\\" ~ char(["0", "\\", "t", "n", "r", "\""]),
                 "\\x" ~ .Hexadecimal_digit ~ .Hexadecimal_digit,
@@ -407,11 +411,11 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
             )
         )
         
-        register(.Interpolated_string_literal,
+        lexerRule(.Interpolated_string_literal,
             "\"" ~ zeroOrMore(.Interpolated_text_item) ~ "\""
         )
         
-        registerFragment(.Interpolated_text_item,
+        lexerFragment(.Interpolated_text_item,
             any(
                 "\\(" ~ oneOrMore(~.Interpolated_string_literal | ~.Interpolated_text_item) ~ ")", // nested strings allowed
                 ~.Quoted_text_item
@@ -419,17 +423,17 @@ class SwiftGrammarLexicalStructure: GrammarRulesBuilder {
         )
         
         // TODO: -> channel(HIDDEN)
-        register(.WS,
+        lexerRule(.WS,
             oneOrMore(char([" ", "\n", "\r", "\t", "\u{000B}", "\u{000C}", "\u{0000}"]))
         )
         
         // TODO: -> channel(HIDDEN)
-        register(.Block_comment,
+        lexerRule(.Block_comment,
             "/*" ~ lazy(.Block_comment ~ anyChar()) ~ "*/"
         )
         
         // TODO: -> channel(HIDDEN)
-        register(.Line_comment,
+        lexerRule(.Line_comment,
             "//" ~ lazy(anyChar()) ~ any(~"\n", eof())
         )
     }

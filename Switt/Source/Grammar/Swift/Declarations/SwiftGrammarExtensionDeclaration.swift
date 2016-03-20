@@ -1,10 +1,10 @@
-class SwiftGrammarExtensionDeclaration: GrammarRulesBuilder {
+class SwiftGrammarExtensionDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.extension_declaration,
+        parserRule(.extension_declaration,
             compound(
                 optional(.access_level_modifier),
                 required("extension"),
@@ -13,7 +13,7 @@ class SwiftGrammarExtensionDeclaration: GrammarRulesBuilder {
                 required(.extension_body)
             )
         )
-        register(.extension_body,
+        parserRule(.extension_body,
             compound(
                 required("{"),
                 optional(.declarations),

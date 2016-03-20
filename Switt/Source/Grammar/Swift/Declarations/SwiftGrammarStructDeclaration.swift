@@ -1,10 +1,10 @@
-class SwiftGrammarStructDeclaration: GrammarRulesBuilder {
+class SwiftGrammarStructDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.struct_declaration,
+        parserRule(.struct_declaration,
             compound(
                 optional(.attributes),
                 optional(.access_level_modifier),
@@ -16,11 +16,11 @@ class SwiftGrammarStructDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.struct_name,
+        parserRule(.struct_name,
             required(.identifier)
         )
         
-        register(.struct_body,
+        parserRule(.struct_body,
             compound(
                 required("{"),
                 optional(.declarations),

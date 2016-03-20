@@ -1,10 +1,10 @@
-class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
+class SwiftGrammarCompilerControlStatements: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.compiler_control_statement,
+        parserRule(.compiler_control_statement,
             any(
                 required(.build_configuration_statement),
                 required(.line_control_statement)
@@ -13,7 +13,7 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
         
         // #if
         
-        register(.build_configuration_statement,
+        parserRule(.build_configuration_statement,
             compound(
                 required("#if"),
                 required(.build_configuration),
@@ -25,14 +25,14 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.build_configuration_elseif_clauses,
+        parserRule(.build_configuration_elseif_clauses,
             compound(
                 required(.build_configuration_elseif_clause),
                 optional(.build_configuration_elseif_clauses)
                 
             )
         )
-        register(.build_configuration_elseif_clause,
+        parserRule(.build_configuration_elseif_clause,
             compound(
                 required("#elseif"),
                 required(.build_configuration),
@@ -40,7 +40,7 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
                 
             )
         )
-        register(.build_configuration_else_clause,
+        parserRule(.build_configuration_else_clause,
             compound(
                 required("#else"),
                 optional(.statements)
@@ -48,7 +48,7 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.build_configuration,
+        parserRule(.build_configuration,
             any(
                 required(.platform_testing_function),
                 required(.identifier),
@@ -76,7 +76,7 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
         )
         
         
-        register(.platform_testing_function,
+        parserRule(.platform_testing_function,
             any(
                 compound(
                     required("os"),
@@ -93,12 +93,12 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.operating_system,
+        parserRule(.operating_system,
             any(
                 "OSX", "iOS", "watchOS", "tvOS"
             )
         )
-        register(.architecture,
+        parserRule(.architecture,
             any(
                 "i386", "x86_64", "arm", "arm64"
             )
@@ -106,7 +106,7 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
         
         // line
         
-        register(.line_control_statement,
+        parserRule(.line_control_statement,
             any(
                 required("#line"),
                 compound(
@@ -117,13 +117,13 @@ class SwiftGrammarCompilerControlStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.line_number,
+        parserRule(.line_number,
             required(.integer_literal)
         )
         
         // file
         
-        register(.file_name,
+        parserRule(.file_name,
             required(.Static_string_literal)
         )
     }

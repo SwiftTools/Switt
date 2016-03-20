@@ -1,10 +1,10 @@
-class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
+class SwiftGrammarFunctionDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.function_declaration,
+        parserRule(.function_declaration,
             compound(
                 required(.function_head),
                 required(.function_name),
@@ -14,7 +14,7 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.function_head,
+        parserRule(.function_head,
             compound(
                 optional(.attributes),
                 optional(.declaration_modifiers),
@@ -22,14 +22,14 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.function_name,
+        parserRule(.function_name,
             compound(
                 required(.identifier),
                 required(._operator)
             )
         )
         
-        register(.function_signature,
+        parserRule(.function_signature,
             any(
                 compound(
                     required(.parameter_clauses),
@@ -44,7 +44,7 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.function_result,
+        parserRule(.function_result,
             compound(
                 required(.arrow_operator),
                 optional(.attributes),
@@ -52,18 +52,18 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.function_body,
+        parserRule(.function_body,
             required(.code_block)
         )
         
-        register(.parameter_clauses,
+        parserRule(.parameter_clauses,
             compound(
                 required(.parameter_clause),
                 optional(.parameter_clauses)
             )
         )
         
-        register(.parameter_clause,
+        parserRule(.parameter_clause,
             any(
                 compound(
                     required("("),
@@ -77,7 +77,7 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.parameter_list,
+        parserRule(.parameter_list,
             compound(
                 required(.parameter),
                 zeroOrMore(
@@ -115,27 +115,27 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesBuilder {
                 required(.range_operator)
             )
         ]
-        register(.parameter,
+        parserRule(.parameter,
             any(
                 paramaterRules
             )
         )
         
-        register(.external_parameter_name,
+        parserRule(.external_parameter_name,
             any(
                 required(.identifier),
                 required("_")
             )
         )
         
-        register(.local_parameter_name,
+        parserRule(.local_parameter_name,
             any(
                 required(.identifier),
                 required("_")
             )
         )
         
-        register(.default_argument_clause,
+        parserRule(.default_argument_clause,
             compound(
                 .assignment_operator,
                 .expression

@@ -1,10 +1,10 @@
-class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
+class SwiftGrammarVariableDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.variable_declaration,
+        parserRule(.variable_declaration,
             any(
                 compound(
                     .variable_declaration_head,
@@ -46,7 +46,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.variable_declaration_head,
+        parserRule(.variable_declaration_head,
             compound(
                 optional(.attributes),
                 optional(.declaration_modifiers),
@@ -54,23 +54,23 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
                 
             )
         )
-        register(.variable_name,
+        parserRule(.variable_name,
             required(.identifier)
         )
         
-        register(.getter_setter_block,
+        parserRule(.getter_setter_block,
             "{" ~ .getter_clause ~ optional(.setter_clause) ~ "}"
             | "{" ~ .getter_clause ~ .setter_clause ~ "}"
         )
         
-        register(.getter_clause,
+        parserRule(.getter_clause,
             compound(
                 optional(.attributes),
                 required("get"),
                 required(.code_block)
             )
         )
-        register(.setter_clause,
+        parserRule(.setter_clause,
             compound(
                 optional(.attributes),
                 required("set"),
@@ -78,7 +78,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
                 required(.code_block)
             )
         )
-        register(.setter_name,
+        parserRule(.setter_name,
             compound(
                 required("("),
                 required(.identifier),
@@ -86,7 +86,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.getter_setter_keyword_block,
+        parserRule(.getter_setter_keyword_block,
             any(
                 compound(
                     required("{"),
@@ -104,14 +104,14 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.getter_keyword_clause,
+        parserRule(.getter_keyword_clause,
             compound(
                 optional(.attributes),
                 required("get")
                 
             )
         )
-        register(.setter_keyword_clause,
+        parserRule(.setter_keyword_clause,
             compound(
                 optional(.attributes),
                 required("set")
@@ -119,7 +119,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.willSet_didSet_block,
+        parserRule(.willSet_didSet_block,
             any(
                 compound(
                     required("{"),
@@ -137,7 +137,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.willSet_clause,
+        parserRule(.willSet_clause,
             compound(
                 optional(.attributes),
                 required("willSet"),
@@ -146,7 +146,7 @@ class SwiftGrammarVariableDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.didSet_clause,
+        parserRule(.didSet_clause,
             compound(
                 optional(.attributes),
                 required("didSet"),

@@ -2,6 +2,7 @@ import Quick
 import Nimble
 
 @testable import Switt
+import SwiftFelisCatus
 
 class SyntaxAnalyzerSpec: QuickSpec {
     override func spec() {
@@ -9,11 +10,15 @@ class SyntaxAnalyzerSpec: QuickSpec {
             it("does stuff and things") {
                 let grammarFactory: GrammarFactory = SwiftGrammarRulesBuilder()
                 
+                guard let swiftFile = SourceKitFileReader().readFile(TestSwiftFile.file) else {
+                    fail()
+                    return
+                }
+                
                 let lexicalAnalyzer = LexicalAnalyzer()
                 let result = lexicalAnalyzer.analyze(
-                    "[:]",
-                    grammar: grammarFactory.grammar(),
-                    firstRule: .dictionary_literal
+                    swiftFile.contents,
+                    grammar: grammarFactory.grammar()
                 )
                 
                 switch result {

@@ -1,10 +1,10 @@
-class SwiftGrammarClosureExpression: GrammarRulesBuilder {
+class SwiftGrammarClosureExpression: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.closure_expression,
+        parserRule(.closure_expression,
             compound(
                 required("{"),
                 optional(.closure_signature),
@@ -43,13 +43,13 @@ class SwiftGrammarClosureExpression: GrammarRulesBuilder {
                 required("in")
             )
         ]
-        register(.closure_signature,
+        parserRule(.closure_signature,
             any(
                 closureSignatureRules
             )
         )
         
-        register(.capture_list,
+        parserRule(.capture_list,
             compound(
                 required("["),
                 required(.capture_list_items),
@@ -57,7 +57,7 @@ class SwiftGrammarClosureExpression: GrammarRulesBuilder {
             )
         )
         
-        register(.capture_list_items,
+        parserRule(.capture_list_items,
             compound(
                 required(.capture_list_item),
                 zeroOrMore(
@@ -67,14 +67,14 @@ class SwiftGrammarClosureExpression: GrammarRulesBuilder {
             )
         )
         
-        register(.capture_list_item,
+        parserRule(.capture_list_item,
             compound(
                 optional(.capture_specifier),
                 required(.expression)
             )
         )
         
-        register(.capture_specifier,
+        parserRule(.capture_specifier,
             any(
                 "weak",
                 "unowned",

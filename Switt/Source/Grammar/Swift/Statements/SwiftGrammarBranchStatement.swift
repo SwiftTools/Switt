@@ -1,10 +1,10 @@
-class SwiftGrammarBranchStatement: GrammarRulesBuilder {
+class SwiftGrammarBranchStatement: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.branch_statement,
+        parserRule(.branch_statement,
             any(
                 .if_statement,
                 .guard_statement,
@@ -14,7 +14,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
         
         // if
         
-        register(.if_statement,
+        parserRule(.if_statement,
             compound(
                 required("if"),
                 required(.condition_clause),
@@ -23,7 +23,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.else_clause,
+        parserRule(.else_clause,
             any(
                 compound(
                     required("else"),
@@ -38,7 +38,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
         
         // guard
         
-        register(.guard_statement,
+        parserRule(.guard_statement,
             compound(
                 required("guard"),
                 required(.condition_clause),
@@ -49,7 +49,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
         
         // switch
         
-        register(.switch_statement,
+        parserRule(.switch_statement,
             compound(
                 required("switch"),
                 required(.expression),
@@ -59,14 +59,14 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.switch_cases,
+        parserRule(.switch_cases,
             compound(
                 required(.switch_case),
                 optional(.switch_cases)
             )
         )
         
-        register(.switch_cases,
+        parserRule(.switch_cases,
             any(
                 compound(
                     required(.case_label),
@@ -79,7 +79,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.case_label,
+        parserRule(.case_label,
             compound(
                 required("case"),
                 required(.case_item_list),
@@ -87,7 +87,7 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.case_item_list,
+        parserRule(.case_item_list,
             any(
                 compound(
                     required(.pattern),
@@ -102,21 +102,21 @@ class SwiftGrammarBranchStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.default_label,
+        parserRule(.default_label,
             compound(
                 required("default"),
                 required(":")
             )
         )
         
-        register(.where_clause,
+        parserRule(.where_clause,
             compound(
                 required("default"),
                 required(.where_expression)
             )
         )
         
-        register(.where_expression,
+        parserRule(.where_expression,
             required(.expression)
         )
     }

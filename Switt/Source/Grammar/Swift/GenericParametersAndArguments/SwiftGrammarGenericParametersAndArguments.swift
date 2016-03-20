@@ -1,10 +1,10 @@
-class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
+class SwiftGrammarGenericParametersAndArguments: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.generic_parameter_clause,
+        parserRule(.generic_parameter_clause,
             compound(
                 required("<"),
                 required(.generic_parameter_list),
@@ -13,7 +13,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.generic_parameter_list,
+        parserRule(.generic_parameter_list,
             compound(
                 required(.generic_parameter),
                 zeroOrMore(
@@ -23,7 +23,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.generic_parameter,
+        parserRule(.generic_parameter,
             any(
                 required(.type_name),
                 compound(
@@ -39,14 +39,14 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.requirement_clause,
+        parserRule(.requirement_clause,
             compound(
                 required("where"),
                 required(.requirement_list)
             )
         )
         
-        register(.requirement_list,
+        parserRule(.requirement_list,
             any(
                 required(.requirement),
                 compound(
@@ -57,14 +57,14 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.requirement,
+        parserRule(.requirement,
             any(
                 .conformance_requirement,
                 .same_type_requirement
             )
         )
         
-        register(.conformance_requirement,
+        parserRule(.conformance_requirement,
             any(
                 compound(
                     required(.type_identifier),
@@ -79,7 +79,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.same_type_requirement,
+        parserRule(.same_type_requirement,
             compound(
                 required(.type_identifier),
                 required(.same_type_equals),
@@ -87,7 +87,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.generic_argument_clause,
+        parserRule(.generic_argument_clause,
             compound(
                 required("<"),
                 required(.generic_argument_list),
@@ -95,7 +95,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.generic_argument_list,
+        parserRule(.generic_argument_list,
             compound(
                 required(.generic_argument),
                 zeroOrMore(
@@ -105,7 +105,7 @@ class SwiftGrammarGenericParametersAndArguments: GrammarRulesBuilder {
             )
         )
         
-        register(.generic_argument,
+        parserRule(.generic_argument,
             required(.type)
         )
     }

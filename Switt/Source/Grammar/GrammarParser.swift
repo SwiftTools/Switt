@@ -1,5 +1,5 @@
 //class GrammarParser {
-//    func parse(string: String, grammar: GrammarRulesBuilder, rootRule: RuleName) {
+//    func parse(string: String, grammar: GrammarRulesRegistrator, rootRule: RuleName) {
 //        
 //    }
 //}

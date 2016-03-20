@@ -1,10 +1,10 @@
-class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
+class SwiftGrammarEnumDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.enum_declaration,
+        parserRule(.enum_declaration,
             any(
                 compound(
                     optional(.attributes),
@@ -19,7 +19,7 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.union_style_enum,
+        parserRule(.union_style_enum,
             compound(
                 optional("indirect"),
                 required("enum"),
@@ -33,21 +33,21 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.union_style_enum_members,
+        parserRule(.union_style_enum_members,
             compound(
                 required(.union_style_enum_member),
                 optional(.union_style_enum_members)
             )
         )
         
-        register(.union_style_enum_member,
+        parserRule(.union_style_enum_member,
             any(
                 .declaration,
                 .union_style_enum_case_clause
             )
         )
         
-        register(.union_style_enum_case_clause,
+        parserRule(.union_style_enum_case_clause,
             compound(
                 optional(.attributes),
                 optional("indirect"),
@@ -56,7 +56,7 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.union_style_enum_case_list,
+        parserRule(.union_style_enum_case_list,
             any(
                 required(.union_style_enum_case),
                 compound(
@@ -67,7 +67,7 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.union_style_enum_case,
+        parserRule(.union_style_enum_case,
             compound(
                 required(.enum_case_name),
                 optional(.tuple_type)
@@ -75,15 +75,15 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.enum_name,
+        parserRule(.enum_name,
             required(.identifier)
         )
         
-        register(.enum_case_name,
+        parserRule(.enum_case_name,
             required(.identifier)
         )
         
-        register(.raw_value_style_enum,
+        parserRule(.raw_value_style_enum,
             compound(
                 required("enum"),
                 required(.enum_name),
@@ -96,7 +96,7 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.raw_value_style_enum_members,
+        parserRule(.raw_value_style_enum_members,
             compound(
                 required(.raw_value_style_enum_member),
                 optional(.raw_value_style_enum_members)
@@ -104,14 +104,14 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.raw_value_style_enum_member,
+        parserRule(.raw_value_style_enum_member,
             any(
                 .declaration,
                 .raw_value_style_enum_case_clause
             )
         )
         
-        register(.raw_value_style_enum_case_clause,
+        parserRule(.raw_value_style_enum_case_clause,
             compound(
                 optional(.attributes),
                 required("case"),
@@ -119,7 +119,7 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.raw_value_style_enum_case_list,
+        parserRule(.raw_value_style_enum_case_list,
             any(
                 required(.raw_value_style_enum_case),
                 compound(
@@ -130,21 +130,21 @@ class SwiftGrammarEnumDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.raw_value_style_enum_case,
+        parserRule(.raw_value_style_enum_case,
             compound(
                 required(.enum_case_name),
                 optional(.raw_value_assignment)
             )
         )
         
-        register(.raw_value_assignment,
+        parserRule(.raw_value_assignment,
             compound(
                 .assignment_operator,
                 .raw_value_literal
             )
         )
         
-        register(.raw_value_literal,
+        parserRule(.raw_value_literal,
             any(
                 .numeric_literal,
                 .Static_string_literal,

@@ -1,10 +1,10 @@
-class SwiftGrammarInitializarDeclaration: GrammarRulesBuilder {
+class SwiftGrammarInitializarDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.initializer_declaration,
+        parserRule(.initializer_declaration,
             any(
                 compound(
                     required(.initializer_head),
@@ -42,13 +42,13 @@ class SwiftGrammarInitializarDeclaration: GrammarRulesBuilder {
                 required("!")
             )
         ]
-        register(.initializer_head,
+        parserRule(.initializer_head,
             any(
                 initializerHeadRules
             )
         )
         
-        register(.initializer_body,
+        parserRule(.initializer_body,
             required(.code_block)
         )
     }

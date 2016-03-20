@@ -1,10 +1,10 @@
-class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
+class SwiftGrammarProtocolDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.protocol_declaration,
+        parserRule(.protocol_declaration,
             compound(
                 optional(.attributes),
                 optional(.access_level_modifier),
@@ -14,10 +14,10 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
                 required(.protocol_body)
             )
         )
-        register(.protocol_name,
+        parserRule(.protocol_name,
             required(.identifier)
         )
-        register(.protocol_body,
+        parserRule(.protocol_body,
             compound(
                 required("{"),
                 optional(.protocol_member_declarations),
@@ -25,7 +25,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
                 
             )
         )
-        register(.protocol_member_declaration,
+        parserRule(.protocol_member_declaration,
             any(
                 .protocol_property_declaration,
                 .protocol_method_declaration,
@@ -35,7 +35,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_member_declarations,
+        parserRule(.protocol_member_declarations,
             compound(
                 required(.protocol_member_declaration),
                 optional(.protocol_member_declarations)
@@ -43,7 +43,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_property_declaration,
+        parserRule(.protocol_property_declaration,
             compound(
                 .variable_declaration_head,
                 .variable_name,
@@ -52,7 +52,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_method_declaration,
+        parserRule(.protocol_method_declaration,
             compound(
                 required(.function_head),
                 required(.function_name),
@@ -61,7 +61,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_initializer_declaration,
+        parserRule(.protocol_initializer_declaration,
             any(
                 compound(
                     required(.initializer_head),
@@ -78,7 +78,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_subscript_declaration,
+        parserRule(.protocol_subscript_declaration,
             compound(
                 required(.subscript_head),
                 required(.subscript_result),
@@ -86,7 +86,7 @@ class SwiftGrammarProtocolDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.protocol_associated_type_declaration,
+        parserRule(.protocol_associated_type_declaration,
             compound(
                 required(.typealias_head),
                 optional(.type_inheritance_clause),

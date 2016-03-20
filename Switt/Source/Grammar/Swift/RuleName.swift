@@ -1,4 +1,4 @@
-enum RuleName: String {
+enum RuleName: String, CustomDebugStringConvertible {
     case ADD = "ADD"
     case AND = "AND"
     case AT = "AT"
@@ -69,7 +69,7 @@ enum RuleName: String {
     case TILDE = "TILDE"
     case UNDERSCORE = "UNDERSCORE"
     case WS = "WS"
-    case _operator = "_operator"
+    case _operator = "operator"
     case access_level_modifier = "access_level_modifier"
     case architecture = "architecture"
     case array_literal = "array_literal"
@@ -324,4 +324,8 @@ enum RuleName: String {
     case wildcard_pattern = "wildcard_pattern"
     case willSet_clause = "willSet_clause"
     case willSet_didSet_block = "willSet_didSet_block"
+    
+    var debugDescription: String {
+        return rawValue
+    }
 }

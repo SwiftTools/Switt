@@ -1,4 +1,4 @@
-class SwiftGrammarPatterns: GrammarRulesBuilder {
+class SwiftGrammarPatterns: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
@@ -31,21 +31,21 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
             ),
             required(.expression_pattern)
         ]
-        register(.pattern,
+        parserRule(.pattern,
             any(
                 patternRules
             )
         )
         
-        register(.wildcard_pattern,
+        parserRule(.wildcard_pattern,
             required("_")
         )
         
-        register(.identifier_pattern,
+        parserRule(.identifier_pattern,
             required(.identifier)
         )
         
-        register(.value_binding_pattern,
+        parserRule(.value_binding_pattern,
             any(
                 compound(
                     required("var"),
@@ -58,7 +58,7 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
             )
         )
         
-        register(.tuple_pattern,
+        parserRule(.tuple_pattern,
             compound(
                 required("("),
                 optional(.tuple_pattern_element_list),
@@ -66,7 +66,7 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
             )
         )
         
-        register(.tuple_pattern_element_list,
+        parserRule(.tuple_pattern_element_list,
             compound(
                 required(.tuple_pattern_element),
                 zeroOrMore(
@@ -77,11 +77,11 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
             )
         )
         
-        register(.tuple_pattern_element,
+        parserRule(.tuple_pattern_element,
             required(.pattern)
         )
         
-        register(.enum_case_pattern,
+        parserRule(.enum_case_pattern,
             compound(
                 optional(.type_identifier),
                 required("."),
@@ -91,7 +91,7 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
             )
         )
         
-        register(.optional_pattern,
+        parserRule(.optional_pattern,
             compound(
                 required(.identifier_pattern),
                 required("?")
@@ -99,7 +99,7 @@ class SwiftGrammarPatterns: GrammarRulesBuilder {
         )
         
         /** Doc says "Expression patterns appear only in switch statement case labels." */
-        register(.expression_pattern,
+        parserRule(.expression_pattern,
             required(.expression)
         )
     }

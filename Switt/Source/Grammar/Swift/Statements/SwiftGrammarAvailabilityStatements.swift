@@ -1,10 +1,10 @@
-class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
+class SwiftGrammarAvailabilityStatements: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.availability_condition,
+        parserRule(.availability_condition,
             compound(
                 required("#available"),
                 required("("),
@@ -13,7 +13,7 @@ class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.availability_arguments,
+        parserRule(.availability_arguments,
             compound(
                 required(.availability_argument),
                 zeroOrMore(
@@ -23,7 +23,7 @@ class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
             )
         )
         
-        register(.availability_argument,
+        parserRule(.availability_argument,
             any(
                 required(.Platform),
                 required("*")
@@ -31,7 +31,7 @@ class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
         )
         
         // Must match as token so Platform_version doesn't look like a float literal
-        register(.Platform,
+        lexerRule(.Platform,
             compound(
                 required(.Platform_name),
                 optional(.WS),
@@ -39,7 +39,7 @@ class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
             )
         )
         
-        registerFragment(.Platform_name,
+        lexerFragment(.Platform_name,
             any(
                 "iOS",
                 "iOSApplicationExtension",
@@ -50,7 +50,7 @@ class SwiftGrammarAvailabilityStatements: GrammarRulesBuilder {
             )
         )
         
-        registerFragment(.Platform_version,
+        lexerFragment(.Platform_version,
             ~.Pure_decimal_digits
             | ~.Pure_decimal_digits ~ "." ~ .Pure_decimal_digits
             | ~.Pure_decimal_digits ~ "." ~ .Pure_decimal_digits ~ "." ~ .Pure_decimal_digits

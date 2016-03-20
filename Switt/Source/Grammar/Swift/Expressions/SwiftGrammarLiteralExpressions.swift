@@ -1,10 +1,10 @@
-class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
+class SwiftGrammarLiteralExpressions: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.literal_expression,
+        parserRule(.literal_expression,
             any(
                 required(.literal),
                 required(.array_literal),
@@ -18,7 +18,7 @@ class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
         
         // array
         
-        register(.array_literal,
+        parserRule(.array_literal,
             compound(
                 required("["),
                 optional(.array_literal_items),
@@ -27,7 +27,7 @@ class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.array_literal_items,
+        parserRule(.array_literal_items,
             compound(
                 required(.array_literal_item),
                 zeroOrMore(
@@ -38,13 +38,13 @@ class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.array_literal_item,
+        parserRule(.array_literal_item,
             required(.expression)
         )
         
         // dictionary
         
-        register(.dictionary_literal,
+        parserRule(.dictionary_literal,
             any(
                 compound(
                     required("["),
@@ -59,7 +59,7 @@ class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.dictionary_literal_items,
+        parserRule(.dictionary_literal_items,
             compound(
                 required(.array_literal_item),
                 zeroOrMore(
@@ -70,7 +70,7 @@ class SwiftGrammarLiteralExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.dictionary_literal_item,
+        parserRule(.dictionary_literal_item,
             compound(
                 required(.expression),
                 required(":"),

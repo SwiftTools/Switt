@@ -1,4 +1,4 @@
-class SwiftGrammarExpressions: GrammarRulesBuilder {
+class SwiftGrammarExpressions: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
@@ -7,16 +7,15 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
         append(SwiftGrammarLiteralExpressions())
         append(SwiftGrammarClosureExpression())
         
-        register(.expression,
+        parserRule(.expression,
             compound(
                 optional(.try_operator),
                 required(.prefix_expression),
                 optional(.binary_expressions)
-                
             )
         )
         
-        register(.expression_list,
+        parserRule(.expression_list,
             compound(
                 required(.expression),
                 zeroOrMore(
@@ -26,56 +25,38 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.prefix_expression,
-            compound(
-                .prefix_operator,
-                .postfix_expression,
-                .postfix_expression,
-                .in_out_expression
+        parserRule(.prefix_expression,
+            any(
+                .prefix_operator ~ .postfix_expression,
+                ~.postfix_expression,
+                ~.in_out_expression
             )
         )
         
-        register(.in_out_expression,
+        parserRule(.in_out_expression,
             compound(
                 required("&"),
                 required(.identifier)
             )
         )
         
-        register(.try_operator,
-            any(
-                required("try"),
-                compound(
-                    "try",
-                    "?"
-                ),
-                compound(
-                    "try",
-                    "!"
-                )
-            )
+        parserRule(.try_operator,
+            ~"try"
+                | "try" ~ "?"
+                | "try" ~ "!"
         )
         
-        register(.binary_expression,
-            any(
-                compound(
-                    required(.binary_operator),
-                    required(.prefix_expression)
-                ),
-                compound(
-                    required(.conditional_operator),
-                    optional(.try_operator)
-                ),
-                required(.prefix_expression),
-                required(.type_casting_operator)
-            )
+        parserRule(.binary_expression,
+            .binary_operator ~ .prefix_expression
+            | .conditional_operator ~ ??.try_operator ~ .prefix_expression
+            | .type_casting_operator
         )
         
-        register(.binary_expressions,
+        parserRule(.binary_expressions,
             oneOrMore(.binary_expression)
         )
         
-        register(.conditional_operator,
+        parserRule(.conditional_operator,
             compound(
                 required("?"),
                 optional(.try_operator),
@@ -85,7 +66,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.type_casting_operator,
+        parserRule(.type_casting_operator,
             any(
                 compound(
                     required("is"),
@@ -106,7 +87,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.primary_expression,
+        parserRule(.primary_expression,
             any(
                 compound(
                     required(.identifier),
@@ -122,14 +103,14 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.implicit_member_expression,
+        parserRule(.implicit_member_expression,
             compound(
                 required("."),
                 required(.identifier)
             )
         )
         
-        register(.self_expression,
+        parserRule(.self_expression,
             any(
                 required("self"),
                 compound(
@@ -147,7 +128,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.superclass_expression,
+        parserRule(.superclass_expression,
             any(
                 .superclass_method_expression,
                 .superclass_subscript_expression,
@@ -155,7 +136,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.superclass_method_expression,
+        parserRule(.superclass_method_expression,
             compound(
                 required("super"),
                 required("."),
@@ -163,7 +144,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.superclass_subscript_expression,
+        parserRule(.superclass_subscript_expression,
             compound(
                 required("super"),
                 required("["),
@@ -172,7 +153,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.superclass_initializer_expression,
+        parserRule(.superclass_initializer_expression,
             compound(
                 required("super"),
                 required("."),
@@ -182,7 +163,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
         
         //
         
-        register(.parenthesized_expression,
+        parserRule(.parenthesized_expression,
             compound(
                 required("("),
                 optional(.expression_element_list),
@@ -190,7 +171,7 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.expression_element_list,
+        parserRule(.expression_element_list,
             compound(
                 required(.expression_element),
                 zeroOrMore(
@@ -200,58 +181,28 @@ class SwiftGrammarExpressions: GrammarRulesBuilder {
             )
         )
         
-        register(.expression_element,
-            any(
-                required(.expression),
-                compound(
-                    required(.identifier),
-                    required(":"),
-                    required(.expression)
-                )
-            )
+        parserRule(.expression_element,
+            .expression | .identifier ~ ":" ~ .expression
         )
         
-        register(.wildcard_expression,
-            required("_")
+        parserRule(.wildcard_expression,
+            ~"_"
         )
         
-        let postfixExpressionRules: [ProductionRule] = [
-            required(.postfix_operator),
-            required(.parenthesized_expression),
-            compound(
-                optional(.parenthesized_expression),
-                required(.trailing_closure)
-            ),
-            compound(
-                required("."),
-                any(
-                    required(.Pure_decimal_digits),
-                    compound(
-                        required(.identifier),
-                        optional(.generic_argument_clause)
-                    ),
-                    required("self"),
-                    required("dynamicType")
-                )
-            ),
-            compound(
-                required("["),
-                required(.expression_list),
-                required("]")
-            ),
-            required("!"),
-            required("?")
-        ]
-        
-        register(.postfix_expression,
-            compound(
-                required(.primary_expression),
-                any(
-                    postfixExpressionRules
-                )
-            )
+        parserRule(.postfix_expression,
+            .postfix_expression ~ .postfix_operator // postfix_operation
+            | .postfix_expression ~ .parenthesized_expression // function_call_expression
+            | .postfix_expression ~ ??.parenthesized_expression ~ .trailing_closure // function_call_with_closure_expression
+            | .postfix_expression ~ "." ~ "init" // initializer_expression
+            | .postfix_expression ~ "." ~ .Pure_decimal_digits // explicit_member_expression1
+            | .postfix_expression ~ "." ~ .identifier ~ ??.generic_argument_clause // explicit_member_expression2
+            | .postfix_expression ~ "." ~ .Pure_decimal_digits
+            | .postfix_expression ~ "." ~ "self" // postfix_self_expression
+            | .postfix_expression ~ "." ~ "dynamicType" // dynamic_type_expression
+            | .postfix_expression ~ "[" ~ .expression_list ~ "]" // subscript_expression
+            | ~.primary_expression
         )
-        register(.trailing_closure,
+        parserRule(.trailing_closure,
             required(.closure_expression)
         )
     }

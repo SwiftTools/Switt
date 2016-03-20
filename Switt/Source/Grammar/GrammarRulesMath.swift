@@ -2,8 +2,8 @@ class GrammarRulesMath {
     
     // rule
     
-    static func rule(string: String) -> ProductionRule {
-        return ProductionRule.StringRule(string)
+    static func rule(terminal: String) -> ProductionRule {
+        return ProductionRule.Terminal(terminal: terminal)
     }
     
     static func rule(rule: ProductionRule) -> ProductionRule {
@@ -11,28 +11,28 @@ class GrammarRulesMath {
     }
     
     static func rule(ruleName: RuleName) -> ProductionRule {
-        return ProductionRule.Reference(ruleName)
+        return ProductionRule.RuleReference(ruleName: ruleName)
     }
     
     // optional
     
     static func optional(string: String) -> ProductionRule {
-        return ProductionRule.Optional(rule(string))
+        return ProductionRule.Optional(rule: rule(string))
     }
     
     static func optional(lexeme: ProductionRule) -> ProductionRule {
-        return ProductionRule.Optional(lexeme)
+        return ProductionRule.Optional(rule: lexeme)
     }
     
     static func optional(lexemeType: RuleName) -> ProductionRule {
-        return ProductionRule.Optional(rule(lexemeType))
+        return ProductionRule.Optional(rule: rule(lexemeType))
     }
     
     // compound
     
     static func compound(rules: [ProductionRule]) -> ProductionRule {
         if rules.count > 1 {
-            return ProductionRule.Compound(rules)
+            return ProductionRule.Sequence(rules: rules)
         } else if let first = rules.first {
             return first
         } else {
@@ -44,7 +44,7 @@ class GrammarRulesMath {
     
     static func any(rules: [ProductionRule]) -> ProductionRule {
         if rules.count > 1 {
-            return ProductionRule.Or(rules)
+            return ProductionRule.Alternatives(rules: rules)
         } else if let first = rules.first {
             return first
         } else {
@@ -56,9 +56,9 @@ class GrammarRulesMath {
     
     static func zeroOrMore(rules: [ProductionRule]) -> ProductionRule {
         if rules.count > 1 {
-            return ProductionRule.Multiple(0, compound(rules))
+            return ProductionRule.Multiple(atLeast: 0, rule: compound(rules))
         } else if let first = rules.first {
-            return ProductionRule.Multiple(0, first)
+            return ProductionRule.Multiple(atLeast: 0, rule: first)
         } else {
             return ProductionRule.Empty
         }
@@ -68,9 +68,9 @@ class GrammarRulesMath {
     
     static func oneOrMore(rules: [ProductionRule]) -> ProductionRule {
         if rules.count > 1 {
-            return ProductionRule.Multiple(1, ProductionRule.Compound(rules))
+            return ProductionRule.Multiple(atLeast: 1, rule: ProductionRule.Sequence(rules: rules))
         } else if let first = rules.first {
-            return ProductionRule.Multiple(1, first)
+            return ProductionRule.Multiple(atLeast: 1, rule: first)
         } else {
             return ProductionRule.Empty
         }

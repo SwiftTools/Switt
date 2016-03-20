@@ -1,46 +1,104 @@
 protocol GrammarRulesBuilder: class {
+}
+
+protocol GrammarRulesRegistrator: GrammarRulesBuilder {
     var grammarRules: GrammarRules { get set }
     
     func registerRules()
 }
 
-extension GrammarRulesBuilder {
-    // building
-    
+//enum LexerRuleConversionResult {
+//    case Error // TODO
+//    case UnexpectedCheckRule
+//    case UnexpectedEmptyRule
+//    case UnexpectedEofRule
+//    case UnexpectedMultipleRule
+//    case UnexpectedOptionalRule
+//    case Rule(rule: LexerRule)
+//}
+
+extension GrammarRulesRegistrator {
     func clearRules() {
         grammarRules = GrammarRules()
     }
     
-    func append(grammarBuilder: GrammarRulesBuilder) {
+    func append(grammarBuilder: GrammarRulesRegistrator) {
         grammarBuilder.clearRules()
         grammarBuilder.registerRules()
         
-        for (type, rule) in grammarBuilder.grammarRules.rules {
-            grammarRules.rules[type] = rule
+        for (name, rule) in grammarBuilder.grammarRules.lexerRules.rulesByName {
+            grammarRules.lexerRules.rulesByName[name] = rule
         }
+        
+        for (name, rule) in grammarBuilder.grammarRules.lexerRules.fragmentsByName {
+            grammarRules.lexerRules.fragmentsByName[name] = rule
+        }
+        
+        for (name, rule) in grammarBuilder.grammarRules.parserRules.rulesByName {
+            grammarRules.parserRules.rulesByName[name] = rule
+        }
+        
+        for (name, rule) in grammarBuilder.grammarRules.parserRules.fragmentsByName {
+            grammarRules.parserRules.fragmentsByName[name] = rule
+        }
+    }
+    
+    func parserRule(name: RuleName, _ rule: ProductionRule) {
+        grammarRules.parserRules.rulesByName[name] = convertToParserRule(rule)
+    }
+    
+    func lexerRule(name: RuleName, _ rule: ProductionRule) {
+        if let lexerRule = LexerRuleConverter.convertToLexerRule(rule) {
+            grammarRules.lexerRules.rulesByName[name] = lexerRule
+        }
+    }
+    
+    func parserFragment(name: RuleName, _ rule: ProductionRule) {
+        grammarRules.parserRules.fragmentsByName[name] = convertToParserRule(rule)
+    }
+    
+    func lexerFragment(name: RuleName, _ rule: ProductionRule) {
+        if let lexerRule = LexerRuleConverter.convertToLexerRule(rule) {
+            grammarRules.lexerRules.fragmentsByName[name] = lexerRule
+        }
+    }
+    
+    private func convertToParserRule(rule: ProductionRule) -> ParserRule {
+        switch rule {
+        case .Char(let ranges, let invert):
+            return ParserRule.Char(ranges: ranges, invert: invert)
+        case .Check(let checkFunction):
+            return ParserRule.Check(function: checkFunction)
+        case .Sequence(let rules):
+            return ParserRule.Sequence(rules: rules.map(convertToParserRule))
+        case .Empty:
+            return ParserRule.Empty
+        case .Eof:
+            return ParserRule.Eof
+        case .Multiple(let atLeast, let rule):
+            return ParserRule.Repetition(atLeast: atLeast, rule: convertToParserRule(rule))
+        case .Optional(let rule):
+            return ParserRule.Optional(rule: convertToParserRule((rule)))
+        case .Alternatives(let rules):
+            return ParserRule.Alternatives(rules: rules.map(convertToParserRule))
+        case .RuleReference(let ruleName):
+            return ParserRule.RuleReference(ruleName: ruleName)
+        case .Terminal(let terminal):
+            return ParserRule.Terminal(terminal: terminal)
+        }
+    }
+}
 
-        for (type, rule) in grammarBuilder.grammarRules.fragments {
-            grammarRules.fragments[type] = rule
-        }
-    }
-    
-    func register(name: RuleName, _ rule: ProductionRule) {
-        grammarRules.rules[name] = rule
-    }
-    
-    func registerFragment(name: RuleName, _ rule: ProductionRule) {
-        grammarRules.fragments[name] = rule
-    }
-    
+extension GrammarRulesBuilder {
     // compound
     
-    func compound(lexemes: [ProductionRule]) -> ProductionRule {
-        return GrammarRulesMath.compound(lexemes)
+    func compound(rules: [ProductionRule]) -> ProductionRule {
+        return ProductionRule.Sequence(rules: rules)
     }
     
-    func compound(lexemes: ProductionRule...) -> ProductionRule {
-        let lexemes: [ProductionRule] = lexemes
-        return compound(lexemes)
+    func compound(rules: ProductionRule...) -> ProductionRule {
+        let rules: [ProductionRule] = rules
+        return compound(rules)
     }
     
     func compound(names: RuleName...) -> ProductionRule {
@@ -53,8 +111,8 @@ extension GrammarRulesBuilder {
     
     // any
     
-    func any(lexemes: [ProductionRule]) -> ProductionRule {
-        return GrammarRulesMath.any(lexemes)
+    func any(rules: [ProductionRule]) -> ProductionRule {
+        return ProductionRule.Alternatives(rules: rules)
     }
     
     func any(rules: ProductionRule...) -> ProductionRule {
@@ -135,19 +193,19 @@ extension GrammarRulesBuilder {
     // chars
     
     func char(value: UInt32) -> ProductionRule {
-        return .CharRanges(true, [CharRange(first: value, last: value)])
+        return .Char(ranges: [CharRange(first: value, last: value)], invert: false)
     }
     
     func char(first: UInt32, _ last: UInt32) -> ProductionRule {
-        return .CharRanges(true, [CharRange(first: first, last: last)])
+        return .Char(ranges: [CharRange(first: first, last: last)], invert: false)
     }
     
     func char(first: UnicodeScalar, _ last: UnicodeScalar) -> ProductionRule {
-        return .CharRanges(true, [CharRange(first: first.value, last: last.value)])
+        return .Char(ranges: [CharRange(first: first.value, last: last.value)], invert: false)
     }
     
     func char(first: UnicodeScalar) -> ProductionRule {
-        return .CharRanges(true, [CharRange(first: first.value, last: first.value)])
+        return .Char(ranges: [CharRange(first: first.value, last: first.value)], invert: false)
     }
     
     func char(chars: [UnicodeScalar]) -> ProductionRule {
@@ -155,11 +213,11 @@ extension GrammarRulesBuilder {
         for char in chars {
             ranges.append(CharRange(first: char.value, last: char.value))
         }
-        return .CharRanges(true, ranges)
+        return .Char(ranges: ranges, invert: false)
     }
     
     func anyChar() -> ProductionRule {
-        return .CharRanges(true, [CharRange(first: UInt32.min, last: UInt32.max)])
+        return .Char(ranges: [CharRange(first: UInt32.min, last: UInt32.max)], invert: false)
     }
     
     // *?
@@ -173,13 +231,13 @@ extension GrammarRulesBuilder {
         for char in chars {
             ranges.append(CharRange(first: char.value, last: char.value))
         }
-        return .CharRanges(false, ranges)
+        return .Char(ranges: ranges, invert: true)
     }
     
     // check
     
     func check(closure: ProductionRuleCheckFunction) -> ProductionRule {
-        return .Check(closure)
+        return .Check(function: closure)
     }
     
     // times
@@ -197,10 +255,14 @@ extension GrammarRulesBuilder {
     func eof() -> ProductionRule {
         return ProductionRule.Eof
     }
+    
+    func empty() -> ProductionRule {
+        return ProductionRule.Empty
+    }
 }
 
-infix operator ~ { associativity left precedence 140 }
-infix operator | { associativity left precedence 130 }
+infix operator ~ { associativity left precedence 150 }
+infix operator | { associativity left precedence 140 } // Swift operator | has ass
 prefix operator ?? {}
 prefix operator ~ {}
 

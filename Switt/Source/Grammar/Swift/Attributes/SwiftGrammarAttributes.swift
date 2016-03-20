@@ -1,10 +1,10 @@
-class SwiftGrammarAttributes: GrammarRulesBuilder {
+class SwiftGrammarAttributes: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.attribute,
+        parserRule(.attribute,
             compound(
                 required("@"),
                 required(.attribute_name),
@@ -13,11 +13,11 @@ class SwiftGrammarAttributes: GrammarRulesBuilder {
             )
         )
         
-        register(.attribute_name,
+        parserRule(.attribute_name,
             required(.identifier)
         )
         
-        register(.attribute_argument_clause,
+        parserRule(.attribute_argument_clause,
             compound(
                 required("("),
                 optional(.balanced_tokens),
@@ -25,11 +25,11 @@ class SwiftGrammarAttributes: GrammarRulesBuilder {
             )
         )
         
-        register(.attributes,
+        parserRule(.attributes,
             oneOrMore(.attribute)
         )
         
-        register(.balanced_tokens,
+        parserRule(.balanced_tokens,
             oneOrMore(.balanced_token)
         )
         
@@ -55,7 +55,7 @@ class SwiftGrammarAttributes: GrammarRulesBuilder {
             required(.literal),
             required(._operator)
         ]
-        register(.balanced_token,
+        parserRule(.balanced_token,
             any(
                 balancedTokenRules
             )

@@ -5,7 +5,7 @@ protocol GrammarFactory {
     func grammar() -> Grammar
 }
 
-class SwiftGrammarRulesBuilder: GrammarFactory, GrammarRulesBuilder {
+class SwiftGrammarRulesBuilder: GrammarFactory, GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     static func contextCheckFunction(ruleName: RuleName) -> RuleContext {
@@ -28,18 +28,14 @@ class SwiftGrammarRulesBuilder: GrammarFactory, GrammarRulesBuilder {
         registerRules()
         
         return Grammar(
-            rules: grammarRules,
-            delimiter: any(.WS, .Block_comment, .Line_comment),
-            contextCheckFunction: SwiftGrammarRulesBuilder.contextCheckFunction
+            grammarRules: grammarRules,
+            firstRule: RuleName.top_level
         )
     }
     
     func registerRules() {
-        register(.top_level,
-            compound(
-                zeroOrMore(.statement),
-                eof()
-            )
+        parserRule(.top_level,
+            zeroOrMore(.statement)
         )
         
         append(SwiftGrammarLexicalStructure())

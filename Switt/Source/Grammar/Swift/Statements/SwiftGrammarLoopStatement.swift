@@ -1,4 +1,4 @@
-class SwiftGrammarLoopStatement: GrammarRulesBuilder {
+class SwiftGrammarLoopStatement: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
@@ -6,7 +6,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
         
         // loop
         
-        register(.loop_statement,
+        parserRule(.loop_statement,
             any(
                 .for_statement,
                 .for_in_statement,
@@ -39,13 +39,13 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
                 required(.code_block)
             )
         ]
-        register(.for_statement,
+        parserRule(.for_statement,
             any(
                 forStatementRules
             )
         )
         
-        register(.for_init,
+        parserRule(.for_init,
             any(
                 .variable_declaration,
                 .expression_list
@@ -54,7 +54,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
         
         // for in
         
-        register(.for_in_statement,
+        parserRule(.for_in_statement,
             compound(
                 required("for"),
                 optional("case"),
@@ -68,7 +68,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
         
         // while
         
-        register(.while_statement,
+        parserRule(.while_statement,
             compound(
                 required("while"),
                 required(.condition_clause),
@@ -76,7 +76,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.condition_clause,
+        parserRule(.condition_clause,
             any(
                 required(.expression),
                 compound(
@@ -93,7 +93,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.condition_list,
+        parserRule(.condition_list,
             compound(
                 required(.condition),
                 zeroOrMore(
@@ -103,7 +103,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.condition,
+        parserRule(.condition,
             any(
                 .availability_condition,
                 .case_condition,
@@ -111,7 +111,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.case_condition,
+        parserRule(.case_condition,
             compound(
                 required("case"),
                 required(.pattern),
@@ -120,7 +120,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.optional_binding_condition,
+        parserRule(.optional_binding_condition,
             compound(
                 required(.optional_binding_head),
                 optional(.optional_binding_continuation_list),
@@ -128,7 +128,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.optional_binding_head,
+        parserRule(.optional_binding_head,
             any(
                 compound(
                     required("let"),
@@ -143,7 +143,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.optional_binding_continuation_list,
+        parserRule(.optional_binding_continuation_list,
             compound(
                 required(","),
                 required(.optional_binding_continuation),
@@ -154,7 +154,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
             )
         )
         
-        register(.optional_binding_continuation,
+        parserRule(.optional_binding_continuation,
             any(
                 compound(
                     required(.pattern),
@@ -166,7 +166,7 @@ class SwiftGrammarLoopStatement: GrammarRulesBuilder {
         
         // repeat while
         
-        register(.repeat_while_statement,
+        parserRule(.repeat_while_statement,
             compound(
                 required("repeat"),
                 required(.code_block),

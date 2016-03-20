@@ -1,17 +1,17 @@
-class SwiftGrammarTypealiasDeclaration: GrammarRulesBuilder {
+class SwiftGrammarTypealiasDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.typealias_declaration,
+        parserRule(.typealias_declaration,
             compound(
                 required(.typealias_head),
                 required(.typealias_assignment)
             )
         )
         
-        register(.typealias_head,
+        parserRule(.typealias_head,
             compound(
                 optional(.attributes),
                 optional(.access_level_modifier),
@@ -20,11 +20,11 @@ class SwiftGrammarTypealiasDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.typealias_name,
+        parserRule(.typealias_name,
             required(.identifier)
         )
         
-        register(.typealias_assignment,
+        parserRule(.typealias_assignment,
             compound(
                 .assignment_operator,
                 .type

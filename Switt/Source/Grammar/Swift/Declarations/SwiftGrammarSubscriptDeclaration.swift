@@ -1,10 +1,10 @@
-class SwiftGrammarSubscriptDeclaration: GrammarRulesBuilder {
+class SwiftGrammarSubscriptDeclaration: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
         clearRules()
         
-        register(.subscript_declaration,
+        parserRule(.subscript_declaration,
             any(
                 compound(
                     required(.subscript_head),
@@ -24,7 +24,7 @@ class SwiftGrammarSubscriptDeclaration: GrammarRulesBuilder {
             )
         )
         
-        register(.subscript_head,
+        parserRule(.subscript_head,
             compound(
                 optional(.attributes),
                 optional(.declaration_modifiers),
@@ -32,7 +32,7 @@ class SwiftGrammarSubscriptDeclaration: GrammarRulesBuilder {
                 required(.parameter_clause)
             )
         )
-        register(.subscript_result,
+        parserRule(.subscript_result,
             compound(
                 required(.arrow_operator),
                 optional(.attributes),

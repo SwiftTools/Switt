@@ -9,7 +9,7 @@ extension Character {
     }
 }
 
-struct CharRange {
+struct CharRange: CustomDebugStringConvertible, Equatable {
     var first: UInt32
     var last: UInt32
     
@@ -17,4 +17,16 @@ struct CharRange {
         let intRepresentation = character.toUInt32()
         return intRepresentation >= first && intRepresentation <= last
     }
+    
+    var debugDescription: String {
+        if first == last {
+            return "0x" + String(first, radix: 0x10, uppercase: false)
+        } else {
+            return "[0x" + String(first, radix: 0x10, uppercase: false) + "-0x" + String(last, radix: 0x10, uppercase: false) + "]"
+        }
+    }
+}
+
+func ==(left: CharRange, right: CharRange) -> Bool {
+    return left.first == right.first && left.last == right.last
 }

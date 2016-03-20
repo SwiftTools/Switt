@@ -1,4 +1,4 @@
-class SwiftGrammarDeclarations: GrammarRulesBuilder {
+class SwiftGrammarDeclarations: GrammarRulesRegistrator {
     var grammarRules: GrammarRules = GrammarRules()
     
     func registerRules() {
@@ -19,8 +19,8 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
         
         // declaration
         
-        register(.declaration,
-            compound(
+        parserRule(.declaration,
+            any(
                 .import_declaration,
                 .constant_declaration,
                 .variable_declaration,
@@ -38,7 +38,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
             )
         )
         
-        register(.declarations,
+        parserRule(.declarations,
             oneOrMore(
                 .declaration
             )
@@ -46,13 +46,13 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
         
         // top-level declaration
         
-        register(.top_level_declaration,
+        parserRule(.top_level_declaration,
             optional(.statements)
         )
         
         // code block
         
-        register(.code_block,
+        parserRule(.code_block,
             compound(
                 required("{"),
                 optional(.statements),
@@ -63,7 +63,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
         
         // import
         
-        register(.import_declaration,
+        parserRule(.import_declaration,
             compound(
                 optional(.attributes),
                 required("import"),
@@ -72,7 +72,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
             )
         )
         
-        register(.import_kind,
+        parserRule(.import_kind,
             any(
                 "typealias",
                 "struct",
@@ -84,7 +84,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
             )
         )
         
-        register(.import_path,
+        parserRule(.import_path,
             any(
                 required(.import_path_identifier),
                 compound(
@@ -95,7 +95,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
             )
         )
         
-        register(.import_path_identifier,
+        parserRule(.import_path_identifier,
             any(
                 .identifier,
                 ._operator
@@ -104,7 +104,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
 
         // constant
         
-        register(.constant_declaration,
+        parserRule(.constant_declaration,
             compound(
                 optional(.attributes),
                 optional(.declaration_modifiers),
@@ -115,7 +115,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
         
         //
         
-        register(.pattern_initializer_list,
+        parserRule(.pattern_initializer_list,
             compound(
                 required(.pattern_initializer),
                 zeroOrMore(
@@ -129,14 +129,14 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
         *  OR with x as expression_pattern.
         *  ANTLR resolves in favor or first choice: pattern is x, 1 is initializer.
         */
-        register(.pattern_initializer,
+        parserRule(.pattern_initializer,
             compound(
                 required(.pattern),
                 optional(.initializer)
                 
             )
         )
-        register(.initializer,
+        parserRule(.initializer,
             compound(
                 .assignment_operator,
                 .expression
@@ -179,13 +179,13 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
             required(.access_level_modifier)
         ]
         
-        register(.declaration_modifier,
+        parserRule(.declaration_modifier,
             any(
                 declarationModifierRules
             )
         )
         
-        register(.declaration_modifiers,
+        parserRule(.declaration_modifiers,
             compound(
                 required(.declaration_modifier),
                 optional(.declaration_modifiers)
@@ -215,7 +215,7 @@ class SwiftGrammarDeclarations: GrammarRulesBuilder {
                 required(")")
             )
         ]
-        register(.access_level_modifier,
+        parserRule(.access_level_modifier,
             any(
                 accessLevelModifierRules
             )
