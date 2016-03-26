@@ -1,15 +1,15 @@
 class SequenceTokenizer: Tokenizer {
     private var ruleIndex: Int
-    private let tokenizers: [Tokenizer]
+    private let tokenizers: [Lazy<Tokenizer>]
     
     init(rules: [LexerRule], tokenizerFactory: TokenizerFactory) {
         ruleIndex = 0
-        self.tokenizers = rules.map(tokenizerFactory.tokenizer)
+        self.tokenizers = rules.map { Lazy(tokenizerFactory.tokenizer($0)) }
     }
     
     func feed(char: Character) -> TokenizerState {
         if let tokenizer = tokenizers.at(ruleIndex) {
-            switch tokenizer.feed(char) {
+            switch tokenizer.value.feed(char) {
             case .Possible:
                 return .Possible
             case .Fail:

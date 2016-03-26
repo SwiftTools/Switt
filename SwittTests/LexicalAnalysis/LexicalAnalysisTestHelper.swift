@@ -13,7 +13,7 @@ class LexicalAnalysisTestHelper {
     }
     
     func analyze(code: String, firstRule: RuleName? = nil) -> LexicalAnalysisResult {
-        let grammarFactory: GrammarFactory = SwiftGrammarRulesBuilder()
+        let grammarFactory: GrammarFactory = SwiftGrammarFactory()
         
         let grammar = grammarFactory.grammar()
         

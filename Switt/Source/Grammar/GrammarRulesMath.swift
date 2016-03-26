@@ -75,4 +75,29 @@ class GrammarRulesMath {
             return ProductionRule.Empty
         }
     }
+    
+    // misc
+    
+    static func allTerminals(rule: ProductionRule) -> [String] {
+        switch rule {
+        case .Alternatives(let rules):
+            return rules.reduce([], combine: { (terminals, rule) in
+                terminals + allTerminals(rule)
+            })
+        case .Sequence(let rules):
+            return rules.reduce([], combine: { (terminals, rule) in
+                terminals + allTerminals(rule)
+            })
+        case .Char, .Check, .Empty, .Eof, .RuleReference:
+            return []
+        case .Multiple(_, let rule):
+            return allTerminals(rule)
+        case .Optional(let rule):
+            return allTerminals(rule)
+        case .Terminal(let terminal):
+            return [terminal]
+        case .Lazy(let rule, let stopRule, _):
+            return allTerminals(rule) + allTerminals(stopRule)
+        }
+    }
 }

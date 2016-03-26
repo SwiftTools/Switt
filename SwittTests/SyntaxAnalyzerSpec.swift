@@ -8,7 +8,7 @@ class SyntaxAnalyzerSpec: QuickSpec {
     override func spec() {
         describe("SyntaxAnalyzer") {
             it("does stuff and things") {
-                let grammarFactory: GrammarFactory = SwiftGrammarRulesBuilder()
+                let grammarFactory: GrammarFactory = SwiftGrammarFactory()
                 
                 guard let swiftFile = SourceKitFileReader().readFile(TestSwiftFile.file) else {
                     fail()

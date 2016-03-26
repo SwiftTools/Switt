@@ -9,7 +9,10 @@ class TerminalTokenizer: Tokenizer {
     
     func feed(char: Character) -> TokenizerState {
         let currentChar = terminal.characters.at(index)
-        index = index.advancedBy(1)
+        
+        if index < terminal.endIndex {
+            index = index.advancedBy(1)
+        }
         
         if currentChar == char {
             if index == terminal.endIndex {

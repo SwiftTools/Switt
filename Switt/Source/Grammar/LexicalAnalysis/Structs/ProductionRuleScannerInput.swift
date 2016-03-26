@@ -9,7 +9,7 @@ struct TokenSource {
 struct Token {
     var source: TokenSource
     var string: String
-    var name: RuleName
+    var ruleIdentifier: RuleIdentifier
 }
 
 struct ProductionRuleScannerInput {

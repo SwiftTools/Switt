@@ -399,8 +399,8 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         parserRule(.string_literal, .Static_string_literal ~ .Interpolated_string_literal)
         lexerRule(.Static_string_literal, "\"" ~ "\"")
         
-        lexerRule(.Quoted_text, oneOrMore(.Quoted_text_item))
-        lexerRule(.Quoted_text_item, notChar(["\"", "\n", "\r", "\\"]))
+        lexerFragment(.Quoted_text, oneOrMore(.Quoted_text_item))
+        lexerFragment(.Quoted_text_item, notChar(["\"", "\n", "\r", "\\"]))
         
         lexerFragment(.Escaped_character,
             any(
@@ -429,12 +429,32 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         
         // TODO: -> channel(HIDDEN)
         lexerRule(.Block_comment,
-            "/*" ~ lazy(.Block_comment ~ anyChar()) ~ "*/"
+            compound(
+                required("/*"),
+                lazy(
+                    any(
+                        required(.Block_comment),
+                        anyChar()
+                    ),
+                    stopRule: required("*/"),
+                    stopRuleIsRequired: true
+                )
+            )
         )
         
         // TODO: -> channel(HIDDEN)
+//        lexerRule(.Line_comment,
+//            "//" ~ lazy(anyChar()) ~ any(~"\n", eof())
+//        )
         lexerRule(.Line_comment,
-            "//" ~ lazy(anyChar()) ~ any(~"\n", eof())
+            compound(
+                required("//"),
+                lazy(
+                    anyChar(),
+                    stopRule: required("\n"),
+                    stopRuleIsRequired: false
+                )
+            )
         )
     }
 }

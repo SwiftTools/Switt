@@ -4,6 +4,7 @@ extension Character {
         let scalars = characterString.unicodeScalars
         return scalars[scalars.startIndex]
     }
+    
     func toUInt32() -> UInt32 {
         return toUnicodeScalar().value
     }
@@ -29,4 +30,22 @@ struct CharRange: CustomDebugStringConvertible, Equatable {
 
 func ==(left: CharRange, right: CharRange) -> Bool {
     return left.first == right.first && left.last == right.last
+}
+
+extension CharRange {
+    init(first: UnicodeScalar, last: UnicodeScalar) {
+        self.init(first: first.value, last: last.value)
+    }
+    
+//    init(first: Character, last: Character) {
+//        self.init(first: first.toUInt32(), last: last.toUInt32())
+//    }
+//    
+    init(char: UnicodeScalar) {
+        self.init(first: char.value, last: char.value)
+    }
+//    
+//    init(char: Character) {
+//        self.init(first: char.toUInt32(), last: char.toUInt32())
+//    }
 }

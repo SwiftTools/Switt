@@ -8,6 +8,7 @@ indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
     case Alternatives(rules: [ProductionRule])
     case Optional(rule: ProductionRule)
     case Terminal(terminal: String)
+    case Lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool)
     case Multiple(atLeast: UInt, rule: ProductionRule)
     case Empty
     case Eof
@@ -35,6 +36,8 @@ func ==(left: ProductionRule, right: ProductionRule) -> Bool {
         return ruleName1 == ruleName2
     case (.Terminal(let terminal1), .Terminal(let terminal2)):
         return terminal1 == terminal2
+    case (.Lazy(let rule1, let stopRule1, let required1), .Lazy(let rule2, let stopRule2, let required2)):
+        return rule1 == rule2 && stopRule1 == stopRule2 && required1 == required2
     default:
         return false
     }
@@ -75,6 +78,17 @@ extension ProductionRule {
                 prefix: "(",
                 infix: (rules.map { $0.debugDescription }).joinWithSeparator("," + StringUtils.newLine),
                 postfix: ")"
+            )
+        case .Lazy(let rule, let stopRule, let required):
+            return "lazy"
+                + StringUtils.wrapAndIndent(
+                    prefix: "(",
+                    infix: rule.debugDescription,
+                    postfix: ")"
+                ) + StringUtils.wrapAndIndent(
+                    prefix: ", stopRule" + (required ? "(required)" : "") + ": (",
+                    infix: stopRule.debugDescription,
+                    postfix: ")"
             )
         case .RuleReference(let ruleName):
             return ruleName.debugDescription

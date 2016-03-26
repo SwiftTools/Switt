@@ -1,6 +1,7 @@
 class CharTokenizer: Tokenizer {
     private let charRanges: [CharRange]
     private let resultIfContains: Bool
+    private var alreadyFed: Bool = false
     
     init(charRanges: [CharRange], invert: Bool) {
         self.charRanges = charRanges
@@ -19,10 +20,15 @@ class CharTokenizer: Tokenizer {
     }
     
     func feed(char: Character) -> TokenizerState {
-        if matches(char) {
-            return .Complete
-        } else {
+        if alreadyFed {
             return .Fail
+        } else {
+            alreadyFed = true
+            if matches(char) {
+                return .Complete
+            } else {
+                return .Fail
+            }
         }
     }
     

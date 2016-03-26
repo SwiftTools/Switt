@@ -4,11 +4,6 @@ class SwiftGrammarStatements: GrammarRulesRegistrator {
     func registerRules() {
         clearRules()
         
-        append(SwiftGrammarLoopStatement())
-        append(SwiftGrammarBranchStatement())
-        append(SwiftGrammarAvailabilityStatements())
-        append(SwiftGrammarCompilerControlStatements())
-        
         // statements
         
         let statementRules: [ProductionRule] = [
@@ -179,5 +174,10 @@ class SwiftGrammarStatements: GrammarRulesRegistrator {
                 required(.code_block)
             )
         )
+        
+        append(SwiftGrammarLoopStatement())
+        append(SwiftGrammarBranchStatement())
+        append(SwiftGrammarAvailabilityStatements())
+        append(SwiftGrammarCompilerControlStatements())
     }
 }

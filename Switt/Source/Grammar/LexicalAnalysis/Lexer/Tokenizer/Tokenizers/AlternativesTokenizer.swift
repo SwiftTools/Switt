@@ -1,16 +1,16 @@
 class AlternativesTokenizer: Tokenizer {
-    private var tokenizers: [Tokenizer]
+    private var tokenizers: [Lazy<Tokenizer>]
     
     init(rules: [LexerRule], tokenizerFactory: TokenizerFactory) {
-        self.tokenizers = rules.map(tokenizerFactory.tokenizer)
+        self.tokenizers = rules.map { Lazy(tokenizerFactory.tokenizer($0)) }
     }
     
     func feed(char: Character) -> TokenizerState {
-        var completeTokenizers: [Tokenizer] = []
-        var possibleTokenizers: [Tokenizer] = []
+        var completeTokenizers: [Lazy<Tokenizer>] = []
+        var possibleTokenizers: [Lazy<Tokenizer>] = []
         
         for tokenizer in tokenizers {
-            switch tokenizer.feed(char) {
+            switch tokenizer.value.feed(char) {
             case .Complete:
                 completeTokenizers.append(tokenizer)
             case .Fail:

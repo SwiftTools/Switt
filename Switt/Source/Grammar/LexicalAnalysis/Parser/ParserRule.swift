@@ -7,6 +7,7 @@ indirect enum ParserRule {
     case Optional(rule: ParserRule)
     case Terminal(terminal: String)
     case Repetition(atLeast: UInt, rule: ParserRule)
+    case Lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool)
     case Empty
     case Eof
 }

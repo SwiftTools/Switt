@@ -30,6 +30,12 @@ private extension ProductionRule {
         switch self {
         case .Check, .Eof:
             return false
+        case .RuleReference, .Terminal, .Char:
+            // Already simple
+            return true
+        case .Empty:
+            // Can be transformed
+            return true
         case .Multiple(_, let rule):
             return rule.canBeSimplified
         case .Optional(let rule):
@@ -38,8 +44,8 @@ private extension ProductionRule {
             return !rules.contains { !$0.canBeSimplified }
         case .Sequence(let rules):
             return !rules.contains { !$0.canBeSimplified }
-        default:
-            return true
+        case .Lazy(let rule, let stopRule, _):
+            return rule.canBeSimplified && stopRule.canBeSimplified
         }
     }
     
@@ -57,13 +63,17 @@ private extension ProductionRule {
         case .Multiple(let times, let rule):
             return times == 1 && rule.isSimplified
             
+            // Optional is not simplified
+        case .Optional:
+            return false
+            
             // All rules should be simplified
-        case .Optional(let rule):
-            return rule.isSimplified
         case .Alternatives(let rules):
             return !rules.contains { !$0.isSimplified }
         case .Sequence(let rules):
             return !rules.contains { !$0.isSimplified }
+        case .Lazy(let rule, let stopRule, _):
+            return rule.isSimplified && stopRule.isSimplified
         }
     }
 }
@@ -103,7 +113,16 @@ class LexerRuleConverter {
                     rulesAfter: rules.suffixFrom(id).dropFirst().map { $0 }
                 )
                 return rule
-            default:
+            case .Check,
+                 .Char,
+                 .RuleReference,
+                 .Sequence,
+                 .Alternatives,
+                 .Terminal,
+                 .Lazy,
+                 .Multiple,
+                 .Empty,
+                 .Eof:
                 newRules.append(rule)
             }
         }
@@ -135,7 +154,16 @@ class LexerRuleConverter {
                     )
                     newRules.append(rule)
                 }
-            default:
+            case .Check,
+                 .Char,
+                 .RuleReference,
+                 .Sequence,
+                 .Alternatives,
+                 .Optional, 
+                 .Terminal, 
+                 .Lazy,
+                 .Empty, 
+                 .Eof:
                 newRules.append(rule)
             }
         }
@@ -149,14 +177,24 @@ class LexerRuleConverter {
         
         for (id, rule) in rules.enumerate() {
             switch rule {
-            case .Alternatives(let rules):
+            case .Alternatives(let innerRules):
                 let rule = splitAlternatives(
                     rulesBefore: newRules,
-                    alternatives: rules.map { [$0] },
+                    alternatives: innerRules.map { [$0] },
                     rulesAfter: rules.suffixFrom(id).dropFirst().map { $0 }
                 )
                 return rule
-            default:
+                
+            case .Check,
+                 .Char,
+                 .RuleReference,
+                 .Sequence,
+                 .Optional, 
+                 .Terminal, 
+                 .Lazy, 
+                 .Multiple, 
+                 .Empty, 
+                 .Eof:
                 newRules.append(rule)
             }
         }
@@ -197,8 +235,19 @@ class LexerRuleConverter {
             return .Optional(rule: stripMultiples(rule))
         case .Multiple(let atLeast, let rule):
             return .Multiple(atLeast: atLeast, rule: stripMultiples(rule))
-        
-        default:
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            return .Lazy(
+                rule: stripMultiples(rule),
+                stopRule: stripMultiples(stopRule),
+                stopRuleIsRequired: stopRuleIsRequired
+            )
+            
+        case .Check,
+             .Char,
+             .RuleReference,
+             .Terminal,
+             .Empty, 
+             .Eof:
             return rule
         }
     }
@@ -217,7 +266,19 @@ class LexerRuleConverter {
             return .Optional(rule: stripOptionals(rule))
         case .Multiple(let atLeast, let rule):
             return .Multiple(atLeast: atLeast, rule: stripOptionals(rule))
-        default:
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            return .Lazy(
+                rule: stripOptionals(rule),
+                stopRule: stripOptionals(stopRule),
+                stopRuleIsRequired: stopRuleIsRequired
+            )
+            
+        case .Check,
+             .Char,
+             .RuleReference,
+             .Terminal,
+             .Empty,
+             .Eof:
             return rule
         }
     }
@@ -255,8 +316,20 @@ class LexerRuleConverter {
             return .Optional(rule: mergeCollections(rule))
         case .Multiple(let atLeast, let rule):
             return .Multiple(atLeast: atLeast, rule: mergeCollections(rule))
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            return .Lazy(
+                rule: mergeCollections(rule),
+                stopRule: mergeCollections(stopRule),
+                stopRuleIsRequired: stopRuleIsRequired
+            )
             
-        default:
+            
+        case .Check,
+             .Char,
+             .RuleReference,
+             .Terminal,
+             .Empty,
+             .Eof:
             return rule
         }
     }
@@ -294,7 +367,25 @@ class LexerRuleConverter {
                 return .Multiple(atLeast: atLeast, rule: removeUnusedEmptys(rule))
             }
             
-        default:
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            if rule.isEmpty {
+                return ProductionRule.Empty
+            } else if stopRule.isEmpty {
+                return .Multiple(atLeast: 0, rule: removeUnusedEmptys(rule))
+            } else {
+                return .Lazy(
+                    rule: removeUnusedEmptys(rule),
+                    stopRule: removeUnusedEmptys(stopRule),
+                    stopRuleIsRequired: stopRuleIsRequired
+                )
+            }
+            
+        case .Check,
+             .Char,
+             .RuleReference,
+             .Terminal,
+             .Empty,
+             .Eof:
             return rule
         }
     }
@@ -314,14 +405,27 @@ class LexerRuleConverter {
             return .Optional(rule: unrollSequence(rule))
         case .Multiple(let atLeast, let rule):
             return .Multiple(atLeast: atLeast, rule: unrollSequence(rule))
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            return .Lazy(
+                rule: unrollSequence(rule),
+                stopRule: unrollSequence(stopRule),
+                stopRuleIsRequired: stopRuleIsRequired
+            )
 
-        default:
+        case .Check,
+             .Char,
+             .RuleReference,
+             .Terminal,
+             .Empty,
+             .Eof:
             return rule
         }
     }
     
     static func simplifyRule(rule: ProductionRule) -> ProductionRule? {
-        if rule.canBeSimplified {
+        if rule.isSimplified {
+            return rule
+        } else if rule.canBeSimplified {
             let functions: [ProductionRule -> ProductionRule] = [
                 stripMultiples,
                 stripOptionals,
@@ -372,10 +476,16 @@ class LexerRuleConverter {
             case .Terminal(let terminal):
                 return LexerRule.Terminal(terminal: terminal)
                 
+            case .Multiple(let atLeast, let rule):
+                if atLeast == 1, let lexerRule = convertToLexerRule(rule) {
+                    return LexerRule.Repetition(rule: lexerRule)
+                } else {
+                    // Should be converted at simplification stage
+                    return nil
+                }
+                
                 // Should be converted at simplification stage
             case .Empty:
-                return nil
-            case .Multiple:
                 return nil
             case .Eof:
                 return nil
@@ -383,6 +493,12 @@ class LexerRuleConverter {
                 return nil
             case .Check:
                 return nil
+            case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+                if let rule = convertToLexerRule(rule), let stopRule = convertToLexerRule(stopRule) {
+                    return LexerRule.Lazy(rule: rule, stopRule: stopRule, stopRuleIsRequired: stopRuleIsRequired)
+                } else {
+                    return nil
+                }
             }
         } else {
             return nil

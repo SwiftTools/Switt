@@ -7,16 +7,6 @@ protocol GrammarRulesRegistrator: GrammarRulesBuilder {
     func registerRules()
 }
 
-//enum LexerRuleConversionResult {
-//    case Error // TODO
-//    case UnexpectedCheckRule
-//    case UnexpectedEmptyRule
-//    case UnexpectedEofRule
-//    case UnexpectedMultipleRule
-//    case UnexpectedOptionalRule
-//    case Rule(rule: LexerRule)
-//}
-
 extension GrammarRulesRegistrator {
     func clearRules() {
         grammarRules = GrammarRules()
@@ -26,12 +16,12 @@ extension GrammarRulesRegistrator {
         grammarBuilder.clearRules()
         grammarBuilder.registerRules()
         
-        for (name, rule) in grammarBuilder.grammarRules.lexerRules.rulesByName {
-            grammarRules.lexerRules.rulesByName[name] = rule
+        for ruleDefinition in grammarBuilder.grammarRules.lexerRules.rules {
+            grammarRules.lexerRules.appendRule(ruleDefinition: ruleDefinition)
         }
         
         for (name, rule) in grammarBuilder.grammarRules.lexerRules.fragmentsByName {
-            grammarRules.lexerRules.fragmentsByName[name] = rule
+            grammarRules.lexerRules.appendFragment(name: name, rule: rule)
         }
         
         for (name, rule) in grammarBuilder.grammarRules.parserRules.rulesByName {
@@ -44,12 +34,23 @@ extension GrammarRulesRegistrator {
     }
     
     func parserRule(name: RuleName, _ rule: ProductionRule) {
+        for terminal in GrammarRulesMath.allTerminals(rule) {
+            grammarRules.lexerRules.appendRule(
+                terminal: terminal,
+                rule: LexerRule.Terminal(terminal: terminal)
+            )
+        }
         grammarRules.parserRules.rulesByName[name] = convertToParserRule(rule)
     }
     
     func lexerRule(name: RuleName, _ rule: ProductionRule) {
         if let lexerRule = LexerRuleConverter.convertToLexerRule(rule) {
-            grammarRules.lexerRules.rulesByName[name] = lexerRule
+            grammarRules.lexerRules.appendRule(
+                name: name,
+                rule: lexerRule
+            )
+        } else {
+            abort() // TODO
         }
     }
     
@@ -59,7 +60,9 @@ extension GrammarRulesRegistrator {
     
     func lexerFragment(name: RuleName, _ rule: ProductionRule) {
         if let lexerRule = LexerRuleConverter.convertToLexerRule(rule) {
-            grammarRules.lexerRules.fragmentsByName[name] = lexerRule
+            grammarRules.lexerRules.appendFragment(name: name, rule: lexerRule)
+        } else {
+            abort() // TODO
         }
     }
     
@@ -85,6 +88,8 @@ extension GrammarRulesRegistrator {
             return ParserRule.RuleReference(ruleName: ruleName)
         case .Terminal(let terminal):
             return ParserRule.Terminal(terminal: terminal)
+        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+            return ParserRule.Lazy(rule: rule, stopRule: stopRule, stopRuleIsRequired: stopRuleIsRequired)
         }
     }
 }
@@ -201,7 +206,7 @@ extension GrammarRulesBuilder {
     }
     
     func char(first: UnicodeScalar, _ last: UnicodeScalar) -> ProductionRule {
-        return .Char(ranges: [CharRange(first: first.value, last: last.value)], invert: false)
+        return .Char(ranges: [CharRange(first: first, last: last)], invert: false)
     }
     
     func char(first: UnicodeScalar) -> ProductionRule {
@@ -222,8 +227,8 @@ extension GrammarRulesBuilder {
     
     // *?
     // TODO: implement
-    func lazy(lexeme: ProductionRule) -> ProductionRule {
-        return lexeme
+    func lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool) -> ProductionRule {
+        return ProductionRule.Lazy(rule: rule, stopRule: stopRule, stopRuleIsRequired: stopRuleIsRequired)
     }
     
     func notChar(chars: [UnicodeScalar]) -> ProductionRule {

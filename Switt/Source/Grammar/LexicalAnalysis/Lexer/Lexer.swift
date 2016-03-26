@@ -21,11 +21,11 @@ class LexerImpl: Lexer {
     private func nextToken(inputStream: CharacterInputStream) -> Token? {
         var token: Token?
         
-        var tokenizersByRuleName = [RuleName: Tokenizer]()
-        var possibleRulesByName = lexerRules.rulesByName
+        var tokenizersById = [RuleIdentifier: Tokenizer]()
+        let rules = lexerRules.rules
         
-        for (ruleName, rule) in possibleRulesByName {
-            tokenizersByRuleName[ruleName] = tokenizerFactory.tokenizer(rule)
+        for ruleDefinition in rules {
+            tokenizersById[ruleDefinition.identifier] = tokenizerFactory.tokenizer(ruleDefinition.rule)
         }
         
         let startPosition = inputStream.position
@@ -37,8 +37,10 @@ class LexerImpl: Lexer {
             
             var currentToken: Token?
             
-            for (ruleName, _) in possibleRulesByName {
-                if let tokenizer = tokenizersByRuleName[ruleName] {
+            for ruleDefinition in rules {
+                let ruleIdentifier = ruleDefinition.identifier
+                
+                if let tokenizer = tokenizersById[ruleIdentifier] {
                     
                     switch tokenizer.feed(char) {
                     case .Complete:
@@ -46,7 +48,7 @@ class LexerImpl: Lexer {
                         // first one will be the result.
                         if currentToken == nil {
                             currentToken = makeToken(
-                                ruleName: ruleName,
+                                ruleIdentifier: ruleIdentifier,
                                 string: string,
                                 inputStream: inputStream,
                                 startPosition: startPosition,
@@ -56,7 +58,7 @@ class LexerImpl: Lexer {
                         // Complete doesn't mean that tokenizer can not make longer token
                         // It means that token can be created
                     case .Fail:
-                        possibleRulesByName.removeValueForKey(ruleName)
+                        tokenizersById.removeValueForKey(ruleIdentifier)
                     case .Possible:
                         break
                     }
@@ -70,7 +72,7 @@ class LexerImpl: Lexer {
                 token = currentToken
             }
             
-            if possibleRulesByName.count > 0 {
+            if tokenizersById.count > 0 {
                 // There are rules, try to find longest token
                 continue
             } else {
@@ -90,7 +92,13 @@ class LexerImpl: Lexer {
         return token
     }
     
-    private func makeToken(ruleName ruleName: RuleName, string: String, inputStream: CharacterInputStream, startPosition: StreamPosition, endPosition: StreamPosition) -> Token {
+    private func makeToken(ruleIdentifier
+        ruleIdentifier: RuleIdentifier,
+        string: String,
+        inputStream: CharacterInputStream,
+        startPosition: StreamPosition,
+        endPosition: StreamPosition
+        ) -> Token {
         return Token(
             source: TokenSource(
                 stream: inputStream,
@@ -98,7 +106,7 @@ class LexerImpl: Lexer {
                 endPosition: endPosition
             ),
             string: string,
-            name: ruleName
+            ruleIdentifier: ruleIdentifier
         )
     }
 }

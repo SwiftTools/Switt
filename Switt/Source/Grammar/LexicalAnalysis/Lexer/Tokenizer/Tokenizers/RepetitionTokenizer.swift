@@ -18,7 +18,7 @@ class RepetitionTokenizer: Tokenizer {
             return .Fail
         case .Complete:
             tokenizer = tokenizerFactory.tokenizer(rule)
-            return .Possible
+            return .Complete
         }
     }
 }

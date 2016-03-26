@@ -142,6 +142,18 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
         expect(actualRule?.alternatives).toNot(beNil())
     }
     
+    func test_convertToLexerRule_1() {
+        let actualRule = LexerRuleConverter.convertToLexerRule(
+            oneOrMore(.Identifier_character)
+        )
+        let expectedRule = LexerRule.Repetition(
+            rule: LexerRule.RuleReference(
+                ruleName: .Identifier_character
+            )
+        )
+        expect(actualRule).to(equal(expectedRule))
+    }
+    
     func test_simplifyRule_0() {
         let actualRule = LexerRuleConverter.simplifyRule(
             ~"a" | "b" ~ (??"c" | zeroOrMore("d"))
@@ -156,22 +168,6 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
         )
         
         let expectedRule = any("a", "b")
-        
-        expect(actualRule).to(equal(expectedRule))
-    }
-    
-    func test_simplifyRule_2() {
-        let actualRule = LexerRuleConverter.simplifyRule(
-            compound(
-                required("x"),
-                any("a", "b")
-            )
-        )
-        
-        let expectedRule = any(
-            compound("x", "a"),
-            compound("x", "b")
-        )
         
         expect(actualRule).to(equal(expectedRule))
     }
@@ -440,6 +436,77 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
                 required("a"),
                 zeroOrMore("c")
             )
+        )
+        
+        expect(actualRule).to(equal(expectedRule))
+    }
+    
+    func test_unrollSequence_3() {
+        let actualRule = LexerRuleConverter.unrollSequence(
+            any(
+                compound(
+                    required("`"),
+                    any(
+                        required(.Identifier_head),
+                        required("_")
+                    ),
+                    required(.Identifier_characters),
+                    required("`")
+                ),
+                compound(
+                    required("`"),
+                    any(
+                        required(.Identifier_head),
+                        required("_")
+                    ),
+                    required("`")
+                )
+            )
+        )
+        
+        let expectedRule = any([
+            any([
+                compound([
+                    required("`"),
+                    required(.Identifier_head),
+                    required(.Identifier_characters),
+                    required("`")
+                ] as [ProductionRule]),
+                compound([
+                    required("`"),
+                    required("_"),
+                    required(.Identifier_characters),
+                    required("`")
+                ] as [ProductionRule])
+            ] as [ProductionRule]),
+            any([
+                compound([
+                    required("`"),
+                    required(.Identifier_head),
+                    required("`")
+                ]),
+                compound([
+                    required("`"),
+                    required("_"),
+                    required("`")
+                ] as [ProductionRule])
+            ] as [ProductionRule])
+        ] as [ProductionRule])
+        
+        expect(actualRule).to(equal(expectedRule))
+    }
+    
+    func test_unrollSequence_4() {
+        let actualRule = LexerRuleConverter.unrollSequence(
+            compound(
+                required("x"),
+                any("a", "b")
+            )
+        )
+        
+        let expectedRule = any(
+            compound("x", "a"),
+            compound("x", "b")
         )
         
         expect(actualRule).to(equal(expectedRule))

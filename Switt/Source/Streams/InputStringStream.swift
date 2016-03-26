@@ -1,17 +1,10 @@
 // Privacy of index guarantees that
 // position could only be reset to a previous value
-private class InputStringStreamPosition: StreamPosition {
+private struct InputStringStreamPosition: StreamPosition {
     var index: String.Index
     var file: String?
     var line: UInt
     var column: UInt
-    
-    init(file: String? = nil, index: String.Index) {
-        self.index = index
-        self.file = file
-        self.line = 0
-        self.column = 0
-    }
 }
 
 class CharacterInputStringStream: CharacterInputStream {
@@ -25,7 +18,12 @@ class CharacterInputStringStream: CharacterInputStream {
     init(string: String) {
         self.string = string
         
-        _position = InputStringStreamPosition(index: string.startIndex)
+        _position = InputStringStreamPosition(
+            index: string.startIndex,
+            file: nil,
+            line: 0,
+            column: 0
+        )
     }
     
     func resetPosition(position: StreamPosition) {
