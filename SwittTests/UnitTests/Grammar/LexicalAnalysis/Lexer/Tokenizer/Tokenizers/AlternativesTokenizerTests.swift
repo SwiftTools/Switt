@@ -117,6 +117,48 @@ class AlternativesTokenizerTests: QuickSpec, GrammarRulesBuilder {
                 
                 expect(actualStates).to(equal(expectedStates))
             }
+            
+            it("1") {
+                for test in ["aaab", "aabb", "abbb", "bbbb"] {
+                    let tokenizer = Helper.tokenizer(
+                        [
+                            LexerRule.Terminal(terminal: "aaa"),
+                            LexerRule.Terminal(terminal: "aab"),
+                            LexerRule.Terminal(terminal: "abb"),
+                            LexerRule.Terminal(terminal: "bbb"),
+                        ]
+                    )
+                    let actualStates = test.characters.map { tokenizer.feed($0) }
+                    let expectedStates = [
+                        TokenizerState.Possible,
+                        TokenizerState.Possible,
+                        TokenizerState.Complete,
+                        TokenizerState.Fail
+                    ]
+                    
+                    expect(actualStates).to(equal(expectedStates))
+                }
+            }
+            
+            it("1") {
+                let tokenizer = Helper.tokenizer(
+                    [
+                        LexerRule.Terminal(terminal: "aaa"),
+                        LexerRule.Terminal(terminal: "aa"),
+                        LexerRule.Terminal(terminal: "a"),
+                    ]
+                )
+                
+                let actualStates = "aaaa".characters.map { tokenizer.feed($0) }
+                let expectedStates = [
+                    TokenizerState.Complete,
+                    TokenizerState.Complete,
+                    TokenizerState.Complete,
+                    TokenizerState.Fail
+                ]
+                
+                expect(actualStates).to(equal(expectedStates))
+            }
         }
     }
 }

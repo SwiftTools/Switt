@@ -3,6 +3,7 @@ class RepetitionTokenizer: Tokenizer {
     private var tokenizer: Tokenizer
     private let rule: LexerRule
     private let tokenizerFactory: TokenizerFactory
+    private var wasComplete: Bool = false
     
     init(rule: LexerRule, tokenizerFactory: TokenizerFactory) {
         self.rule = rule
@@ -13,11 +14,29 @@ class RepetitionTokenizer: Tokenizer {
     func feed(char: Character) -> TokenizerState {
         switch tokenizer.feed(char) {
         case .Possible:
+            wasComplete = false
             return .Possible
         case .Fail:
-            return .Fail
+            if wasComplete {
+                wasComplete = false
+                
+                // Retry from beginning
+                tokenizer = tokenizerFactory.tokenizer(rule)
+                
+                switch tokenizer.feed(char) {
+                case .Possible:
+                    return .Possible
+                case .Fail:
+                    return .Fail
+                case .Complete:
+                    wasComplete = true
+                    return .Complete
+                }
+            } else {
+                return .Fail
+            }
         case .Complete:
-            tokenizer = tokenizerFactory.tokenizer(rule)
+            wasComplete = true
             return .Complete
         }
     }

@@ -22,7 +22,7 @@ class LexerImpl: Lexer {
         var token: Token?
         
         var tokenizersById = [RuleIdentifier: Tokenizer]()
-        let rules = lexerRules.rules
+        var rules = lexerRules.rules
         
         for ruleDefinition in rules {
             tokenizersById[ruleDefinition.identifier] = tokenizerFactory.tokenizer(ruleDefinition.rule)
@@ -64,6 +64,8 @@ class LexerImpl: Lexer {
                     }
                 }
             }
+            
+            rules = rules.filter { rule in tokenizersById[rule.identifier] != nil }
             
             // Token with longest string will be a result.
             // Token with longest string always appears on next iteration,
