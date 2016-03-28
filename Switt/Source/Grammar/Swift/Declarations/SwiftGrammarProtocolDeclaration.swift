@@ -1,5 +1,5 @@
 class SwiftGrammarProtocolDeclaration: GrammarRulesRegistrator {
-    var grammarRules: GrammarRules = GrammarRules()
+    var grammarRegistry: GrammarRegistry = GrammarRegistry()
     
     func registerRules() {
         clearRules()

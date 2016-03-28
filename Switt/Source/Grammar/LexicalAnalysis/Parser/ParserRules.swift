@@ -1,4 +1,4 @@
 class ParserRules {
     var rulesByName: [RuleName: ParserRule] = [:]
-    var fragmentsByName: [RuleName: ParserRule] = [:]
+    var fragmentsByIdentifier: [RuleIdentifier: ParserRule] = [:]
 }

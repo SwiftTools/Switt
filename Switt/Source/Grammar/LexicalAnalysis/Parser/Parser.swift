@@ -1,13 +1,4 @@
 protocol Parser {
-    
+    func parse(tokenInputStream: TokenInputStream) -> SyntaxTree?
 }
 
-class ParserImpl: Parser {
-//    func parse(tokenInputStream: TokenInputStream) -> SyntaxTree {
-//        while let token = tokenInputStream.getToken() {
-//            tokenInputStream.moveNext()
-//            
-//            
-//        }
-//    }
-}

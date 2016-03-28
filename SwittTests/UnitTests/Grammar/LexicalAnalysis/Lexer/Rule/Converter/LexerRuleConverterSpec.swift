@@ -39,10 +39,10 @@ extension LexerRule {
         }
     }
     
-    var ruleName: RuleName? {
+    var ruleIdentifier: RuleIdentifier? {
         switch self {
-        case .RuleReference(let ruleName):
-            return ruleName
+        case .RuleReference(let ruleIdentifier):
+            return ruleIdentifier
         default:
             return nil
         }
@@ -104,10 +104,10 @@ extension ProductionRule {
         }
     }
     
-    var ruleName: RuleName? {
+    var ruleIdentifier: RuleIdentifier? {
         switch self {
-        case .RuleReference(let ruleName):
-            return ruleName
+        case .RuleReference(let ruleIdentifier):
+            return ruleIdentifier
         default:
             return nil
         }
@@ -148,7 +148,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
         )
         let expectedRule = LexerRule.Repetition(
             rule: LexerRule.RuleReference(
-                ruleName: .Identifier_character
+                identifier: RuleIdentifier.Named(.Identifier_character)
             )
         )
         expect(actualRule).to(equal(expectedRule))
@@ -221,7 +221,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_stripMultiples_0() {
-        let actualRule = LexerRuleConverter.stripMultiples(
+        let actualRule = StripRepetitionProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any(
@@ -244,7 +244,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_stripMultiples_1() {
-        let actualRule = LexerRuleConverter.stripMultiples(
+        let actualRule = StripRepetitionProductionRuleTransformer().transform(
             any(
                 compound(
                     required("a"),
@@ -275,7 +275,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_stripOptionals_1() {
-        let actualRule = LexerRuleConverter.stripOptionals(
+        let actualRule = StripOptionalsProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any(
@@ -298,7 +298,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_splitAlternatives_0() {
-        let actualRule = LexerRuleConverter.splitAlternatives(
+        let actualRule = RuleCollectionMath.splitAlternatives(
             rulesBefore: [~"x"],
             alternatives: [[~"a"], [~"b"]],
             rulesAfter: [~"y"]
@@ -313,7 +313,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_splitAlternatives_1() {
-        let actualRule = LexerRuleConverter.splitAlternatives(
+        let actualRule = RuleCollectionMath.splitAlternatives(
             rulesBefore: [~"x"],
             alternatives: [],
             rulesAfter: [~"y"]
@@ -325,7 +325,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_splitOptional_0() {
-        let actualRule = LexerRuleConverter.splitOptional(
+        let actualRule = RuleCollectionMath.splitOptional(
             rulesBefore: [~"x"],
             optional: ~"a",
             rulesAfter: [~"y"]
@@ -340,7 +340,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_stripOptionals_0() {
-        let actualRule = LexerRuleConverter.stripOptionals(
+        let actualRule = StripOptionalsProductionRuleTransformer().transform(
             compound(
                 required("x"),
                 optional("a"),
@@ -357,7 +357,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_mergeCollections_0() {
-        let actualRule = LexerRuleConverter.mergeCollections(
+        let actualRule = MergeCollectionsProductionRuleTransformer().transform(
             compound(
                 compound("a"),
                 compound("b"),
@@ -371,7 +371,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_mergeCollections_1() {
-        let actualRule = LexerRuleConverter.mergeCollections(
+        let actualRule = MergeCollectionsProductionRuleTransformer().transform(
             any(
                 any("a"),
                 any("b"),
@@ -385,7 +385,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_unrollSequence_0() {
-        let actualRule = LexerRuleConverter.unrollSequence(
+        let actualRule = RuleCollectionMath.unrollSequence(
             [
                 required("a"),
                 any("b", "c")
@@ -401,7 +401,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_unrollSequence_1() {
-        let actualRule = LexerRuleConverter.unrollSequence(
+        let actualRule = UnrollSequenceProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any("b", "c")
@@ -417,7 +417,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_unrollSequence_2() {
-        let actualRule = LexerRuleConverter.unrollSequence(
+        let actualRule = UnrollSequenceProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any(
@@ -442,7 +442,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_unrollSequence_3() {
-        let actualRule = LexerRuleConverter.unrollSequence(
+        let actualRule = UnrollSequenceProductionRuleTransformer().transform(
             any(
                 compound(
                     required("`"),
@@ -497,7 +497,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_unrollSequence_4() {
-        let actualRule = LexerRuleConverter.unrollSequence(
+        let actualRule = UnrollSequenceProductionRuleTransformer().transform(
             compound(
                 required("x"),
                 any("a", "b")
@@ -513,7 +513,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_mergeCollections_2() {
-        let actualRule = LexerRuleConverter.mergeCollections(
+        let actualRule = MergeCollectionsProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any(
@@ -536,7 +536,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_removeUnusedEmptys_0() {
-        let actualRule = LexerRuleConverter.removeUnusedEmptys(
+        let actualRule = StripEmptyProductionRuleTransformer().transform(
             compound(
                 empty(),
                 required("a"),
@@ -552,7 +552,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_removeUnusedEmptys_1() {
-        let actualRule = LexerRuleConverter.removeUnusedEmptys(
+        let actualRule = StripEmptyProductionRuleTransformer().transform(
             compound(
                 empty(),
                 required("a"),
@@ -574,7 +574,11 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
         
         let expectedRule = compound(
             required("a"),
-            empty(),
+            any(
+                required("x"),
+                empty(),
+                required("y")
+            ),
             compound("b", "c")
         )
         
@@ -582,7 +586,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_removeUnusedEmptys_2() {
-        let actualRule = LexerRuleConverter.removeUnusedEmptys(
+        let actualRule = StripEmptyProductionRuleTransformer().transform(
             compound(
                 required("a"),
                 any(

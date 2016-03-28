@@ -1,6 +1,6 @@
 indirect enum LexerRule: CustomDebugStringConvertible, Equatable {
     case Char(ranges: [CharRange], invert: Bool)
-    case RuleReference(ruleName: RuleName)
+    case RuleReference(identifier: RuleIdentifier)
     case Sequence(rules: [LexerRule])
     case Alternatives(rules: [LexerRule])
     case Terminal(terminal: String)

@@ -1,29 +1,42 @@
-class LexicalAnalyzer {
-    func analyze(string: String, grammar: Grammar, firstRule: RuleName? = nil) -> LexicalAnalysisResult {
-//        let firstRule = firstRule ?? grammar.firstRule
-//        
-//        let lexerRules = LexerRules()
-//        let lexer = Lexer(
-//            lexerRules: lexerRules,
-//            tokenizerFactory: TokenizerFactoryImpl(lexerRules: lexerRules)
-//        )
-//        
-//        if let rule = grammar.rules.rules[firstRule] ?? grammar.rules.fragments[firstRule] {
-//            let input = ProductionRuleScannerInput(
-//                inputStream: InputStringStream(string: string),
-//                grammar: grammar,
-//                ruleContext: grammar.contextCheckFunction(firstRule),
-//                rulesThatCanCauseRecursion: Set([firstRule]),
-//                tokens: []
-//            )
-//            
-//            let ruleWithEof = GrammarRulesMath.compound([rule, ProductionRule.Eof])
-//            
-//            let scanner = AnyProductionRuleScanner(rule: ruleWithEof, input: input)
-//            let outputStream = ProductionRuleScannerOutputStream()
-//            return scanner.scan(outputStream)
-//        }
-//        
-        return .Fail
+protocol LexicalAnalyzer {
+    func analyze(string: String, firstRule: RuleName?) -> SyntaxTree?
+}
+
+extension LexicalAnalyzer {
+    func analyze(string: String) -> SyntaxTree? {
+        return analyze(string, firstRule: nil)
+    }
+}
+
+class LexicalAnalyzerImpl: LexicalAnalyzer {
+    private let grammar: Grammar
+    
+    init(grammarFactory: GrammarFactory) {
+        grammar = grammarFactory.grammar()
+    }
+    
+    func analyze(string: String, firstRule: RuleName?) -> SyntaxTree? {
+        let firstRule = firstRule ?? grammar.firstRule
+        
+        let lexer: Lexer = LexerImpl(
+            lexerRules: grammar.grammarRules.lexerRules,
+            tokenizerFactory: TokenizerFactoryImpl(
+                lexerRules: grammar.grammarRules.lexerRules
+            )
+        )
+        
+        let inputStream = CharacterInputStringStream(string: string)
+        let tokenStream = TokenInputOutputStream()
+        
+        lexer.tokenize(inputStream, outputStream: tokenStream)
+        
+        let parser = ParserImpl(
+            parserRules: grammar.grammarRules.parserRules,
+            firstRule: firstRule
+        )
+        
+        let tokenInputStream = FilteredTokenInputStream(stream: tokenStream, channel: .Default)
+        
+        return parser.parse(tokenInputStream)
     }
 }

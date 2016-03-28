@@ -1,5 +1,5 @@
 class SwiftGrammarExpressions: GrammarRulesRegistrator {
-    var grammarRules: GrammarRules = GrammarRules()
+    var grammarRegistry: GrammarRegistry = GrammarRegistry()
     
     func registerRules() {
         clearRules()
@@ -62,7 +62,6 @@ class SwiftGrammarExpressions: GrammarRulesRegistrator {
                 optional(.try_operator),
                 required(.expression),
                 required(":")
-                
             )
         )
         
@@ -188,20 +187,37 @@ class SwiftGrammarExpressions: GrammarRulesRegistrator {
         parserRule(.wildcard_expression,
             ~"_"
         )
+//        
+//        parserRule(.postfix_expression,
+//            .postfix_expression ~ .postfix_operator // postfix_operation
+//            | .postfix_expression ~ .parenthesized_expression // function_call_expression
+//            | .postfix_expression ~ ??.parenthesized_expression ~ .trailing_closure // function_call_with_closure_expression
+//            | .postfix_expression ~ "." ~ "init" // initializer_expression
+//            | .postfix_expression ~ "." ~ .Pure_decimal_digits // explicit_member_expression1
+//            | .postfix_expression ~ "." ~ .identifier ~ ??.generic_argument_clause // explicit_member_expression2
+//            | .postfix_expression ~ "." ~ "self" // postfix_self_expression
+//            | .postfix_expression ~ "." ~ "dynamicType" // dynamic_type_expression
+//            | .postfix_expression ~ "[" ~ .expression_list ~ "]" // subscript_expression
+//            | ~.primary_expression
+//        )
         
         parserRule(.postfix_expression,
-            .postfix_expression ~ .postfix_operator // postfix_operation
-            | .postfix_expression ~ .parenthesized_expression // function_call_expression
-            | .postfix_expression ~ ??.parenthesized_expression ~ .trailing_closure // function_call_with_closure_expression
-            | .postfix_expression ~ "." ~ "init" // initializer_expression
-            | .postfix_expression ~ "." ~ .Pure_decimal_digits // explicit_member_expression1
-            | .postfix_expression ~ "." ~ .identifier ~ ??.generic_argument_clause // explicit_member_expression2
-            | .postfix_expression ~ "." ~ .Pure_decimal_digits
-            | .postfix_expression ~ "." ~ "self" // postfix_self_expression
-            | .postfix_expression ~ "." ~ "dynamicType" // dynamic_type_expression
-            | .postfix_expression ~ "[" ~ .expression_list ~ "]" // subscript_expression
-            | ~.primary_expression
+            ProductionRule.Alternatives(
+                rules: [
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~.postfix_operator]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~.parenthesized_expression]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, optional(.parenthesized_expression), ~.trailing_closure]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~".", ~"init"]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~".", ~.Pure_decimal_digits]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~".", ~.identifier, optional(.generic_argument_clause)]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~".", ~"self"]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~".", ~"dynamicType"]),
+                    ProductionRule.Sequence(rules: [~.postfix_expression, ~"[", ~.expression_list, ~"]"]),
+                    ProductionRule.Sequence(rules: [~.primary_expression])
+                ]
+            )
         )
+        
         parserRule(.trailing_closure,
             required(.closure_expression)
         )

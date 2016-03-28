@@ -1,3 +1,3 @@
-protocol ProductionRuleScanner {
-    func scan(outputStream: ProductionRuleScannerOutputStream) -> ParserResult
-}
+//protocol ProductionRuleScanner {
+//    func scan(outputStream: ProductionRuleScannerOutputStream) -> ParserResult
+//}

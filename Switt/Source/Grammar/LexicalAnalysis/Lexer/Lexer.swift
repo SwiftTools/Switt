@@ -1,5 +1,10 @@
 protocol Lexer {
-    
+    func tokenize(inputStream: CharacterInputStream, outputStream: TokenOutputStream)
+}
+
+private struct BestToken {
+    var token: Token
+    var endPosition: CharacterStreamPosition
 }
 
 class LexerImpl: Lexer {
@@ -19,7 +24,7 @@ class LexerImpl: Lexer {
     }
     
     private func nextToken(inputStream: CharacterInputStream) -> Token? {
-        var token: Token?
+        var bestToken: BestToken?
         
         var tokenizersById = [RuleIdentifier: Tokenizer]()
         var rules = lexerRules.rules
@@ -35,7 +40,7 @@ class LexerImpl: Lexer {
             inputStream.moveNext()
             string.append(char)
             
-            var currentToken: Token?
+            var currentToken: BestToken?
             
             for ruleDefinition in rules {
                 let ruleIdentifier = ruleDefinition.identifier
@@ -50,8 +55,7 @@ class LexerImpl: Lexer {
                             currentToken = makeToken(
                                 ruleIdentifier: ruleIdentifier,
                                 string: string,
-                                inputStream: inputStream,
-                                startPosition: startPosition,
+                                channel: ruleDefinition.channel,
                                 endPosition: inputStream.position
                             )
                         }
@@ -71,18 +75,18 @@ class LexerImpl: Lexer {
             // Token with longest string always appears on next iteration,
             // after token with smaller string
             if currentToken != nil {
-                token = currentToken
+                bestToken = currentToken
             }
             
             if tokenizersById.count > 0 {
                 // There are rules, try to find longest token
                 continue
             } else {
-                if let token = token {
+                if let bestToken = bestToken {
                     // Reset position to last token.
                     // This is done, because input stream could be read after finding this token
                     // but no more tokens were found
-                    inputStream.resetPosition(token.source.endPosition)
+                    inputStream.resetPosition(bestToken.endPosition)
                     break
                 } else {
                     // Error: couldn't find token in input stream
@@ -91,24 +95,22 @@ class LexerImpl: Lexer {
             }
         }
         
-        return token
+        return bestToken?.token
     }
     
     private func makeToken(ruleIdentifier
         ruleIdentifier: RuleIdentifier,
         string: String,
-        inputStream: CharacterInputStream,
-        startPosition: StreamPosition,
-        endPosition: StreamPosition
-        ) -> Token {
-        return Token(
-            source: TokenSource(
-                stream: inputStream,
-                startPosition: startPosition,
-                endPosition: endPosition
+        channel: LexerChannel,
+        endPosition: CharacterStreamPosition
+        ) -> BestToken {
+        return BestToken(
+            token: Token(
+                string: string,
+                ruleIdentifier: ruleIdentifier,
+                channel: channel
             ),
-            string: string,
-            ruleIdentifier: ruleIdentifier
+            endPosition: endPosition
         )
     }
 }

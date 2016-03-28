@@ -1,8 +1,8 @@
 class RuleReferenceTokenizer: Tokenizer {
     private let tokenizer: Tokenizer?
     
-    init(ruleName: RuleName, tokenizerFactory: TokenizerFactory) {
-        tokenizer = tokenizerFactory.tokenizer(ruleName)
+    init(ruleIdentifier: RuleIdentifier, tokenizerFactory: TokenizerFactory) {
+        tokenizer = tokenizerFactory.tokenizer(ruleIdentifier)
     }
     
     func feed(char: Character) -> TokenizerState {

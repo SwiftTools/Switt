@@ -10,6 +10,6 @@ class LexerRulesTests: XCTestCase {
         
         expect(lexerRules.rules.count).to(equal(1))
         expect(lexerRules.rulesByName.count).to(equal(0))
-        expect(lexerRules.fragmentsByName.count).to(equal(0))
+        expect(lexerRules.fragmentsByIdentifier.count).to(equal(0))
     }
 }

@@ -5,9 +5,15 @@ class TokenizerFactoryImpl: TokenizerFactory {
         self.lexerRules = lexerRules
     }
     
-    func tokenizer(ruleName: RuleName) -> Tokenizer? {
-        let rule: LexerRule? = lexerRules.rulesByName[ruleName] ?? lexerRules.fragmentsByName[ruleName]
-        return rule.flatMap(tokenizer)
+    func tokenizer(ruleIdentifier: RuleIdentifier) -> Tokenizer? {
+        let lexerRule: LexerRule?
+        switch ruleIdentifier {
+        case .Named(let ruleName):
+            lexerRule = lexerRules.rulesByName[ruleName] ?? lexerRules.fragmentsByIdentifier[ruleIdentifier]
+        default:
+            lexerRule = lexerRules.fragmentsByIdentifier[ruleIdentifier]
+        }
+        return lexerRule.flatMap(tokenizer)
     }
     
     func tokenizer(lexerRule: LexerRule) -> Tokenizer {
@@ -34,9 +40,9 @@ class TokenizerFactoryImpl: TokenizerFactory {
                 rules: rules,
                 tokenizerFactory: self
             )
-        case .RuleReference(let ruleName):
+        case .RuleReference(let ruleIdentifier):
             tokenizer = RuleReferenceTokenizer(
-                ruleName: ruleName,
+                ruleIdentifier: ruleIdentifier,
                 tokenizerFactory: self
             )
         case .Terminal(let terminal):

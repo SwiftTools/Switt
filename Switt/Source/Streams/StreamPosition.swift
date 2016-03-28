@@ -1,25 +1,37 @@
-protocol StreamPosition {
-    var file: String? { get }
-    var line: UInt { get }
-    var column: UInt { get }
+class StreamPosition: Comparable {
+    private let restoreFunction: () -> ()
+    
+    // Saved index: 0
+    // Current index: 1
+    // Distance: 1
+    private let distanceToCurrent: () -> Int
+    
+    init(restoreFunction: () -> (), distanceToCurrent: () -> Int) {
+        self.restoreFunction = restoreFunction
+        self.distanceToCurrent = distanceToCurrent
+    }
+    
+    func restore() {
+        restoreFunction()
+    }
 }
 
-func ==(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
-    return lhs.line == rhs.line && lhs.column == rhs.column && lhs.file == rhs.file
+func ==(left: StreamPosition, right: StreamPosition) -> Bool {
+    return left.distanceToCurrent() == right.distanceToCurrent()
 }
 
-func <(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
-    return (lhs.line < rhs.line && lhs.column == rhs.column) || lhs.column < rhs.column
+func <(left: StreamPosition, right: StreamPosition) -> Bool {
+    return left.distanceToCurrent() > right.distanceToCurrent()
 }
 
-func <=(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
-    return (lhs.line <= rhs.line && lhs.column == rhs.column) || lhs.column < rhs.column
+func >(left: StreamPosition, right: StreamPosition) -> Bool {
+    return left.distanceToCurrent() < right.distanceToCurrent()
 }
 
-func >=(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
-    return (lhs.line >= rhs.line && lhs.column == rhs.column) || lhs.column > rhs.column
+func <=(left: StreamPosition, right: StreamPosition) -> Bool {
+    return left.distanceToCurrent() >= right.distanceToCurrent()
 }
 
-func >(lhs: StreamPosition, rhs: StreamPosition) -> Bool {
-    return (lhs.line > rhs.line && lhs.column == rhs.column) || lhs.column > rhs.column
+func >=(left: StreamPosition, right: StreamPosition) -> Bool {
+    return left.distanceToCurrent() <= right.distanceToCurrent()
 }

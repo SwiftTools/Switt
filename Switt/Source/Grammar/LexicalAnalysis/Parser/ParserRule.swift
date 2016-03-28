@@ -1,13 +1,20 @@
 indirect enum ParserRule {
     case Check(function: ProductionRuleCheckFunction)
-    case Char(ranges: [CharRange], invert: Bool)
-    case RuleReference(ruleName: RuleName)
+    
+    // Reference
+    case RuleReference(identifier: RuleIdentifier)
+    case NamedTerminal(ruleName: RuleName)
+    
+    // Multiple rules
     case Sequence(rules: [ParserRule])
     case Alternatives(rules: [ParserRule])
-    case Optional(rule: ParserRule)
-    case Terminal(terminal: String)
+    
+    // Recursive
     case Repetition(atLeast: UInt, rule: ParserRule)
-    case Lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool)
+    case Optional(rule: ParserRule)
+    
+    // Simple
+    case Terminal(terminal: String)
     case Empty
     case Eof
 }

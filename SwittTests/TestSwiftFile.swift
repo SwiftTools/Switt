@@ -1,5 +1,5 @@
 class TestSwiftFile {
-    static let file: String = __FILE__
+    static let file: String = #file
 }
 
 class TestSwiftFileWithFunction {

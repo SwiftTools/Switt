@@ -18,7 +18,7 @@ class SwiftSupport {
 }
 
 class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
-    var grammarRules: GrammarRules = GrammarRules()
+    var grammarRegistry: GrammarRegistry = GrammarRegistry()
     
     func registerRules() {
         clearRules()
@@ -105,7 +105,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
                 "convenience",
                 "dynamic",
                 "didSet",
-                "fina",
+                "final",
                 "get",
                 "infix",
                 "indirect",
@@ -136,32 +136,32 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
             check(SwiftSupport.isBinaryOp) ~ "="
         )
         
-        lexerRule(.DOT, char("."))
-        lexerRule(.LCURLY, char("{"))
-        lexerRule(.LPAREN, char("("))
-        lexerRule(.LBRACK, char("["))
-        lexerRule(.RCURLY, char("}"))
-        lexerRule(.RPAREN, char(")"))
-        lexerRule(.RBRACK, char("]"))
-        lexerRule(.COMMA, char(","))
-        lexerRule(.COLON, char(":"))
-        lexerRule(.SEMI, char(";"))
-        lexerRule(.LT, char("<"))
-        lexerRule(.GT, char(">"))
-        lexerRule(.UNDERSCORE, char("_"))
-        lexerRule(.BANG, char("!"))
-        lexerRule(.QUESTION, char("?"))
-        lexerRule(.AT, char("@"))
-        lexerRule(.AND, char("&"))
-        lexerRule(.SUB, char("-"))
-        lexerRule(.EQUAL, char("="))
-        lexerRule(.OR, char("|"))
-        lexerRule(.DIV, char("/"))
-        lexerRule(.ADD, char("+"))
-        lexerRule(.MUL, char("*"))
-        lexerRule(.MOD, char("%"))
-        lexerRule(.CARET, char("^"))
-        lexerRule(.TILDE, char("~"))
+        lexerRule(.DOT, ~".")
+        lexerRule(.LCURLY, ~"{")
+        lexerRule(.LPAREN, ~"(")
+        lexerRule(.LBRACK, ~"[")
+        lexerRule(.RCURLY, ~"}")
+        lexerRule(.RPAREN, ~")")
+        lexerRule(.RBRACK, ~"]")
+        lexerRule(.COMMA, ~",")
+        lexerRule(.COLON, ~":")
+        lexerRule(.SEMI, ~";")
+        lexerRule(.LT, ~"<")
+        lexerRule(.GT, ~">")
+        lexerRule(.UNDERSCORE, ~"_")
+        lexerRule(.BANG, ~"!")
+        lexerRule(.QUESTION, ~"?")
+        lexerRule(.AT, ~"@")
+        lexerRule(.AND, ~"&")
+        lexerRule(.SUB, ~"-")
+        lexerRule(.EQUAL, ~"=")
+        lexerRule(.OR, ~"|")
+        lexerRule(.DIV, ~"/")
+        lexerRule(.ADD, ~"+")
+        lexerRule(.MUL, ~"*")
+        lexerRule(.MOD, ~"%")
+        lexerRule(.CARET, ~"^")
+        lexerRule(.TILDE, ~"~")
         
         // ANTLR comment:
         // Need to separate this out from Prefix_operator as it's referenced in numeric_literal
@@ -396,7 +396,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         
         // GRAMMAR OF A STRING LITERAL
         
-        parserRule(.string_literal, .Static_string_literal ~ .Interpolated_string_literal)
+        parserRule(.string_literal, ~.Static_string_literal | ~.Interpolated_string_literal)
         lexerRule(.Static_string_literal, "\"" ~ "\"")
         
         lexerFragment(.Quoted_text, oneOrMore(.Quoted_text_item))
@@ -424,7 +424,8 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         
         // TODO: -> channel(HIDDEN)
         lexerRule(.WS,
-            oneOrMore(char([" ", "\n", "\r", "\t", "\u{000B}", "\u{000C}", "\u{0000}"]))
+            oneOrMore(char([" ", "\n", "\r", "\t", "\u{000B}", "\u{000C}", "\u{0000}"])),
+            channel: LexerChannel.Hidden
         )
         
         // TODO: -> channel(HIDDEN)
@@ -439,13 +440,10 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
                     stopRule: required("*/"),
                     stopRuleIsRequired: true
                 )
-            )
+            ),
+            channel: LexerChannel.Hidden
         )
         
-        // TODO: -> channel(HIDDEN)
-//        lexerRule(.Line_comment,
-//            "//" ~ lazy(anyChar()) ~ any(~"\n", eof())
-//        )
         lexerRule(.Line_comment,
             compound(
                 required("//"),
@@ -454,7 +452,8 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
                     stopRule: required("\n"),
                     stopRuleIsRequired: false
                 )
-            )
+            ),
+            channel: LexerChannel.Hidden
         )
     }
 }

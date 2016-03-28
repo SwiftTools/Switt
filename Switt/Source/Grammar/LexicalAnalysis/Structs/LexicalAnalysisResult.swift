@@ -1,1 +1,1 @@
-typealias LexicalAnalysisResult = ParserResult
+//typealias LexicalAnalysisResult = ParserResult

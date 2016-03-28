@@ -6,9 +6,6 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
     func test() {
         let helper = LexicalAnalysisTestHelper()
         
-        expect(helper.isSuccess("i", firstRule: RuleName.Identifier_head)).to(equal(true))
-        expect(helper.isSuccess("1", firstRule: RuleName.Identifier_head)).to(equal(false))
-        
         expect(helper.isSuccess("identifier", firstRule: RuleName.identifier)).to(equal(true))
         expect(helper.isSuccess("class", firstRule: RuleName.identifier)).to(equal(false))
         expect(helper.isSuccess("1", firstRule: RuleName.identifier)).to(equal(false))
@@ -23,11 +20,7 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         expect(helper.isSuccess("false", firstRule: RuleName.boolean_literal)).to(equal(true))
         expect(helper.isSuccess("0", firstRule: RuleName.boolean_literal)).to(equal(false))
         expect(helper.isSuccess("truee", firstRule: RuleName.boolean_literal)).to(equal(false))
-        
-        expect(helper.isSuccess("1.0", firstRule: RuleName.Floating_point_literal)).to(equal(true))
-        expect(helper.isSuccess("1.0.0", firstRule: RuleName.Floating_point_literal)).to(equal(false))
-        expect(helper.isSuccess("\"1\"", firstRule: RuleName.Floating_point_literal)).to(equal(false))
-        
+
         expect(helper.isSuccess("MyClass", firstRule: RuleName.class_name)).to(equal(true))
         expect(helper.isSuccess("class TestSwiftFile {}", firstRule: RuleName.class_declaration)).to(equal(true))
         expect(helper.isSuccess("class TestSwiftFile {_}", firstRule: RuleName.class_declaration)).to(equal(false))
@@ -49,6 +42,9 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         
         expect(helper.isSuccess("class TestSwiftFile { static let file = 1 }", firstRule: RuleName.statements)).to(equal(true))
         
+        expect(helper.isSuccess("class TestSwiftFile { static var file: String? }", firstRule: RuleName.statements)).to(equal(true))
+        expect(helper.isSuccess("class TestSwiftFile { static var file: String? = nil }", firstRule: RuleName.statements)).to(equal(true))
+        
         expect(helper.isSuccess("class TestSwiftFile { static let file: String = \"\" }", firstRule: RuleName.statements)).to(equal(true))
         
         expect(helper.isSuccess("class TestSwiftFile { static let file: String = __FILE__ }", firstRule: RuleName.statements)).to(equal(true))
@@ -65,6 +61,7 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         expect(helper.isSuccess("x", firstRule: RuleName.pattern)).to(equal(true))
         expect(helper.isSuccess("?", firstRule: RuleName.pattern)).to(equal(false))
         
+        expect(helper.isSuccess("=1", firstRule: RuleName.initializer)).to(equal(true))
         expect(helper.isSuccess("= 1", firstRule: RuleName.initializer)).to(equal(true))
         expect(helper.isSuccess("= identifier", firstRule: RuleName.initializer)).to(equal(true))
         expect(helper.isSuccess("=identifier", firstRule: RuleName.initializer)).to(equal(true))
@@ -75,7 +72,10 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         expect(helper.isSuccess("? 1 :", firstRule: RuleName.conditional_operator)).to(equal(true))
         
         expect(helper.isSuccess("identifier", firstRule: RuleName.primary_expression)).to(equal(true))
+        
         expect(helper.isSuccess("identifier", firstRule: RuleName.postfix_expression)).to(equal(true))
+        expect(helper.isSuccess("identifier[1]", firstRule: RuleName.postfix_expression)).to(equal(true))
+        
         expect(helper.isSuccess("&identifier", firstRule: RuleName.in_out_expression)).to(equal(true))
         
         expect(helper.isSuccess("try", firstRule: RuleName.try_operator)).to(equal(true))
@@ -89,9 +89,10 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         expect(helper.isSuccess("as! Int", firstRule: RuleName.type_casting_operator)).to(equal(true))
         expect(helper.isSuccess("asInt", firstRule: RuleName.type_casting_operator)).to(equal(false))
         
-        
         expect(helper.isSuccess("1", firstRule: RuleName.prefix_expression)).to(equal(true))
         
-        expect(helper.isSuccess("1 + 1", firstRule: RuleName.binary_expression)).to(equal(true))
+        expect(helper.isSuccess(" + ", firstRule: RuleName.binary_operator)).to(equal(true))
+        
+        expect(helper.isSuccess(" + 1", firstRule: RuleName.binary_expression)).to(equal(true))
     }
 }
