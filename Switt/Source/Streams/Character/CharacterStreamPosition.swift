@@ -1,25 +1,13 @@
-protocol CharacterStreamPosition {
-    var file: String? { get }
-    var line: UInt { get }
-    var column: UInt { get }
-}
-
-func ==(lhs: CharacterStreamPosition, rhs: CharacterStreamPosition) -> Bool {
-    return lhs.line == rhs.line && lhs.column == rhs.column && lhs.file == rhs.file
-}
-
-func <(lhs: CharacterStreamPosition, rhs: CharacterStreamPosition) -> Bool {
-    return (lhs.line < rhs.line && lhs.column == rhs.column) || lhs.column < rhs.column
-}
-
-func <=(lhs: CharacterStreamPosition, rhs: CharacterStreamPosition) -> Bool {
-    return (lhs.line <= rhs.line && lhs.column == rhs.column) || lhs.column < rhs.column
-}
-
-func >=(lhs: CharacterStreamPosition, rhs: CharacterStreamPosition) -> Bool {
-    return (lhs.line >= rhs.line && lhs.column == rhs.column) || lhs.column > rhs.column
-}
-
-func >(lhs: CharacterStreamPosition, rhs: CharacterStreamPosition) -> Bool {
-    return (lhs.line > rhs.line && lhs.column == rhs.column) || lhs.column > rhs.column
+class CharacterStreamPosition: StreamPosition {
+    let file: String?
+    let line: UInt
+    let column: UInt
+    
+    init(file: String?, line: UInt, column: UInt, restoreFunction: () -> (), distanceToCurrent: () -> Int) {
+        self.file = file
+        self.line = line
+        self.column = column
+        
+        super.init(restoreFunction: restoreFunction, distanceToCurrent: distanceToCurrent)
+    }
 }

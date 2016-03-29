@@ -1,6 +1,4 @@
-// Privacy of index guarantees that
-// position could only be reset to a previous value
-private struct InputStringStreamPosition: CharacterStreamPosition {
+private struct Position {
     var index: String.Index
     var file: String?
     var line: UInt
@@ -9,16 +7,26 @@ private struct InputStringStreamPosition: CharacterStreamPosition {
 
 class CharacterInputStringStream: CharacterInputStream {
     private var string: String
-    private var _position: InputStringStreamPosition
+    private var currentPosition: Position
     
     var position: CharacterStreamPosition {
-        return _position
+        return CharacterStreamPosition(
+            file: currentPosition.file,
+            line: currentPosition.line,
+            column: currentPosition.column,
+            restoreFunction: { [weak self, savedPosition = currentPosition] in
+                self?.currentPosition = savedPosition
+            },
+            distanceToCurrent: { [weak self, startIndex = string.startIndex, savedPosition = currentPosition] in
+                return savedPosition.index.distanceTo(self?.currentPosition.index ?? startIndex)
+            }
+        )
     }
     
     init(string: String) {
         self.string = string
         
-        _position = InputStringStreamPosition(
+        currentPosition = Position(
             index: string.startIndex,
             file: nil,
             line: 0,
@@ -26,30 +34,20 @@ class CharacterInputStringStream: CharacterInputStream {
         )
     }
     
-    func resetPosition(position: CharacterStreamPosition) {
-        if let position = position as? InputStringStreamPosition {
-            _position = position
-        }
-    }
-    
     func getCharacter() -> Character? {
-        if _position.index >= string.endIndex {
-            return nil
-        } else {
-            return string[_position.index]
-        }
+        return string.characters.at(currentPosition.index)
     }
     
     func moveNext() {
         if let char = getCharacter() {
             switch char {
             case "\n":
-                _position.line += 1
-                _position.column = 0
+                currentPosition.line += 1
+                currentPosition.column = 0
             default:
-                _position.column += 1
+                currentPosition.column += 1
             }
-            _position.index = _position.index.advancedBy(1)
+            currentPosition.index = currentPosition.index.advancedBy(1)
         } else {
             return
         }

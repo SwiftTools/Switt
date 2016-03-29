@@ -3,7 +3,7 @@ import Nimble
 @testable import Switt
 
 private class Helper {
-    static func parse(terminal: String, stream: TokenInputStream) -> TokenParserResult {
+    static func parse(terminal: String, stream: TokenInputStream) -> [SyntaxTree]? {
         let parser = TerminalTokenParser(terminal: terminal)
         return parser.parse(stream)
     }

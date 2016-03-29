@@ -1,8 +1,8 @@
 class EofTokenParser: TokenParser {
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
-        if inputStream.getToken() == nil {
+        if inputStream.defaultChannel().token() == nil {
             return SyntaxTree.success()
         } else {
             position.restore()

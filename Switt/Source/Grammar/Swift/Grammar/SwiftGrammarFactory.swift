@@ -4,21 +4,6 @@
 class SwiftGrammarFactory: GrammarFactory, GrammarRulesRegistrator {
     var grammarRegistry: GrammarRegistry = GrammarRegistry()
     
-    static func contextCheckFunction(ruleName: RuleName) -> RuleContext {
-        let uppercaseLetters = CharRange(
-            first: UnicodeScalar("A").value,
-            last: UnicodeScalar("Z").value
-        )
-        let ruleNameString = ruleName.rawValue
-        let firstCharacter = ruleNameString.characters[ruleNameString.startIndex]
-        
-        if uppercaseLetters.contains(firstCharacter) {
-            return RuleContext.Lexer
-        } else {
-            return RuleContext.Parser
-        }
-    }
-    
     func grammar() -> Grammar {
         return grammar(firstRule: RuleName.top_level)
     }

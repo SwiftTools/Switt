@@ -21,7 +21,7 @@ class UnrollSequenceProductionRuleTransformer: ProductionRuleTransformer {
                 stopRuleIsRequired: stopRuleIsRequired
             )
             
-        case .Check,
+        case .CustomParser,
              .Char,
              .RuleReference,
              .Terminal,

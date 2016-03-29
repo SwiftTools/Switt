@@ -1,9 +1,5 @@
 class StreamPosition: Comparable {
     private let restoreFunction: () -> ()
-    
-    // Saved index: 0
-    // Current index: 1
-    // Distance: 1
     private let distanceToCurrent: () -> Int
     
     init(restoreFunction: () -> (), distanceToCurrent: () -> Int) {

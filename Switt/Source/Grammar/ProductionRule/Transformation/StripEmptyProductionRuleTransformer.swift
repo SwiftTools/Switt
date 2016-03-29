@@ -38,7 +38,7 @@ class StripEmptyProductionRuleTransformer: ProductionRuleTransformer {
                 )
             }
             
-        case .Check,
+        case .CustomParser,
              .Char,
              .RuleReference,
              .Terminal,

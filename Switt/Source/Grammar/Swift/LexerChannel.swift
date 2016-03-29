@@ -1,5 +1,5 @@
 // Rename: TokenChannel
-enum LexerChannel {
+enum TokenChannel {
     case Default
     case Hidden
 }

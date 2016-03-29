@@ -26,17 +26,12 @@ class LexicalAnalyzerImpl: LexicalAnalyzer {
         )
         
         let inputStream = CharacterInputStringStream(string: string)
-        let tokenStream = TokenInputOutputStream()
-        
-        lexer.tokenize(inputStream, outputStream: tokenStream)
         
         let parser = ParserImpl(
             parserRules: grammar.grammarRules.parserRules,
             firstRule: firstRule
         )
         
-        let tokenInputStream = FilteredTokenInputStream(stream: tokenStream, channel: .Default)
-        
-        return parser.parse(tokenInputStream)
+        return parser.parse(lexer.tokenize(inputStream))
     }
 }

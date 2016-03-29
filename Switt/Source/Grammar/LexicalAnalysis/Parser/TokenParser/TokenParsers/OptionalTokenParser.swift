@@ -7,7 +7,7 @@ class OptionalTokenParser: TokenParser {
         self.tokenParserFactory = tokenParserFactory
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
         let parser = tokenParserFactory.tokenParser(rule)

@@ -21,8 +21,8 @@ class TokenInputStreamTestable: TokenInputStream {
         self.stream = stream
     }
     
-    func getToken() -> Token? {
-        return stream.getToken()
+    func tokenAt(relativeIndex: Int) -> Token? {
+        return stream.tokenAt(relativeIndex)
     }
     
     func moveNext() {

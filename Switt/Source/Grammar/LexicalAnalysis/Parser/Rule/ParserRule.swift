@@ -1,5 +1,5 @@
 indirect enum ParserRule {
-    case Check(function: ProductionRuleCheckFunction)
+    case CustomParser(factory: ParserRuleCustomTokenParserFactory)
     
     // Reference
     case RuleReference(identifier: RuleIdentifier)

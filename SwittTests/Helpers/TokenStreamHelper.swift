@@ -5,9 +5,27 @@ class TokenStreamHelper {
         let stream = TokenInputOutputStream()
         
         tokens
-            .map { $0.convertToToken() }
+            .map { convertToToken(stream: stream, tokenConvertible: $0) }
             .forEach { stream.putToken($0) }
         
         return TokenInputStreamTestable(stream: stream)
+    }
+    
+    static func convertToToken(stream stream: TokenInputOutputStream, tokenConvertible: TokenConvertible) -> Token {
+        var token = tokenConvertible.convertToToken(
+            TokenSource(
+                stream: stream,
+                position: stream.positionForIndex(stream.tokens.count)
+            )
+        )
+        
+        if token.ruleIdentifier == RuleIdentifier.Named(.WS)
+            || token.ruleIdentifier == RuleIdentifier.Named(.WS)
+            || token.ruleIdentifier == RuleIdentifier.Named(.WS)
+        {
+            token.channel = .Hidden
+        }
+        
+        return token
     }
 }

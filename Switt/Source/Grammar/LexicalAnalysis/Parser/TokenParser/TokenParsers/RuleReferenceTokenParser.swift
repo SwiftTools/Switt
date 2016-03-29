@@ -7,7 +7,7 @@ class RuleReferenceTokenParser: TokenParser {
         self.tokenParserFactory = tokenParserFactory
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         if let referencedTokenParser = tokenParserFactory.tokenParser(ruleIdentifier) {
             let result = referencedTokenParser.tokenParser.parse(inputStream)
             

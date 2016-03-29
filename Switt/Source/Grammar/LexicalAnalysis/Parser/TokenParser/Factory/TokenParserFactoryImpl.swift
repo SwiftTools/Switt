@@ -43,10 +43,8 @@ class TokenParserFactoryImpl: TokenParserFactory {
                 rules: rules,
                 tokenParserFactory: self
             )
-        case .Check(let function):
-            return CheckTokenParser(
-                function: function
-            )
+        case .CustomParser(let factory):
+            return factory.tokenParser(self)
         case .Empty:
             return EmptyTokenParser()
         case .Eof:

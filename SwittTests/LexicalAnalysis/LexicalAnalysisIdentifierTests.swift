@@ -51,6 +51,8 @@ class LexicalAnalysisIdentifierTests: XCTestCase {
         
         expect(helper.isSuccess("class TestSwiftFile { static let file: String = __FILE__ } "
             + "class TestSwiftFileWithFunction { }", firstRule: RuleName.statements)).to(equal(true))
+        expect(helper.isSuccess("class TestSwiftFile { static lds sd sD sdljfB; BUfuO~Q*:U3Y(IPTHILfkhfl sa// / // /et file: String = __FILE__ } "
+            + "class TestSwiftFileWithFunction { }", firstRule: RuleName.statements)).to(equal(false))
         
         expect(helper.isSuccess("class TestSwiftFile { static let file: String = __FILE__ } "
             + "class TestSwiftFileWithFunction { func doWork(a: Int, andB b: String) -> [String] { return [] } }", firstRule: RuleName.statements)).to(equal(true))

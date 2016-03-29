@@ -7,7 +7,7 @@ class SequenceTokenParser: TokenParser {
         self.tokenParserFactory = tokenParserFactory
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let parsers = rules.map { tokenParserFactory.tokenParser($0) }
         let position = inputStream.position
         

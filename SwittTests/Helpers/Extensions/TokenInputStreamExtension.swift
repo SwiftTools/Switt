@@ -4,7 +4,7 @@ extension TokenInputStream {
     var tokens: [Token] {
         var tokens: [Token] = []
         let position = self.position
-        while let token = getToken() {
+        while let token = token() {
             tokens.append(token)
             moveNext()
         }

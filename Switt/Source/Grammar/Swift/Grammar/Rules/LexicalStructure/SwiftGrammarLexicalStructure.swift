@@ -1,22 +1,3 @@
-class SwiftSupport {
-    static func isBinaryOp() -> Bool {
-        return true
-    }
-    static func isPrefixOp() -> Bool {
-        return true
-    }
-    static func isPostfixOp() -> Bool {
-        return true
-    }
-    static func checkOperatorHead() -> Bool {
-        return true
-    }
-    
-    static func isOperator(string: String) -> ProductionRuleCheckFunction {
-        return isBinaryOp
-    }
-}
-
 class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
     var grammarRegistry: GrammarRegistry = GrammarRegistry()
     
@@ -133,7 +114,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         )
         
         parserRule(.assignment_operator,
-            check(SwiftSupport.isBinaryOp) ~ "="
+            custom(BinaryOperatorTokenParserFactory(operatorRule: ~"="))
         )
         
         lexerRule(.DOT, ~".")
@@ -167,27 +148,27 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         // Need to separate this out from Prefix_operator as it's referenced in numeric_literal
         
         parserRule(.negate_prefix_operator,
-            check(SwiftSupport.isPrefixOp) ~ "-"
+            custom(PrefixOperatorTokenParserFactory(operatorRule: ~"-"))
         )
         
         parserRule(.build_AND,
-            check(SwiftSupport.isOperator("&&")) ~ "&" ~ "&"
+            custom(OperatorTokenParserFactory(operatorName: "&&"))
         )
         
         parserRule(.build_OR,
-            check(SwiftSupport.isOperator("||")) ~ "|" ~ "|"
+            custom(OperatorTokenParserFactory(operatorName: "||"))
         )
         
         parserRule(.arrow_operator,
-            check(SwiftSupport.isOperator("->")) ~ "-" ~ ">"
+            custom(OperatorTokenParserFactory(operatorName: "->"))
         )
         
         parserRule(.range_operator,
-            check(SwiftSupport.isOperator("...")) ~ "." ~ "." ~ "."
+            custom(OperatorTokenParserFactory(operatorName: "..."))
         )
         
         parserRule(.same_type_equals,
-            check(SwiftSupport.isOperator("==")) ~ "=" ~ "="
+            custom(OperatorTokenParserFactory(operatorName: "=="))
         )
         
         // ANTLR comment:
@@ -197,7 +178,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         and a + b is treated as a binary operator."
         */
         parserRule(.binary_operator,
-            check(SwiftSupport.isBinaryOp) ~ ._operator
+            custom(BinaryOperatorTokenParserFactory(operatorRule: ~._operator))
         )
         
         // ANTLR comment:
@@ -207,7 +188,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         as a prefix unary operator."
         */
         parserRule(.prefix_operator,
-            check(SwiftSupport.isPrefixOp) ~ ._operator
+            custom(PrefixOperatorTokenParserFactory(operatorRule: ~._operator))
         )
         
         // ANTLR comment:
@@ -221,16 +202,20 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         rather than a ++ .b)."
         */
         parserRule(.postfix_operator,
-            check(SwiftSupport.isPostfixOp) ~ ._operator
+            custom(PostfixOperatorTokenParserFactory(operatorRule: ~._operator))
         )
         
         parserRule(._operator,
             any(
-                .operator_head ~ oneOrMore(
-                    check(SwiftSupport.checkOperatorHead) ~ .operator_character
+                custom(
+                    DisallowWhitespacesTokenParserFactory(
+                        productionRule: .operator_head ~ oneOrMore(.operator_character)
+                    )
                 ),
-                .dot_operator_head ~ oneOrMore(
-                    check(SwiftSupport.checkOperatorHead) ~ .dot_operator_character
+                custom(
+                    DisallowWhitespacesTokenParserFactory(
+                        productionRule: .dot_operator_head ~ oneOrMore(.dot_operator_character)
+                    )
                 )
             )
         )
@@ -425,7 +410,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         // TODO: -> channel(HIDDEN)
         lexerRule(.WS,
             oneOrMore(char([" ", "\n", "\r", "\t", "\u{000B}", "\u{000C}", "\u{0000}"])),
-            channel: LexerChannel.Hidden
+            channel: TokenChannel.Hidden
         )
         
         // TODO: -> channel(HIDDEN)
@@ -441,7 +426,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
                     stopRuleIsRequired: true
                 )
             ),
-            channel: LexerChannel.Hidden
+            channel: TokenChannel.Hidden
         )
         
         lexerRule(.Line_comment,
@@ -453,7 +438,7 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
                     stopRuleIsRequired: false
                 )
             ),
-            channel: LexerChannel.Hidden
+            channel: TokenChannel.Hidden
         )
     }
 }

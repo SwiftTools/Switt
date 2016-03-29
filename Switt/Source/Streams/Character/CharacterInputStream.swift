@@ -4,6 +4,4 @@ protocol CharacterInputStream {
     func getCharacter() -> Character?
     
     func moveNext()
-    
-    func resetPosition(position: CharacterStreamPosition)
 }

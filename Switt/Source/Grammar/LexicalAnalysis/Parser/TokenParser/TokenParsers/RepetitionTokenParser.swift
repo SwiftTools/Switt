@@ -9,7 +9,7 @@ class RepetitionTokenParser: TokenParser {
         self.tokenParserFactory = tokenParserFactory
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
         var nodes: [SyntaxTree] = []

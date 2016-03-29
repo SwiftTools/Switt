@@ -148,8 +148,8 @@ extension GrammarRulesBuilder {
     
     // check
     
-    func check(closure: ProductionRuleCheckFunction) -> ProductionRule {
-        return .Check(function: closure)
+    func custom(factory: CustomTokenParserFactory) -> ProductionRule {
+        return .CustomParser(factory: factory)
     }
     
     // times

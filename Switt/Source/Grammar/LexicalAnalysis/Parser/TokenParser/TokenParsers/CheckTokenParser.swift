@@ -5,8 +5,8 @@ class CheckTokenParser: TokenParser {
         self.function = function
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
-        if function() {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
+        if function(inputStream) {
             return SyntaxTree.success()
         } else {
             return SyntaxTree.fail()

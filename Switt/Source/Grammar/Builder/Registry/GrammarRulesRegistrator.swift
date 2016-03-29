@@ -30,7 +30,7 @@ extension GrammarRulesRegistrator {
         )
     }
     
-    func lexerRule(name: RuleName, _ rule: ProductionRule, channel: LexerChannel = LexerChannel.Default) {
+    func lexerRule(name: RuleName, _ rule: ProductionRule, channel: TokenChannel = TokenChannel.Default) {
         grammarRegistry.rules.append(
             .LexerRule(
                 LexerRuleRegistrationInfo(
@@ -116,12 +116,13 @@ extension GrammarRulesRegistrator {
             }
         }
         
+        let parserRuleConverter = ParserRuleConverterImpl(lexerRules: grammarRules.lexerRules)
+        
         for ruleRegistrationInfo in clearedRules {
             switch ruleRegistrationInfo {
             case .ParserRule(let parserRuleInfo):
-                let parserRule = convertToParserRule(
-                    productionRule: parserRuleInfo.rule,
-                    lexerRules: grammarRules.lexerRules
+                let parserRule = parserRuleConverter.convertToParserRule(
+                    productionRule: parserRuleInfo.rule
                 )
                 if let parserRule = parserRule {
                     grammarRules.parserRules.rulesByName[parserRuleInfo.name] = parserRule
@@ -129,9 +130,8 @@ extension GrammarRulesRegistrator {
                     abort() // TODO
                 }
             case .ParserFragment(let parserFragmentInfo):
-                let parserRule = convertToParserRule(
-                    productionRule: parserFragmentInfo.rule,
-                    lexerRules: grammarRules.lexerRules
+                let parserRule = parserRuleConverter.convertToParserRule(
+                    productionRule: parserFragmentInfo.rule
                 )
                 if let parserRule = parserRule {
                     grammarRules.parserRules.fragmentsByIdentifier[parserFragmentInfo.identifier] = parserRule
@@ -147,59 +147,5 @@ extension GrammarRulesRegistrator {
             grammarRules: grammarRules,
             firstRule: firstRule
         )
-    }
-    
-    // TODO: Move
-    private func convertToParserRule(productionRule rule: ProductionRule, lexerRules: LexerRules) -> ParserRule? {
-        switch rule {
-        case .Char:
-            return nil
-        case .Check(let checkFunction):
-            return ParserRule.Check(function: checkFunction)
-        case .Sequence(let rules):
-            return ParserRule.Sequence(
-                rules: rules.flatMap {
-                    convertToParserRule(productionRule: $0, lexerRules: lexerRules)
-                }
-            )
-        case .Empty:
-            return ParserRule.Empty
-        case .Eof:
-            return ParserRule.Eof
-        case .Multiple(let atLeast, let rule):
-            return convertToParserRule(productionRule: rule, lexerRules: lexerRules)
-                .flatMap { rule in ParserRule.Repetition(atLeast: atLeast, rule: rule) }
-        case .Optional(let rule):
-            return convertToParserRule(productionRule: rule, lexerRules: lexerRules)
-                .flatMap { rule in ParserRule.Optional(rule: rule) }
-        case .Alternatives(let rules):
-            return ParserRule.Alternatives(
-                rules: rules.flatMap {
-                    convertToParserRule(productionRule: $0, lexerRules: lexerRules)
-                }
-            )
-        case .RuleReference(let ruleIdentifier):
-            if lexerRules.fragmentsByIdentifier[ruleIdentifier] != nil {
-                // Reference to lexer fragment: error
-                abort() // TODO
-            } else {
-                switch ruleIdentifier {
-                case .Named(let ruleName):
-                    if lexerRules.rulesByName[ruleName] != nil {
-                        // Reference to lexer rule
-                        return ParserRule.NamedTerminal(ruleName: ruleName)
-                    } else {
-                        return ParserRule.RuleReference(identifier: ruleIdentifier)
-                    }
-                default:
-                    return ParserRule.RuleReference(identifier: ruleIdentifier)
-                }
-            }
-            
-        case .Terminal(let terminal):
-            return ParserRule.Terminal(terminal: terminal)
-        case .Lazy:
-            return nil
-        }
     }
 }

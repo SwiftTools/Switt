@@ -1,7 +1,7 @@
-typealias ProductionRuleCheckFunction = () -> (Bool)
+typealias ProductionRuleCheckFunction = (TokenStreamAccessable) -> (Bool)
 
 indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
-    case Check(function: ProductionRuleCheckFunction)
+    case CustomParser(factory: CustomTokenParserFactory)
     case Char(ranges: [CharRange], invert: Bool)
     case RuleReference(identifier: RuleIdentifier)
     case Sequence(rules: [ProductionRule])
@@ -19,8 +19,8 @@ indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
 
 func ==(left: ProductionRule, right: ProductionRule) -> Bool {
     switch (left, right) {
-    case (.Check, .Check):
-        return true // can't compare functions
+    case (.CustomParser(let factory1), .CustomParser(let factory2)):
+        return factory1 === factory2
     case (.Char(let ranges1, let invert1), .Char(let ranges2, let invert2)):
         return ranges1 == ranges2 && invert1 == invert2
     case (.Sequence(let rules1), .Sequence(let rules2)):
@@ -52,8 +52,8 @@ extension ProductionRule {
         case .Char(let ranges, let invert):
             let invertString = invert ? "^" : ""
             return invertString + (ranges.map { $0.debugDescription }).joinWithSeparator(" | ")
-        case .Check:
-            return "check function"
+        case .CustomParser(let factory):
+            return "custom parser(\(factory.dynamicType))"
         case .Sequence(let rules):
             return "compound" + StringUtils.wrapAndIndent(
                 prefix: "(",

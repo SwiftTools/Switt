@@ -1,7 +1,7 @@
 private extension ProductionRule {
     var canBeSimplified: Bool {
         switch self {
-        case .Check, .Eof:
+        case .CustomParser, .Eof:
             return false
         case .RuleReference, .Terminal, .Char:
             // Already simple
@@ -29,7 +29,7 @@ private extension ProductionRule {
             return true
             
             // Invalid rules
-        case .Empty, .Check, .Eof:
+        case .Empty, .CustomParser, .Eof:
             return false
             
             // Only "at least 1" rules are valid
@@ -85,7 +85,7 @@ class LexerRuleConverter {
                 return nil
             case .Optional:
                 return nil
-            case .Check:
+            case .CustomParser:
                 return nil
             case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
                 if let rule = convertToLexerRule(rule), let stopRule = convertToLexerRule(stopRule) {

@@ -33,7 +33,7 @@ class RuleCollectionMath {
                     rulesAfter: rules.suffixFrom(id).dropFirst().map { $0 }
                 )
                 return rule
-            case .Check,
+            case .CustomParser,
                  .Char,
                  .RuleReference,
                  .Sequence,
@@ -74,7 +74,7 @@ class RuleCollectionMath {
                     )
                     newRules.append(rule)
                 }
-            case .Check,
+            case .CustomParser,
                  .Char,
                  .RuleReference,
                  .Sequence,
@@ -104,7 +104,7 @@ class RuleCollectionMath {
                 )
                 return rule
                 
-            case .Check,
+            case .CustomParser,
                  .Char,
                  .RuleReference,
                  .Sequence,
@@ -126,8 +126,8 @@ class RuleCollectionMath {
     static func makeSequence(rules rules: [ProductionRule]) -> ProductionRule {
         if rules.count == 0 {
             return ProductionRule.Empty
-        } else if rules.count == 1 {
-            return rules[0]
+        } else if rules.count == 1, let first = rules.first {
+            return first
         } else {
             return ProductionRule.Sequence(rules: rules)
         }
@@ -138,8 +138,8 @@ class RuleCollectionMath {
     static func makeAlternatives(rules rules: [ProductionRule]) -> ProductionRule {
         if rules.count == 0 {
             return ProductionRule.Empty
-         } else if rules.count == 1 {
-            return rules[0]
+         } else if rules.count == 1, let first = rules.first {
+            return first
         } else {
             return ProductionRule.Alternatives(rules: rules)
         }

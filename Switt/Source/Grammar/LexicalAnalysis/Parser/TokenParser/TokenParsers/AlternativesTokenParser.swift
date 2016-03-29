@@ -7,12 +7,12 @@ class AlternativesTokenParser: TokenParser {
         self.tokenParserFactory = tokenParserFactory
     }
     
-    func parse(inputStream: TokenInputStream) -> TokenParserResult {
+    func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
         struct BestResult {
             var position: StreamPosition
-            var result: TokenParserResult
+            var result: [SyntaxTree]?
         }
         
         var bestResult: BestResult?

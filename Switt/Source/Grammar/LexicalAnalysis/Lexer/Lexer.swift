@@ -1,5 +1,5 @@
 protocol Lexer {
-    func tokenize(inputStream: CharacterInputStream, outputStream: TokenOutputStream)
+    func tokenize(inputStream: CharacterInputStream) -> TokenInputStream
 }
 
 private struct BestToken {
@@ -16,14 +16,67 @@ class LexerImpl: Lexer {
         self.tokenizerFactory = tokenizerFactory
     }
     
-    func tokenize(inputStream: CharacterInputStream, outputStream: TokenOutputStream) {
-        while let token = nextToken(inputStream) {
-            outputStream.putToken(token)
-        }
-        outputStream.finish()
+    func tokenize(inputStream: CharacterInputStream) -> TokenInputStream {
+        return LexerTokenStream(inputStream: inputStream, lexerRules: lexerRules, tokenizerFactory: tokenizerFactory)
+    }
+}
+
+class LexerTokenStream: TokenInputStream {
+    private var currentIndex: Int = 0
+    private var tokens: [Token] = []
+    
+    private let inputStream: CharacterInputStream
+    private let lexerRules: LexerRules
+    private let tokenizerFactory: TokenizerFactory
+    
+    init(inputStream: CharacterInputStream, lexerRules: LexerRules, tokenizerFactory: TokenizerFactory) {
+        self.lexerRules = lexerRules
+        self.tokenizerFactory = tokenizerFactory
+        self.inputStream = inputStream
     }
     
-    private func nextToken(inputStream: CharacterInputStream) -> Token? {
+    var position: StreamPosition {
+        return StreamPosition(
+            restoreFunction: { [weak self, savedIndex = currentIndex] in
+                self?.currentIndex = savedIndex
+            },
+            distanceToCurrent: { [weak self, savedIndex = currentIndex] in
+                return (self?.currentIndex ?? 0) - savedIndex
+            }
+        )
+    }
+    
+    func tokenAt(relativeIndex: Int) -> Token? {
+        let tokenAtIndex: Token?
+        let savedPosition = position
+        
+        let index = currentIndex + relativeIndex
+        
+        if index < 0 {
+            tokenAtIndex = nil
+        } else if index < tokens.count {
+            tokenAtIndex = tokens.at(index)
+        } else {
+            let tokensToGet = index - tokens.count + 1
+            
+            while let token = nextToken() where tokensToGet > 0 {
+                tokens.append(token)
+            }
+            
+            let successfullyGotLastToken = tokensToGet == 0
+            
+            tokenAtIndex = successfullyGotLastToken ? tokens.last : nil
+        }
+        
+        savedPosition.restore()
+        return tokenAtIndex
+    }
+    
+    func moveNext() {
+        currentIndex += 1
+    }
+    
+    private func nextToken() -> Token? {
         var bestToken: BestToken?
         
         var tokenizersById = [RuleIdentifier: Tokenizer]()
@@ -33,7 +86,6 @@ class LexerImpl: Lexer {
             tokenizersById[ruleDefinition.identifier] = tokenizerFactory.tokenizer(ruleDefinition.rule)
         }
         
-        let startPosition = inputStream.position
         var string: String = ""
         
         while let char = inputStream.getCharacter() {
@@ -86,7 +138,7 @@ class LexerImpl: Lexer {
                     // Reset position to last token.
                     // This is done, because input stream could be read after finding this token
                     // but no more tokens were found
-                    inputStream.resetPosition(bestToken.endPosition)
+                    bestToken.endPosition.restore()
                     break
                 } else {
                     // Error: couldn't find token in input stream
@@ -101,14 +153,18 @@ class LexerImpl: Lexer {
     private func makeToken(ruleIdentifier
         ruleIdentifier: RuleIdentifier,
         string: String,
-        channel: LexerChannel,
+        channel: TokenChannel,
         endPosition: CharacterStreamPosition
         ) -> BestToken {
         return BestToken(
             token: Token(
                 string: string,
                 ruleIdentifier: ruleIdentifier,
-                channel: channel
+                channel: channel,
+                source: TokenSource(
+                    stream: self,
+                    position: position
+                )
             ),
             endPosition: endPosition
         )

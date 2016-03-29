@@ -88,8 +88,10 @@ class GrammarRulesMath {
             return rules.reduce([], combine: { (terminals, rule) in
                 terminals + allTerminals(rule)
             })
-        case .Char, .Check, .Empty, .Eof, .RuleReference:
+        case .Char, .Empty, .Eof, .RuleReference:
             return []
+        case .CustomParser(let factory):
+            return factory.involvedTerminals
         case .Multiple(_, let rule):
             return allTerminals(rule)
         case .Optional(let rule):

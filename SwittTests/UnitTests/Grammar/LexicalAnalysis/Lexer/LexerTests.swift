@@ -22,24 +22,8 @@ private class Helper {
         )
         
         let inputStream = CharacterInputStringStream(string: string)
-        let outputStream = TokenInputOutputStream()
         
-        lexer.tokenize(inputStream, outputStream: outputStream)
-        
-        return FilteredTokenInputStream(stream: outputStream, filter: filter).tokens
-    }
-}
-
-class TokenOutputStreamMock: TokenOutputStream {
-    var tokens: [Token] = []
-    var isFinished: Bool = false
-    
-    func putToken(token: Token) {
-        tokens.append(token)
-    }
-    
-    func finish() {
-        isFinished = true
+        return FilteredTokenInputStream(stream: lexer.tokenize(inputStream), filter: filter).tokens
     }
 }
 
@@ -56,12 +40,8 @@ class LexerTests: XCTestCase {
         )
         
         let inputStream = CharacterInputStringStream(string: "?*?*")
-        let outputStream = TokenOutputStreamMock()
         
-        lexer.tokenize(inputStream, outputStream: outputStream)
-        
-        expect(outputStream.tokens.map { $0.string }).to(equal(["?", "*", "?", "*"]))
-        expect(outputStream.isFinished).to(equal(true))
+        expect(lexer.tokenize(inputStream).tokens.map { $0.string }).to(equal(["?", "*", "?", "*"]))
     }
     
     func testXXX() {
@@ -75,11 +55,8 @@ class LexerTests: XCTestCase {
         )
         
         let inputStream = CharacterInputStringStream(string: "MyClass")
-        let outputStream = TokenOutputStreamMock()
         
-        lexer.tokenize(inputStream, outputStream: outputStream)
-        
-        let actualIdentifiers = outputStream.tokens.map { $0.ruleIdentifier }
+        let actualIdentifiers = lexer.tokenize(inputStream).tokens.map { $0.ruleIdentifier }
         let expectedIdentifiers = [
             RuleIdentifier.Named(.Identifier)
         ]
