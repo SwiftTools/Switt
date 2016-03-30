@@ -1,14 +1,16 @@
 @testable import Switt
 
 class TokenStreamHelper {
-    static func tokenStream(tokens: [TokenConvertible]) -> TokenInputStreamTestable {
+    static func tokenStream(tokens: [TokenConvertible], currentIndex: Int = 0) -> TokenInputOutputStream {
         let stream = TokenInputOutputStream()
         
-        tokens
-            .map { convertToToken(stream: stream, tokenConvertible: $0) }
-            .forEach { stream.putToken($0) }
+        tokens.forEach { stream.putToken(convertToToken(stream: stream, tokenConvertible: $0)) }
         
-        return TokenInputStreamTestable(stream: stream)
+        for _ in 0..<currentIndex {
+            stream.moveNext()
+        }
+        
+        return stream
     }
     
     static func convertToToken(stream stream: TokenInputOutputStream, tokenConvertible: TokenConvertible) -> Token {
@@ -19,9 +21,13 @@ class TokenStreamHelper {
             )
         )
         
+        if token.string == " " {
+            token.ruleIdentifier = RuleIdentifier.Named(.WS)
+        }
+        
         if token.ruleIdentifier == RuleIdentifier.Named(.WS)
-            || token.ruleIdentifier == RuleIdentifier.Named(.WS)
-            || token.ruleIdentifier == RuleIdentifier.Named(.WS)
+            || token.ruleIdentifier == RuleIdentifier.Named(.Line_comment)
+            || token.ruleIdentifier == RuleIdentifier.Named(.Block_comment)
         {
             token.channel = .Hidden
         }

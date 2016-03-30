@@ -13,11 +13,9 @@
 		F80888361CA7E34B00B57C32 /* InputStringStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808882F1CA7E34B00B57C32 /* InputStringStream.swift */; };
 		F80888371CA7E34B00B57C32 /* TokenInputOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888311CA7E34B00B57C32 /* TokenInputOutputStream.swift */; };
 		F80888381CA7E34B00B57C32 /* TokenInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888321CA7E34B00B57C32 /* TokenInputStream.swift */; };
-		F80888391CA7E34B00B57C32 /* TokenOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888331CA7E34B00B57C32 /* TokenOutputStream.swift */; };
 		F80888631CA7FB0C00B57C32 /* TokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888561CA7FB0C00B57C32 /* TokenParserFactory.swift */; };
 		F80888651CA7FB0C00B57C32 /* AlternativesTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888591CA7FB0C00B57C32 /* AlternativesTokenParser.swift */; };
 		F80888661CA7FB0C00B57C32 /* AlwaysFailTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808885A1CA7FB0C00B57C32 /* AlwaysFailTokenParser.swift */; };
-		F80888671CA7FB0C00B57C32 /* CheckTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808885B1CA7FB0C00B57C32 /* CheckTokenParser.swift */; };
 		F80888681CA7FB0D00B57C32 /* EmptyTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808885C1CA7FB0C00B57C32 /* EmptyTokenParser.swift */; };
 		F80888691CA7FB0D00B57C32 /* EofTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808885D1CA7FB0C00B57C32 /* EofTokenParser.swift */; };
 		F808886A1CA7FB0D00B57C32 /* OptionalTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808885E1CA7FB0C00B57C32 /* OptionalTokenParser.swift */; };
@@ -28,7 +26,6 @@
 		F80888701CA7FB1F00B57C32 /* TokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808886F1CA7FB1F00B57C32 /* TokenParser.swift */; };
 		F80888721CA7FB3000B57C32 /* TokenParserFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888711CA7FB3000B57C32 /* TokenParserFactoryImpl.swift */; };
 		F80888771CA804F000B57C32 /* TerminalTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888761CA804F000B57C32 /* TerminalTokenParserTests.swift */; };
-		F80888791CA806E300B57C32 /* FilteredTokenInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888781CA806E300B57C32 /* FilteredTokenInputStream.swift */; };
 		F808887B1CA80F7B00B57C32 /* StreamPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808887A1CA80F7B00B57C32 /* StreamPosition.swift */; };
 		F808887F1CA81C3F00B57C32 /* SyntaxTreeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808887E1CA81C3F00B57C32 /* SyntaxTreeExtension.swift */; };
 		F80888811CA81DB300B57C32 /* TokenStreamHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888801CA81DB300B57C32 /* TokenStreamHelper.swift */; };
@@ -42,7 +39,6 @@
 		F80888911CA81FBE00B57C32 /* RuleReferenceTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888901CA81FBE00B57C32 /* RuleReferenceTokenParserTests.swift */; };
 		F80888931CA81FC800B57C32 /* SequenceTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888921CA81FC800B57C32 /* SequenceTokenParserTests.swift */; };
 		F80888971CA8268200B57C32 /* TokenConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888961CA8268200B57C32 /* TokenConvertible.swift */; };
-		F80888991CA826B500B57C32 /* TokenInputStreamTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888981CA826B500B57C32 /* TokenInputStreamTestable.swift */; };
 		F808889B1CA82CB200B57C32 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808889A1CA82CB200B57C32 /* Token.swift */; };
 		F80D92CD1C942C28009A36B0 /* FunctionScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */; };
 		F8156ADF1C9DA7B70087B821 /* SyntaxTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8156ADE1C9DA7B70087B821 /* SyntaxTree.swift */; };
@@ -118,8 +114,6 @@
 		F83024DE1CA9C58200E2EA7F /* PostfixOperatorTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024DD1CA9C58200E2EA7F /* PostfixOperatorTokenParserFactory.swift */; };
 		F83024E01CA9C59000E2EA7F /* BinaryOperatorTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024DF1CA9C59000E2EA7F /* BinaryOperatorTokenParserFactory.swift */; };
 		F83024E21CA9C59D00E2EA7F /* OperatorTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024E11CA9C59D00E2EA7F /* OperatorTokenParserFactory.swift */; };
-		F83024E41CA9C5AF00E2EA7F /* DisallowWhitespacesTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024E31CA9C5AF00E2EA7F /* DisallowWhitespacesTokenParserFactory.swift */; };
-		F83024E61CA9C5C000E2EA7F /* DisallowWhitespacesTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024E51CA9C5C000E2EA7F /* DisallowWhitespacesTokenParser.swift */; };
 		F83024E81CA9C5CD00E2EA7F /* PrefixOperatorTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024E71CA9C5CD00E2EA7F /* PrefixOperatorTokenParser.swift */; };
 		F83024EA1CA9C5DC00E2EA7F /* PostfixOperatorTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024E91CA9C5DC00E2EA7F /* PostfixOperatorTokenParser.swift */; };
 		F83024EC1CA9C5EA00E2EA7F /* BinaryOperatorTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83024EB1CA9C5EA00E2EA7F /* BinaryOperatorTokenParser.swift */; };
@@ -149,7 +143,6 @@
 		F83388601CA83E9100282009 /* ParserImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F833885F1CA83E9100282009 /* ParserImpl.swift */; };
 		F83388621CA84F7700282009 /* TokenInputStreamExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83388611CA84F7700282009 /* TokenInputStreamExtension.swift */; };
 		F83388661CA850C100282009 /* TokenInputOutputStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83388651CA850C100282009 /* TokenInputOutputStreamTests.swift */; };
-		F83388681CA850CC00282009 /* FilteredTokenInputStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83388671CA850CC00282009 /* FilteredTokenInputStreamTests.swift */; };
 		F836842C1C8F0055005442E5 /* Switt.h in Headers */ = {isa = PBXBuildFile; fileRef = F836842B1C8F0055005442E5 /* Switt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F83684331C8F0055005442E5 /* Switt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83684281C8F0055005442E5 /* Switt.framework */; };
 		F83684B21C8F00C5005442E5 /* Declaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83684441C8F00C5005442E5 /* Declaration.swift */; };
@@ -263,6 +256,12 @@
 		F87780B31C956818006AB9C0 /* RuleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780B21C956818006AB9C0 /* RuleName.swift */; };
 		F87780C11C959E7C006AB9C0 /* LexicalAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780C01C959E7C006AB9C0 /* LexicalAnalyzer.swift */; };
 		F87780C31C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780C21C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift */; };
+		F88DDE331CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE321CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift */; };
+		F88DDE351CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE341CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift */; };
+		F88DDE371CAB09D800F248C5 /* OperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE361CAB09D800F248C5 /* OperatorTokenParserTests.swift */; };
+		F88DDE391CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE381CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift */; };
+		F88DDE3D1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE3B1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift */; };
+		F88DDE3E1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE3C1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift */; };
 		F8C49C101CA6DAE400691F92 /* RuleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C0F1CA6DAE400691F92 /* RuleIdentifier.swift */; };
 		F8C49C141CA6ECF300691F92 /* TokenizerFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C131CA6ECF300691F92 /* TokenizerFactoryImpl.swift */; };
 		F8C49C161CA6ED2600691F92 /* LazyTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C151CA6ED2600691F92 /* LazyTokenizer.swift */; };
@@ -315,11 +314,9 @@
 		F808882F1CA7E34B00B57C32 /* InputStringStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputStringStream.swift; sourceTree = "<group>"; };
 		F80888311CA7E34B00B57C32 /* TokenInputOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInputOutputStream.swift; sourceTree = "<group>"; };
 		F80888321CA7E34B00B57C32 /* TokenInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInputStream.swift; sourceTree = "<group>"; };
-		F80888331CA7E34B00B57C32 /* TokenOutputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenOutputStream.swift; sourceTree = "<group>"; };
 		F80888561CA7FB0C00B57C32 /* TokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenParserFactory.swift; sourceTree = "<group>"; };
 		F80888591CA7FB0C00B57C32 /* AlternativesTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativesTokenParser.swift; sourceTree = "<group>"; };
 		F808885A1CA7FB0C00B57C32 /* AlwaysFailTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysFailTokenParser.swift; sourceTree = "<group>"; };
-		F808885B1CA7FB0C00B57C32 /* CheckTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckTokenParser.swift; sourceTree = "<group>"; };
 		F808885C1CA7FB0C00B57C32 /* EmptyTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTokenParser.swift; sourceTree = "<group>"; };
 		F808885D1CA7FB0C00B57C32 /* EofTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EofTokenParser.swift; sourceTree = "<group>"; };
 		F808885E1CA7FB0C00B57C32 /* OptionalTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalTokenParser.swift; sourceTree = "<group>"; };
@@ -330,7 +327,6 @@
 		F808886F1CA7FB1F00B57C32 /* TokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenParser.swift; sourceTree = "<group>"; };
 		F80888711CA7FB3000B57C32 /* TokenParserFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenParserFactoryImpl.swift; sourceTree = "<group>"; };
 		F80888761CA804F000B57C32 /* TerminalTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalTokenParserTests.swift; sourceTree = "<group>"; };
-		F80888781CA806E300B57C32 /* FilteredTokenInputStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredTokenInputStream.swift; sourceTree = "<group>"; };
 		F808887A1CA80F7B00B57C32 /* StreamPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPosition.swift; sourceTree = "<group>"; };
 		F808887E1CA81C3F00B57C32 /* SyntaxTreeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTreeExtension.swift; sourceTree = "<group>"; };
 		F80888801CA81DB300B57C32 /* TokenStreamHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStreamHelper.swift; sourceTree = "<group>"; };
@@ -344,7 +340,6 @@
 		F80888901CA81FBE00B57C32 /* RuleReferenceTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleReferenceTokenParserTests.swift; sourceTree = "<group>"; };
 		F80888921CA81FC800B57C32 /* SequenceTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTokenParserTests.swift; sourceTree = "<group>"; };
 		F80888961CA8268200B57C32 /* TokenConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenConvertible.swift; sourceTree = "<group>"; };
-		F80888981CA826B500B57C32 /* TokenInputStreamTestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInputStreamTestable.swift; sourceTree = "<group>"; };
 		F808889A1CA82CB200B57C32 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionScanner.swift; sourceTree = "<group>"; };
 		F8156ADE1C9DA7B70087B821 /* SyntaxTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTree.swift; sourceTree = "<group>"; };
@@ -420,8 +415,6 @@
 		F83024DD1CA9C58200E2EA7F /* PostfixOperatorTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostfixOperatorTokenParserFactory.swift; sourceTree = "<group>"; };
 		F83024DF1CA9C59000E2EA7F /* BinaryOperatorTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryOperatorTokenParserFactory.swift; sourceTree = "<group>"; };
 		F83024E11CA9C59D00E2EA7F /* OperatorTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorTokenParserFactory.swift; sourceTree = "<group>"; };
-		F83024E31CA9C5AF00E2EA7F /* DisallowWhitespacesTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParserFactory.swift; sourceTree = "<group>"; };
-		F83024E51CA9C5C000E2EA7F /* DisallowWhitespacesTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParser.swift; sourceTree = "<group>"; };
 		F83024E71CA9C5CD00E2EA7F /* PrefixOperatorTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefixOperatorTokenParser.swift; sourceTree = "<group>"; };
 		F83024E91CA9C5DC00E2EA7F /* PostfixOperatorTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostfixOperatorTokenParser.swift; sourceTree = "<group>"; };
 		F83024EB1CA9C5EA00E2EA7F /* BinaryOperatorTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryOperatorTokenParser.swift; sourceTree = "<group>"; };
@@ -451,7 +444,6 @@
 		F833885F1CA83E9100282009 /* ParserImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserImpl.swift; sourceTree = "<group>"; };
 		F83388611CA84F7700282009 /* TokenInputStreamExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInputStreamExtension.swift; sourceTree = "<group>"; };
 		F83388651CA850C100282009 /* TokenInputOutputStreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInputOutputStreamTests.swift; sourceTree = "<group>"; };
-		F83388671CA850CC00282009 /* FilteredTokenInputStreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredTokenInputStreamTests.swift; sourceTree = "<group>"; };
 		F83684281C8F0055005442E5 /* Switt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Switt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F836842B1C8F0055005442E5 /* Switt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Switt.h; sourceTree = "<group>"; };
 		F836842D1C8F0055005442E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -560,6 +552,12 @@
 		F87780B21C956818006AB9C0 /* RuleName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleName.swift; sourceTree = "<group>"; };
 		F87780C01C959E7C006AB9C0 /* LexicalAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalyzer.swift; sourceTree = "<group>"; };
 		F87780C21C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxAnalyzerSpec.swift; sourceTree = "<group>"; };
+		F88DDE321CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostfixOperatorTokenParserTests.swift; sourceTree = "<group>"; };
+		F88DDE341CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefixOperatorTokenParserTests.swift; sourceTree = "<group>"; };
+		F88DDE361CAB09D800F248C5 /* OperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorTokenParserTests.swift; sourceTree = "<group>"; };
+		F88DDE381CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParserTests.swift; sourceTree = "<group>"; };
+		F88DDE3B1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParser.swift; sourceTree = "<group>"; };
+		F88DDE3C1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParserFactory.swift; sourceTree = "<group>"; };
 		F8C49C0F1CA6DAE400691F92 /* RuleIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleIdentifier.swift; sourceTree = "<group>"; };
 		F8C49C131CA6ECF300691F92 /* TokenizerFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerFactoryImpl.swift; sourceTree = "<group>"; };
 		F8C49C151CA6ED2600691F92 /* LazyTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTokenizer.swift; sourceTree = "<group>"; };
@@ -618,8 +616,6 @@
 			children = (
 				F80888311CA7E34B00B57C32 /* TokenInputOutputStream.swift */,
 				F80888321CA7E34B00B57C32 /* TokenInputStream.swift */,
-				F80888331CA7E34B00B57C32 /* TokenOutputStream.swift */,
-				F80888781CA806E300B57C32 /* FilteredTokenInputStream.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -650,7 +646,6 @@
 			children = (
 				F80888591CA7FB0C00B57C32 /* AlternativesTokenParser.swift */,
 				F808885A1CA7FB0C00B57C32 /* AlwaysFailTokenParser.swift */,
-				F808885B1CA7FB0C00B57C32 /* CheckTokenParser.swift */,
 				F808885C1CA7FB0C00B57C32 /* EmptyTokenParser.swift */,
 				F808885D1CA7FB0C00B57C32 /* EofTokenParser.swift */,
 				F808885E1CA7FB0C00B57C32 /* OptionalTokenParser.swift */,
@@ -702,7 +697,6 @@
 				F808887D1CA81C3300B57C32 /* Extensions */,
 				F80888801CA81DB300B57C32 /* TokenStreamHelper.swift */,
 				F80888961CA8268200B57C32 /* TokenConvertible.swift */,
-				F80888981CA826B500B57C32 /* TokenInputStreamTestable.swift */,
 				F83025071CAA010900E2EA7F /* TokenInputOutputStream.swift */,
 			);
 			path = Helpers;
@@ -880,7 +874,7 @@
 			isa = PBXGroup;
 			children = (
 				F83024D61CA9C56A00E2EA7F /* BinaryOperator */,
-				F83024D71CA9C56A00E2EA7F /* DisallowWhitespaces */,
+				F88DDE3A1CAB12BF00F248C5 /* DisallowHiddenTokens */,
 				F83024D81CA9C56A00E2EA7F /* Operator */,
 				F83024D91CA9C56A00E2EA7F /* PostfixOperator */,
 				F83024DA1CA9C56A00E2EA7F /* PrefixOperator */,
@@ -994,15 +988,6 @@
 			path = BinaryOperator;
 			sourceTree = "<group>";
 		};
-		F83024D71CA9C56A00E2EA7F /* DisallowWhitespaces */ = {
-			isa = PBXGroup;
-			children = (
-				F83024E31CA9C5AF00E2EA7F /* DisallowWhitespacesTokenParserFactory.swift */,
-				F83024E51CA9C5C000E2EA7F /* DisallowWhitespacesTokenParser.swift */,
-			);
-			path = DisallowWhitespaces;
-			sourceTree = "<group>";
-		};
 		F83024D81CA9C56A00E2EA7F /* Operator */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,6 +1074,7 @@
 		F83025011CA9EE8800E2EA7F /* DisallowWhitespaces */ = {
 			isa = PBXGroup;
 			children = (
+				F88DDE381CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift */,
 			);
 			path = DisallowWhitespaces;
 			sourceTree = "<group>";
@@ -1096,6 +1082,7 @@
 		F83025021CA9EE8800E2EA7F /* Operator */ = {
 			isa = PBXGroup;
 			children = (
+				F88DDE361CAB09D800F248C5 /* OperatorTokenParserTests.swift */,
 			);
 			path = Operator;
 			sourceTree = "<group>";
@@ -1103,6 +1090,7 @@
 		F83025031CA9EE8800E2EA7F /* PostfixOperator */ = {
 			isa = PBXGroup;
 			children = (
+				F88DDE321CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift */,
 			);
 			path = PostfixOperator;
 			sourceTree = "<group>";
@@ -1110,6 +1098,7 @@
 		F83025041CA9EE8800E2EA7F /* PrefixOperator */ = {
 			isa = PBXGroup;
 			children = (
+				F88DDE341CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift */,
 			);
 			path = PrefixOperator;
 			sourceTree = "<group>";
@@ -1180,7 +1169,6 @@
 			isa = PBXGroup;
 			children = (
 				F83388651CA850C100282009 /* TokenInputOutputStreamTests.swift */,
-				F83388671CA850CC00282009 /* FilteredTokenInputStreamTests.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -1534,6 +1522,16 @@
 			path = Swift;
 			sourceTree = "<group>";
 		};
+		F88DDE3A1CAB12BF00F248C5 /* DisallowHiddenTokens */ = {
+			isa = PBXGroup;
+			children = (
+				F88DDE3C1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift */,
+				F88DDE3B1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift */,
+			);
+			name = DisallowHiddenTokens;
+			path = Switt/Source/Grammar/Swift/Grammar/CustomParsers/DisallowHiddenTokens;
+			sourceTree = SOURCE_ROOT;
+		};
 		F8C49C321CA7363700691F92 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1817,7 +1815,6 @@
 				F83684D31C8F00C5005442E5 /* VarLocalDeclaration.swift in Sources */,
 				F83684E81C8F00C5005442E5 /* SourceKitStructureFunctionMethodClassScanner.swift in Sources */,
 				F83684B91C8F00C5005442E5 /* ExtensionProtocolDeclaration.swift in Sources */,
-				F80888671CA7FB0C00B57C32 /* CheckTokenParser.swift in Sources */,
 				F808886C1CA7FB0D00B57C32 /* RuleReferenceTokenParser.swift in Sources */,
 				F83024C01CA9C4F100E2EA7F /* SwiftGrammarInitializarDeclaration.swift in Sources */,
 				F83024DC1CA9C57400E2EA7F /* PrefixOperatorTokenParserFactory.swift in Sources */,
@@ -1830,7 +1827,6 @@
 				F8156B3C1C9ECCC60087B821 /* RepetitionTokenizer.swift in Sources */,
 				F8156B571C9F0DBF0087B821 /* ProductionRulesPostfix.swift in Sources */,
 				F83024851CA98A6D00E2EA7F /* UnrollSequenceProductionRuleTransformer.swift in Sources */,
-				F83024E41CA9C5AF00E2EA7F /* DisallowWhitespacesTokenParserFactory.swift in Sources */,
 				F83024CA1CA9C4F100E2EA7F /* SwiftGrammarGenericParametersAndArguments.swift in Sources */,
 				F83024BD1CA9C4F100E2EA7F /* SwiftGrammarEnumDeclaration.swift in Sources */,
 				F83684B81C8F00C5005442E5 /* ExtensionEnumDeclaration.swift in Sources */,
@@ -1846,6 +1842,7 @@
 				F83024EA1CA9C5DC00E2EA7F /* PostfixOperatorTokenParser.swift in Sources */,
 				F83684EE1C8F00C5005442E5 /* SourceKitStructureClassScanner.swift in Sources */,
 				F80888631CA7FB0C00B57C32 /* TokenParserFactory.swift in Sources */,
+				F88DDE3D1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift in Sources */,
 				F83684DC1C8F00C5005442E5 /* SourceKitStructureExtensionProtocolScanner.swift in Sources */,
 				F80888371CA7E34B00B57C32 /* TokenInputOutputStream.swift in Sources */,
 				F83684CC1C8F00C5005442E5 /* ModuleDeclaration.swift in Sources */,
@@ -1919,13 +1916,13 @@
 				F83024FC1CA9D01100E2EA7F /* ParserRuleCustomTokenParserFactoryImpl.swift in Sources */,
 				F808886A1CA7FB0D00B57C32 /* OptionalTokenParser.swift in Sources */,
 				F83684E21C8F00C5005442E5 /* SourceKitStructureFunctionAccessorMutableaddressScanner.swift in Sources */,
+				F88DDE3E1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift in Sources */,
 				F83684C61C8F00C5005442E5 /* FunctionMethodStaticDeclaration.swift in Sources */,
 				F83687791C8F034D005442E5 /* GenericPlaceholdersScanner.swift in Sources */,
 				F808886B1CA7FB0D00B57C32 /* RepetitionTokenParser.swift in Sources */,
 				F83684D21C8F00C5005442E5 /* VarInstanceDeclaration.swift in Sources */,
 				F83684EC1C8F00C5005442E5 /* SourceKitStructureFunctionSubscriptScanner.swift in Sources */,
 				F8156B471C9F0A920087B821 /* Lazy.swift in Sources */,
-				F83024E61CA9C5C000E2EA7F /* DisallowWhitespacesTokenParser.swift in Sources */,
 				F83024F41CA9CC2500E2EA7F /* ParserRules.swift in Sources */,
 				F83684D11C8F00C5005442E5 /* VarGlobalDeclaration.swift in Sources */,
 				F83684BB1C8F00C5005442E5 /* FunctionAccessorAddressDeclaration.swift in Sources */,
@@ -1947,7 +1944,6 @@
 				F83024CC1CA9C4F100E2EA7F /* SwiftGrammarPatterns.swift in Sources */,
 				F83684ED1C8F00C5005442E5 /* SourceKitStructureBaseScanner.swift in Sources */,
 				F80888341CA7E34B00B57C32 /* CharacterInputStream.swift in Sources */,
-				F80888791CA806E300B57C32 /* FilteredTokenInputStream.swift in Sources */,
 				F83024E01CA9C59000E2EA7F /* BinaryOperatorTokenParserFactory.swift in Sources */,
 				F83684F01C8F00C5005442E5 /* SourceKitStructureModuleScanner.swift in Sources */,
 				F83684D51C8F00C5005442E5 /* VarStaticDeclaration.swift in Sources */,
@@ -1967,7 +1963,6 @@
 				F83024C61CA9C4F100E2EA7F /* SwiftGrammarVariableDeclaration.swift in Sources */,
 				F83684CE1C8F00C5005442E5 /* StructDeclaration.swift in Sources */,
 				F83388601CA83E9100282009 /* ParserImpl.swift in Sources */,
-				F80888391CA7E34B00B57C32 /* TokenOutputStream.swift in Sources */,
 				F80888661CA7FB0C00B57C32 /* AlwaysFailTokenParser.swift in Sources */,
 				F80888701CA7FB1F00B57C32 /* TokenParser.swift in Sources */,
 				F83685081C8F00C6005442E5 /* GenericPlaceholder.swift in Sources */,
@@ -2004,12 +1999,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F80888991CA826B500B57C32 /* TokenInputStreamTestable.swift in Sources */,
 				F836877B1C8F0419005442E5 /* GenericPlaceholdersScannerSpec.swift in Sources */,
 				F80888811CA81DB300B57C32 /* TokenStreamHelper.swift in Sources */,
-				F83388681CA850CC00282009 /* FilteredTokenInputStreamTests.swift in Sources */,
 				F8C49C511CA7363700691F92 /* TerminalTokenizerTests.swift in Sources */,
 				F84706221C8F0F98007902CE /* TestSwiftFile.swift in Sources */,
+				F88DDE351CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift in Sources */,
 				F80888831CA81F6B00B57C32 /* AlternativesTokenParserTests.swift in Sources */,
 				F83024761CA88A2400E2EA7F /* DirectLeftRecursionRemoverTests.swift in Sources */,
 				F808888D1CA81FA300B57C32 /* OptionalTokenParserTests.swift in Sources */,
@@ -2021,7 +2015,9 @@
 				F8C49C4B1CA7363700691F92 /* LexerRulesTests.swift in Sources */,
 				F80888891CA81F9000B57C32 /* EmptyTokenParserTests.swift in Sources */,
 				F87780C31C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift in Sources */,
+				F88DDE331CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift in Sources */,
 				F8C49C4F1CA7363700691F92 /* RepetitionTokenizerTests.swift in Sources */,
+				F88DDE391CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift in Sources */,
 				F8CEF5341C9602F100451D98 /* LexicalAnalysisIdentifierTests.swift in Sources */,
 				F80888971CA8268200B57C32 /* TokenConvertible.swift in Sources */,
 				F8C49C4E1CA7363700691F92 /* LazyTokenizerTests.swift in Sources */,
@@ -2039,6 +2035,7 @@
 				F8C49C501CA7363700691F92 /* SequenceTokenizerTests.swift in Sources */,
 				F80888771CA804F000B57C32 /* TerminalTokenParserTests.swift in Sources */,
 				F808888B1CA81F9900B57C32 /* EofTokenParserTests.swift in Sources */,
+				F88DDE371CAB09D800F248C5 /* OperatorTokenParserTests.swift in Sources */,
 				F80888931CA81FC800B57C32 /* SequenceTokenParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

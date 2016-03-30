@@ -23,7 +23,7 @@ private class Helper {
         
         let inputStream = CharacterInputStringStream(string: string)
         
-        return FilteredTokenInputStream(stream: lexer.tokenize(inputStream), filter: filter).tokens
+        return lexer.tokenize(inputStream).tokens.filter(filter)
     }
 }
 
@@ -39,9 +39,9 @@ class LexerTests: XCTestCase {
             tokenizerFactory: TokenizerFactoryImpl(lexerRules: lexerRules)
         )
         
-        let inputStream = CharacterInputStringStream(string: "?*?*")
+        let inputStream = CharacterInputStringStream(string: "?*??*")
         
-        expect(lexer.tokenize(inputStream).tokens.map { $0.string }).to(equal(["?", "*", "?", "*"]))
+        expect(lexer.tokenize(inputStream).tokens.map { $0.string }).to(equal(["?", "*", "?", "?", "*"]))
     }
     
     func testXXX() {

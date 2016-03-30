@@ -1,5 +1,3 @@
-typealias ProductionRuleCheckFunction = (TokenStreamAccessable) -> (Bool)
-
 indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
     case CustomParser(factory: CustomTokenParserFactory)
     case Char(ranges: [CharRange], invert: Bool)

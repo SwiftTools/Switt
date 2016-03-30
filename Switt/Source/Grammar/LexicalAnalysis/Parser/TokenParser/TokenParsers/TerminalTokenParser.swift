@@ -6,12 +6,15 @@ class TerminalTokenParser: TokenParser {
     }
     
     func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
-        let stream = inputStream.defaultChannel()
+        let position = inputStream.position
         
-        if let token = stream.token() where token.string == terminal {
-            stream.moveNext()
+        inputStream.moveToToken { $0.channel ~= .Default }
+        
+        if let token = inputStream.token() where token.string == terminal {
+            inputStream.moveNext()
             return SyntaxTree.leaf(token)
         } else {
+            position.restore()
             return SyntaxTree.fail()
         }
     }

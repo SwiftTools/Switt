@@ -3,8 +3,10 @@ protocol Lexer {
 }
 
 private struct BestToken {
-    var token: Token
-    var endPosition: CharacterStreamPosition
+    var ruleIdentifier: RuleIdentifier
+    var string: String
+    var channel: TokenChannel
+    var nextCharPosition: CharacterStreamPosition
 }
 
 class LexerImpl: Lexer {
@@ -36,12 +38,16 @@ class LexerTokenStream: TokenInputStream {
     }
     
     var position: StreamPosition {
+        return positionForIndex(currentIndex)
+    }
+    
+    private func positionForIndex(index: Int) -> StreamPosition {
         return StreamPosition(
-            restoreFunction: { [weak self, savedIndex = currentIndex] in
-                self?.currentIndex = savedIndex
+            restoreFunction: { [weak self] in
+                self?.currentIndex = index
             },
-            distanceToCurrent: { [weak self, savedIndex = currentIndex] in
-                return (self?.currentIndex ?? 0) - savedIndex
+            distanceToCurrent: { [weak self] in
+                return (self?.currentIndex ?? 0) - index
             }
         )
     }
@@ -57,10 +63,20 @@ class LexerTokenStream: TokenInputStream {
         } else if index < tokens.count {
             tokenAtIndex = tokens.at(index)
         } else {
-            let tokensToGet = index - tokens.count + 1
+            var tokensToGet = index - tokens.count + 1
             
-            while let token = nextToken() where tokensToGet > 0 {
+            while tokensToGet > 0, let bestToken = nextToken() {
+                let token = Token(
+                    string: bestToken.string,
+                    ruleIdentifier: bestToken.ruleIdentifier,
+                    channel: bestToken.channel,
+                    source: TokenSource(
+                        stream: self,
+                        position: positionForIndex(tokens.count)
+                    )
+                )
                 tokens.append(token)
+                tokensToGet -= 1
             }
             
             let successfullyGotLastToken = tokensToGet == 0
@@ -76,7 +92,7 @@ class LexerTokenStream: TokenInputStream {
         currentIndex += 1
     }
     
-    private func nextToken() -> Token? {
+    private func nextToken() -> BestToken? {
         var bestToken: BestToken?
         
         var tokenizersById = [RuleIdentifier: Tokenizer]()
@@ -90,6 +106,7 @@ class LexerTokenStream: TokenInputStream {
         
         while let char = inputStream.getCharacter() {
             inputStream.moveNext()
+            let nextCharPosition = inputStream.position
             string.append(char)
             
             var currentToken: BestToken?
@@ -104,11 +121,11 @@ class LexerTokenStream: TokenInputStream {
                         // If multiple tokens are generated at one iteration of reading stream,
                         // first one will be the result.
                         if currentToken == nil {
-                            currentToken = makeToken(
+                            currentToken = BestToken(
                                 ruleIdentifier: ruleIdentifier,
                                 string: string,
                                 channel: ruleDefinition.channel,
-                                endPosition: inputStream.position
+                                nextCharPosition: nextCharPosition
                             )
                         }
                         // Complete doesn't mean that tokenizer can not make longer token
@@ -138,7 +155,7 @@ class LexerTokenStream: TokenInputStream {
                     // Reset position to last token.
                     // This is done, because input stream could be read after finding this token
                     // but no more tokens were found
-                    bestToken.endPosition.restore()
+                    bestToken.nextCharPosition.restore()
                     break
                 } else {
                     // Error: couldn't find token in input stream
@@ -147,26 +164,6 @@ class LexerTokenStream: TokenInputStream {
             }
         }
         
-        return bestToken?.token
-    }
-    
-    private func makeToken(ruleIdentifier
-        ruleIdentifier: RuleIdentifier,
-        string: String,
-        channel: TokenChannel,
-        endPosition: CharacterStreamPosition
-        ) -> BestToken {
-        return BestToken(
-            token: Token(
-                string: string,
-                ruleIdentifier: ruleIdentifier,
-                channel: channel,
-                source: TokenSource(
-                    stream: self,
-                    position: position
-                )
-            ),
-            endPosition: endPosition
-        )
+        return bestToken
     }
 }

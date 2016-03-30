@@ -17,18 +17,21 @@ class BinaryOperatorTokenParser: TokenParser {
     func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
-        let hasWhitespaceBefore = inputStream.token()?.ruleIdentifier == RuleIdentifier.Named(.WS)
         let parser = tokenParserFactory.tokenParser(operatorRule)
         
-        if let result = parser.parse(inputStream) {
-            
-            let hasWhitespaceAfter = inputStream.token()?.ruleIdentifier == RuleIdentifier.Named(.WS)
+        if let result = parser.parse(inputStream),
+            let previousToken = SyntaxTree.leftmostToken(result)?.previousToken,
+            let nextToken = SyntaxTree.rightmostToken(result)?.nextToken
+        {
+            let hasWhitespaceBefore = previousToken.ruleIdentifier == RuleIdentifier.Named(.WS)
+            let hasWhitespaceAfter = nextToken.ruleIdentifier == RuleIdentifier.Named(.WS)
             
             let isBinaryOperator = (hasWhitespaceBefore && hasWhitespaceAfter) || (!hasWhitespaceBefore && !hasWhitespaceAfter)
             
             if isBinaryOperator {
                 return result
             }
+                
         }
         
         // Fail:

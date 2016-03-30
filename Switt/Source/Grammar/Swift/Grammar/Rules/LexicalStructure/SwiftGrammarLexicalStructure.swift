@@ -208,13 +208,13 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         parserRule(._operator,
             any(
                 custom(
-                    DisallowWhitespacesTokenParserFactory(
-                        productionRule: .operator_head ~ oneOrMore(.operator_character)
+                    DisallowHiddenTokensTokenParserFactory(
+                        productionRule: .operator_head ~ zeroOrMore(.operator_character)
                     )
                 ),
                 custom(
-                    DisallowWhitespacesTokenParserFactory(
-                        productionRule: .dot_operator_head ~ oneOrMore(.dot_operator_character)
+                    DisallowHiddenTokensTokenParserFactory(
+                        productionRule: .dot_operator_head ~ zeroOrMore(.dot_operator_character)
                     )
                 )
             )

@@ -6,12 +6,15 @@ class NamedTerminalTokenParser: TokenParser {
     }
     
     func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
-        let stream = inputStream.defaultChannel()
+        let position = inputStream.position
         
-        if let token = stream.token() where token.ruleIdentifier == .Named(ruleName) {
-            stream.moveNext()
+        inputStream.moveToToken { $0.channel ~= .Default }
+        
+        if let token = inputStream.token() where token.ruleIdentifier == .Named(ruleName) {
+            inputStream.moveNext()
             return SyntaxTree.leaf(token)
         } else {
+            position.restore()
             return SyntaxTree.fail()
         }
     }

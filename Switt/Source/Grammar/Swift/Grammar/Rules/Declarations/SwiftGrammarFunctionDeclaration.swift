@@ -23,7 +23,7 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesRegistrator {
         )
         
         parserRule(.function_name,
-            compound(
+            any(
                 required(.identifier),
                 required(._operator)
             )
@@ -89,7 +89,7 @@ class SwiftGrammarFunctionDeclaration: GrammarRulesRegistrator {
         
         let paramaterRules: [ProductionRule] = [
             compound(
-                required("let"),
+                optional("let"),
                 optional(.external_parameter_name),
                 required(.local_parameter_name),
                 optional(.type_annotation),

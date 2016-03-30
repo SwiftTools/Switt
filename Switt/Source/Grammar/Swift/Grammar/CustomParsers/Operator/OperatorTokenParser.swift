@@ -8,7 +8,7 @@ class OperatorTokenParser: TokenParser {
     }
     
     func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
-        let parser = DisallowWhitespacesTokenParser(
+        let parser = DisallowHiddenTokensTokenParser(
             parserRule: ParserRule.Sequence(
                 rules: operatorName.characters.map { String($0) }.map { ParserRule.Terminal(terminal: $0) }
             ),

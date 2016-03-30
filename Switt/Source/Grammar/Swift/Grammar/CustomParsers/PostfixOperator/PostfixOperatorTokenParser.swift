@@ -21,20 +21,20 @@ class PostfixOperatorTokenParser: TokenParser {
     func parse(inputStream: TokenInputStream) -> [SyntaxTree]? {
         let position = inputStream.position
         
-        let hasWhitespaceBefore = inputStream.token()?.ruleIdentifier == RuleIdentifier.Named(.WS)
-        
-        if !hasWhitespaceBefore {
-            let parser = tokenParserFactory.tokenParser(operatorRule)
+        let parser = tokenParserFactory.tokenParser(operatorRule)
             
-            if let result = parser.parse(inputStream) {
-                let hasWhitespaceAfter = inputStream.token()?.ruleIdentifier == RuleIdentifier.Named(.WS)
-                let hasDotAfter = inputStream.token()?.ruleIdentifier == RuleIdentifier.Named(.DOT)
+        if let result = parser.parse(inputStream),
+            let previousToken = SyntaxTree.leftmostToken(result)?.previousToken,
+            let nextToken = SyntaxTree.rightmostToken(result)?.nextToken
+        {
+            let hasWhitespaceBefore = previousToken.ruleIdentifier == RuleIdentifier.Named(.WS)
+            let hasWhitespaceAfter = nextToken.ruleIdentifier == RuleIdentifier.Named(.WS)
+            let hasDotAfter = nextToken.ruleIdentifier == RuleIdentifier.Named(.DOT)
                 
-                let isPostfixOperator = (hasWhitespaceAfter || hasDotAfter)
-                
-                if isPostfixOperator {
-                    return result
-                }
+            let isPostfixOperator = !hasWhitespaceBefore && (hasWhitespaceAfter || hasDotAfter)
+            
+            if isPostfixOperator {
+                return result
             }
         }
         
