@@ -1,7 +1,27 @@
-enum SyntaxTree {
+enum SyntaxTree: CustomDebugStringConvertible {
     case Leaf(Token)
     case Node(SyntaxTreeNode)
     
+    var debugDescription: String {
+        switch self {
+        case .Leaf(let token):
+            let ruleName: String
+            switch token.ruleIdentifier {
+            case .Named(let name):
+                ruleName = name.rawValue
+            case .Unnamed(let string):
+                ruleName = string
+            case .Unique(let id):
+                ruleName = "UNIQUE(\(id.hashValue))" // unexpected in tree
+            }
+            return "\(ruleName) \"\(token.string)\""
+        case .Node(let node):
+            return node.debugDescription
+        }
+    }
+}
+
+extension SyntaxTree {
     static func success() -> [SyntaxTree] {
         return []
     }
@@ -51,15 +71,5 @@ enum SyntaxTree {
         case .Node(let node):
             return SyntaxTree.rightmostToken(node.children)
         }
-    }
-}
-
-struct SyntaxTreeNode {
-    var ruleName: RuleName
-    var children: [SyntaxTree]
-    
-    init(ruleName: RuleName, children: [SyntaxTree] = []) {
-        self.ruleName = ruleName
-        self.children = children
     }
 }

@@ -263,6 +263,7 @@
 		F88DDE391CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE381CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift */; };
 		F88DDE3D1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE3B1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift */; };
 		F88DDE3E1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE3C1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift */; };
+		F890A5951CAC4DDF00A558C5 /* SyntaxTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F890A5941CAC4DDF00A558C5 /* SyntaxTreeNode.swift */; };
 		F8C49C101CA6DAE400691F92 /* RuleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C0F1CA6DAE400691F92 /* RuleIdentifier.swift */; };
 		F8C49C141CA6ECF300691F92 /* TokenizerFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C131CA6ECF300691F92 /* TokenizerFactoryImpl.swift */; };
 		F8C49C161CA6ED2600691F92 /* LazyTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C151CA6ED2600691F92 /* LazyTokenizer.swift */; };
@@ -560,6 +561,7 @@
 		F88DDE381CAB09E700F248C5 /* DisallowWhitespacesTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParserTests.swift; sourceTree = "<group>"; };
 		F88DDE3B1CAB12BF00F248C5 /* DisallowWhitespacesTokenParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParser.swift; sourceTree = "<group>"; };
 		F88DDE3C1CAB12BF00F248C5 /* DisallowWhitespacesTokenParserFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisallowWhitespacesTokenParserFactory.swift; sourceTree = "<group>"; };
+		F890A5941CAC4DDF00A558C5 /* SyntaxTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTreeNode.swift; sourceTree = "<group>"; };
 		F8C49C0F1CA6DAE400691F92 /* RuleIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleIdentifier.swift; sourceTree = "<group>"; };
 		F8C49C131CA6ECF300691F92 /* TokenizerFactoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerFactoryImpl.swift; sourceTree = "<group>"; };
 		F8C49C151CA6ED2600691F92 /* LazyTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyTokenizer.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				F8156ADE1C9DA7B70087B821 /* SyntaxTree.swift */,
+				F890A5941CAC4DDF00A558C5 /* SyntaxTreeNode.swift */,
 				F8156AE41C9DA7E00087B821 /* LexicalAnalysisResult.swift */,
 				F8156AEC1C9DA81C0087B821 /* RuleContext.swift */,
 				F8156AEE1C9DA8270087B821 /* ProductionRuleScannerInput.swift */,
@@ -1862,6 +1865,7 @@
 				F83684E61C8F00C5005442E5 /* SourceKitStructureFunctionDestructorScanner.swift in Sources */,
 				F83685031C8F00C6005442E5 /* DeclarationsExpectance.swift in Sources */,
 				F83024FA1CA9CFFB00E2EA7F /* CustomTokenParserFactory.swift in Sources */,
+				F890A5951CAC4DDF00A558C5 /* SyntaxTreeNode.swift in Sources */,
 				F83024901CA98F2100E2EA7F /* RepeatingProductionRuleTransformer.swift in Sources */,
 				F8156ADF1C9DA7B70087B821 /* SyntaxTree.swift in Sources */,
 				F83024DE1CA9C58200E2EA7F /* PostfixOperatorTokenParserFactory.swift in Sources */,
