@@ -25,6 +25,15 @@ Originally I've started mock generating project like Cuckoo, which is now not re
 1. After mock framework will be stable I will improve performance.
 1. I have an idea to create structs for syntax tree. E.g.: you want to handle about 10 cases of declarations, not all 253 rules. So you want a nice enum with only 10 cases for declarations. This can be done using code generation. 
 
+# How to build
+
+This project has no examples and has no practical usage yet. However, if you decide to participate, here's howto:
+
+1. ```carthage update --platform osx  --no-use-binaries```
+1. Open xcodeproj
+1. Run tests
+
+
 # Support or Contact
 
 Contact me via skype: artyom(d-o-t)razinov, or mail artyom(d-o-t)razinov@gmail.com
