@@ -276,6 +276,31 @@
 		F8C49C4F1CA7363700691F92 /* RepetitionTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C411CA7363700691F92 /* RepetitionTokenizerTests.swift */; };
 		F8C49C501CA7363700691F92 /* SequenceTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C421CA7363700691F92 /* SequenceTokenizerTests.swift */; };
 		F8C49C511CA7363700691F92 /* TerminalTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C49C431CA7363700691F92 /* TerminalTokenizerTests.swift */; };
+		F8CAEE361CAC761500D6CCAA /* SwittPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAEE351CAC761500D6CCAA /* SwittPerformanceTests.swift */; };
+		F8CAEE381CAC761500D6CCAA /* Switt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83684281C8F0055005442E5 /* Switt.framework */; };
+		F8CAEE3E1CAC828200D6CCAA /* TokenInputStreamExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83388611CA84F7700282009 /* TokenInputStreamExtension.swift */; };
+		F8CAEE3F1CAC828500D6CCAA /* SyntaxTreeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808887E1CA81C3F00B57C32 /* SyntaxTreeExtension.swift */; };
+		F8CAEE401CAC828800D6CCAA /* TokenStreamHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888801CA81DB300B57C32 /* TokenStreamHelper.swift */; };
+		F8CAEE411CAC828800D6CCAA /* TokenConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888961CA8268200B57C32 /* TokenConvertible.swift */; };
+		F8CAEE421CAC828800D6CCAA /* TokenInputOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83025071CAA010900E2EA7F /* TokenInputOutputStream.swift */; };
+		F8CAEE431CAC828800D6CCAA /* CachedSwiftGrammarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88BA3881CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift */; };
+		F8CAEE451CAC831700D6CCAA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685101C8F016C005442E5 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE461CAC831700D6CCAA /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685121C8F016C005442E5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE471CAC831700D6CCAA /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685141C8F016C005442E5 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE481CAC831700D6CCAA /* SwiftFelisCatus.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685161C8F016C005442E5 /* SwiftFelisCatus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE491CAC831700D6CCAA /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685181C8F016C005442E5 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE4A1CAC831700D6CCAA /* Switt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83684281C8F0055005442E5 /* Switt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE4B1CAC834E00D6CCAA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685101C8F016C005442E5 /* Nimble.framework */; };
+		F8CAEE4C1CAC834F00D6CCAA /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685121C8F016C005442E5 /* Quick.framework */; };
+		F8CAEE4D1CAC838C00D6CCAA /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685141C8F016C005442E5 /* SourceKittenFramework.framework */; };
+		F8CAEE4E1CAC838C00D6CCAA /* SwiftFelisCatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685161C8F016C005442E5 /* SwiftFelisCatus.framework */; };
+		F8CAEE4F1CAC838C00D6CCAA /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83685181C8F016C005442E5 /* SWXMLHash.framework */; };
+		F8CAEE501CAC842500D6CCAA /* SwittPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAEE351CAC761500D6CCAA /* SwittPerformanceTests.swift */; };
+		F8CAEE521CAC8F3800D6CCAA /* TestLexicalAnalyzerOnProjectFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CAEE511CAC8F3800D6CCAA /* TestLexicalAnalyzerOnProjectFilesTests.swift */; };
+		F8CAEE541CAC92A600D6CCAA /* FileKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CAEE531CAC92A600D6CCAA /* FileKit.framework */; };
+		F8CAEE551CAC92A600D6CCAA /* FileKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CAEE531CAC92A600D6CCAA /* FileKit.framework */; };
+		F8CAEE561CAC92B400D6CCAA /* FileKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CAEE531CAC92A600D6CCAA /* FileKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F8CAEE571CAC92B800D6CCAA /* FileKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8CAEE531CAC92A600D6CCAA /* FileKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8CEF5341C9602F100451D98 /* LexicalAnalysisIdentifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CEF5331C9602F100451D98 /* LexicalAnalysisIdentifierTests.swift */; };
 		F8CEF5361C96030900451D98 /* LexicalAnalysisTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CEF5351C96030900451D98 /* LexicalAnalysisTestHelper.swift */; };
 		F8CEF5381C96081500451D98 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CEF5371C96081500451D98 /* StringUtils.swift */; };
@@ -283,6 +308,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		F83684341C8F0055005442E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F836841F1C8F0055005442E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F83684271C8F0055005442E5;
+			remoteInfo = Switt;
+		};
+		F8CAEE391CAC761500D6CCAA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F836841F1C8F0055005442E5 /* Project object */;
 			proxyType = 1;
@@ -298,12 +330,29 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F8CAEE571CAC92B800D6CCAA /* FileKit.framework in CopyFiles */,
 				F83687821C8F0C7A005442E5 /* Nimble.framework in CopyFiles */,
 				F83687831C8F0C7A005442E5 /* Quick.framework in CopyFiles */,
 				F83687811C8F0C22005442E5 /* Switt.framework in CopyFiles */,
 				F83687731C8F01CA005442E5 /* SourceKittenFramework.framework in CopyFiles */,
 				F83687741C8F01CA005442E5 /* SwiftFelisCatus.framework in CopyFiles */,
 				F83687751C8F01CA005442E5 /* SWXMLHash.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8CAEE441CAC830000D6CCAA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F8CAEE561CAC92B400D6CCAA /* FileKit.framework in CopyFiles */,
+				F8CAEE451CAC831700D6CCAA /* Nimble.framework in CopyFiles */,
+				F8CAEE461CAC831700D6CCAA /* Quick.framework in CopyFiles */,
+				F8CAEE471CAC831700D6CCAA /* SourceKittenFramework.framework in CopyFiles */,
+				F8CAEE481CAC831700D6CCAA /* SwiftFelisCatus.framework in CopyFiles */,
+				F8CAEE491CAC831700D6CCAA /* SWXMLHash.framework in CopyFiles */,
+				F8CAEE4A1CAC831700D6CCAA /* Switt.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +623,11 @@
 		F8C49C411CA7363700691F92 /* RepetitionTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepetitionTokenizerTests.swift; sourceTree = "<group>"; };
 		F8C49C421CA7363700691F92 /* SequenceTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTokenizerTests.swift; sourceTree = "<group>"; };
 		F8C49C431CA7363700691F92 /* TerminalTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalTokenizerTests.swift; sourceTree = "<group>"; };
+		F8CAEE331CAC761500D6CCAA /* SwittPerformanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwittPerformanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8CAEE351CAC761500D6CCAA /* SwittPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwittPerformanceTests.swift; sourceTree = "<group>"; };
+		F8CAEE371CAC761500D6CCAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8CAEE511CAC8F3800D6CCAA /* TestLexicalAnalyzerOnProjectFilesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestLexicalAnalyzerOnProjectFilesTests.swift; sourceTree = "<group>"; };
+		F8CAEE531CAC92A600D6CCAA /* FileKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FileKit.framework; sourceTree = "<group>"; };
 		F8CEF5331C9602F100451D98 /* LexicalAnalysisIdentifierTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalysisIdentifierTests.swift; sourceTree = "<group>"; };
 		F8CEF5351C96030900451D98 /* LexicalAnalysisTestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalysisTestHelper.swift; sourceTree = "<group>"; };
 		F8CEF5371C96081500451D98 /* StringUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
@@ -599,6 +653,21 @@
 				F83684331C8F0055005442E5 /* Switt.framework in Frameworks */,
 				F836876F1C8F019E005442E5 /* SourceKittenFramework.framework in Frameworks */,
 				F83687701C8F019E005442E5 /* SwiftFelisCatus.framework in Frameworks */,
+				F8CAEE541CAC92A600D6CCAA /* FileKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8CAEE301CAC761500D6CCAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8CAEE381CAC761500D6CCAA /* Switt.framework in Frameworks */,
+				F8CAEE4B1CAC834E00D6CCAA /* Nimble.framework in Frameworks */,
+				F8CAEE551CAC92A600D6CCAA /* FileKit.framework in Frameworks */,
+				F8CAEE4C1CAC834F00D6CCAA /* Quick.framework in Frameworks */,
+				F8CAEE4D1CAC838C00D6CCAA /* SourceKittenFramework.framework in Frameworks */,
+				F8CAEE4E1CAC838C00D6CCAA /* SwiftFelisCatus.framework in Frameworks */,
+				F8CAEE4F1CAC838C00D6CCAA /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1185,6 +1254,7 @@
 				F836850D1C8F016C005442E5 /* Carthage */,
 				F836842A1C8F0055005442E5 /* Switt */,
 				F83684361C8F0055005442E5 /* SwittTests */,
+				F8CAEE341CAC761500D6CCAA /* SwittPerformanceTests */,
 				F83684291C8F0055005442E5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1194,6 +1264,7 @@
 			children = (
 				F83684281C8F0055005442E5 /* Switt.framework */,
 				F83684321C8F0055005442E5 /* SwittTests.xctest */,
+				F8CAEE331CAC761500D6CCAA /* SwittPerformanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1496,6 +1567,7 @@
 		F836850F1C8F016C005442E5 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				F8CAEE531CAC92A600D6CCAA /* FileKit.framework */,
 				F83685101C8F016C005442E5 /* Nimble.framework */,
 				F83685121C8F016C005442E5 /* Quick.framework */,
 				F83685141C8F016C005442E5 /* SourceKittenFramework.framework */,
@@ -1663,11 +1735,21 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		F8CAEE341CAC761500D6CCAA /* SwittPerformanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8CAEE351CAC761500D6CCAA /* SwittPerformanceTests.swift */,
+				F8CAEE371CAC761500D6CCAA /* Info.plist */,
+			);
+			path = SwittPerformanceTests;
+			sourceTree = "<group>";
+		};
 		F8CEF5321C9602DB00451D98 /* LexicalAnalysis */ = {
 			isa = PBXGroup;
 			children = (
 				F8CEF5331C9602F100451D98 /* LexicalAnalysisIdentifierTests.swift */,
 				F8CEF5351C96030900451D98 /* LexicalAnalysisTestHelper.swift */,
+				F8CAEE511CAC8F3800D6CCAA /* TestLexicalAnalyzerOnProjectFilesTests.swift */,
 			);
 			path = LexicalAnalysis;
 			sourceTree = "<group>";
@@ -1723,13 +1805,32 @@
 			productReference = F83684321C8F0055005442E5 /* SwittTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F8CAEE321CAC761500D6CCAA /* SwittPerformanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8CAEE3D1CAC761500D6CCAA /* Build configuration list for PBXNativeTarget "SwittPerformanceTests" */;
+			buildPhases = (
+				F8CAEE2F1CAC761500D6CCAA /* Sources */,
+				F8CAEE301CAC761500D6CCAA /* Frameworks */,
+				F8CAEE311CAC761500D6CCAA /* Resources */,
+				F8CAEE441CAC830000D6CCAA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8CAEE3A1CAC761500D6CCAA /* PBXTargetDependency */,
+			);
+			name = SwittPerformanceTests;
+			productName = SwittPerformanceTests;
+			productReference = F8CAEE331CAC761500D6CCAA /* SwittPerformanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		F836841F1C8F0055005442E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Artyom Y. Razinov";
 				TargetAttributes = {
@@ -1738,6 +1839,9 @@
 					};
 					F83684311C8F0055005442E5 = {
 						CreatedOnToolsVersion = 7.2.1;
+					};
+					F8CAEE321CAC761500D6CCAA = {
+						CreatedOnToolsVersion = 7.3;
 					};
 				};
 			};
@@ -1755,6 +1859,7 @@
 			targets = (
 				F83684271C8F0055005442E5 /* Switt */,
 				F83684311C8F0055005442E5 /* SwittTests */,
+				F8CAEE321CAC761500D6CCAA /* SwittPerformanceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1768,6 +1873,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F83684301C8F0055005442E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8CAEE311CAC761500D6CCAA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2012,6 +2124,7 @@
 				F84706221C8F0F98007902CE /* TestSwiftFile.swift in Sources */,
 				F88DDE351CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift in Sources */,
 				F80888831CA81F6B00B57C32 /* AlternativesTokenParserTests.swift in Sources */,
+				F8CAEE501CAC842500D6CCAA /* SwittPerformanceTests.swift in Sources */,
 				F83024761CA88A2400E2EA7F /* DirectLeftRecursionRemoverTests.swift in Sources */,
 				F808888D1CA81FA300B57C32 /* OptionalTokenParserTests.swift in Sources */,
 				F808888F1CA81FB200B57C32 /* RepetitionTokenParserTests.swift in Sources */,
@@ -2043,8 +2156,23 @@
 				F8C49C501CA7363700691F92 /* SequenceTokenizerTests.swift in Sources */,
 				F80888771CA804F000B57C32 /* TerminalTokenParserTests.swift in Sources */,
 				F808888B1CA81F9900B57C32 /* EofTokenParserTests.swift in Sources */,
+				F8CAEE521CAC8F3800D6CCAA /* TestLexicalAnalyzerOnProjectFilesTests.swift in Sources */,
 				F88DDE371CAB09D800F248C5 /* OperatorTokenParserTests.swift in Sources */,
 				F80888931CA81FC800B57C32 /* SequenceTokenParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8CAEE2F1CAC761500D6CCAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8CAEE3E1CAC828200D6CCAA /* TokenInputStreamExtension.swift in Sources */,
+				F8CAEE411CAC828800D6CCAA /* TokenConvertible.swift in Sources */,
+				F8CAEE431CAC828800D6CCAA /* CachedSwiftGrammarFactory.swift in Sources */,
+				F8CAEE361CAC761500D6CCAA /* SwittPerformanceTests.swift in Sources */,
+				F8CAEE3F1CAC828500D6CCAA /* SyntaxTreeExtension.swift in Sources */,
+				F8CAEE401CAC828800D6CCAA /* TokenStreamHelper.swift in Sources */,
+				F8CAEE421CAC828800D6CCAA /* TokenInputOutputStream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2055,6 +2183,11 @@
 			isa = PBXTargetDependency;
 			target = F83684271C8F0055005442E5 /* Switt */;
 			targetProxy = F83684341C8F0055005442E5 /* PBXContainerItemProxy */;
+		};
+		F8CAEE3A1CAC761500D6CCAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F83684271C8F0055005442E5 /* Switt */;
+			targetProxy = F8CAEE391CAC761500D6CCAA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2221,6 +2354,42 @@
 			};
 			name = Release;
 		};
+		F8CAEE3B1CAC761500D6CCAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = SwittPerformanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razinov.SwittPerformanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8CAEE3C1CAC761500D6CCAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = SwittPerformanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razinov.SwittPerformanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2250,6 +2419,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F8CAEE3D1CAC761500D6CCAA /* Build configuration list for PBXNativeTarget "SwittPerformanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8CAEE3B1CAC761500D6CCAA /* Debug */,
+				F8CAEE3C1CAC761500D6CCAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

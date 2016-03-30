@@ -12,7 +12,13 @@ class SwiftGrammarLiteralExpressions: GrammarRulesRegistrator {
                 required("__FILE__"),
                 required("__LINE__"),
                 required("__COLUMN__"),
-                required("__FUNCTION__")
+                required("__FUNCTION__"),
+                
+                // Swift 2.2:,
+                required("#file"),
+                required("#line"),
+                required("#column"),
+                required("#function")
             )
         )
         
