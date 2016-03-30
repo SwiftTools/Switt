@@ -1,7 +1,7 @@
 @testable import Switt
 
 class LexicalAnalysisTestHelper {
-    private let lexicalAnalyzer = LexicalAnalyzerImpl(grammarFactory: SwiftGrammarFactory())
+    private let lexicalAnalyzer = LexicalAnalyzerImpl(grammarFactory: CachedSwiftGrammarFactory.instance)
     
     func isSuccess(code: String, firstRule: RuleName? = nil) -> Bool {
         return analyze(code, firstRule: firstRule) != nil

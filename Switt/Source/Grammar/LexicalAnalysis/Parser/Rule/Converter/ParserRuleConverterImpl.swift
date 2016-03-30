@@ -6,6 +6,20 @@ final class ParserRuleConverterImpl: ParserRuleConverter {
     }
     
     func convertToParserRule(productionRule rule: ProductionRule) -> ParserRule? {
+        let transformer = RepeatingProductionRuleTransformer(
+            transformer: CompoundProductionRuleTransformer(
+                transformers: [
+                    StripRepetitionProductionRuleTransformer(),
+                    StripOptionalsProductionRuleTransformer(),
+                    MergeCollectionsProductionRuleTransformer(),
+                    StripEmptyProductionRuleTransformer(),
+                    UnrollSequenceProductionRuleTransformer()
+                ]
+            )
+        )
+        
+        let rule = transformer.transform(rule)
+        
         switch rule {
         case .Char:
             return nil

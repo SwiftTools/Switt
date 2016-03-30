@@ -12,7 +12,7 @@ private class Helper {
     }
     
     static func filteredTokens(string: String, filter: Token -> Bool) -> [Token] {
-        let grammar = SwiftGrammarFactory().grammar()
+        let grammar = CachedSwiftGrammarFactory.instance.grammar()
         
         let lexerRules = grammar.grammarRules.lexerRules
         
@@ -45,7 +45,7 @@ class LexerTests: XCTestCase {
     }
     
     func testXXX() {
-        let grammar = SwiftGrammarFactory().grammar()
+        let grammar = CachedSwiftGrammarFactory.instance.grammar()
         
         let lexerRules = grammar.grammarRules.lexerRules
         

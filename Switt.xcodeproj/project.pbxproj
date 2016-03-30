@@ -256,6 +256,7 @@
 		F87780B31C956818006AB9C0 /* RuleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780B21C956818006AB9C0 /* RuleName.swift */; };
 		F87780C11C959E7C006AB9C0 /* LexicalAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780C01C959E7C006AB9C0 /* LexicalAnalyzer.swift */; };
 		F87780C31C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87780C21C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift */; };
+		F88BA3891CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88BA3881CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift */; };
 		F88DDE331CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE321CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift */; };
 		F88DDE351CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE341CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift */; };
 		F88DDE371CAB09D800F248C5 /* OperatorTokenParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DDE361CAB09D800F248C5 /* OperatorTokenParserTests.swift */; };
@@ -552,6 +553,7 @@
 		F87780B21C956818006AB9C0 /* RuleName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleName.swift; sourceTree = "<group>"; };
 		F87780C01C959E7C006AB9C0 /* LexicalAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalyzer.swift; sourceTree = "<group>"; };
 		F87780C21C95A096006AB9C0 /* SyntaxAnalyzerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxAnalyzerSpec.swift; sourceTree = "<group>"; };
+		F88BA3881CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedSwiftGrammarFactory.swift; sourceTree = "<group>"; };
 		F88DDE321CAB09CB00F248C5 /* PostfixOperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostfixOperatorTokenParserTests.swift; sourceTree = "<group>"; };
 		F88DDE341CAB09D300F248C5 /* PrefixOperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefixOperatorTokenParserTests.swift; sourceTree = "<group>"; };
 		F88DDE361CAB09D800F248C5 /* OperatorTokenParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorTokenParserTests.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 				F80888801CA81DB300B57C32 /* TokenStreamHelper.swift */,
 				F80888961CA8268200B57C32 /* TokenConvertible.swift */,
 				F83025071CAA010900E2EA7F /* TokenInputOutputStream.swift */,
+				F88BA3881CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2025,6 +2028,7 @@
 				F84706261C8F104E007902CE /* SourceKitStructureScanningLoggerMock.swift in Sources */,
 				F8CEF5361C96030900451D98 /* LexicalAnalysisTestHelper.swift in Sources */,
 				F80888911CA81FBE00B57C32 /* RuleReferenceTokenParserTests.swift in Sources */,
+				F88BA3891CAB525400A8BBA2 /* CachedSwiftGrammarFactory.swift in Sources */,
 				F8C49C491CA7363700691F92 /* LexerTests.swift in Sources */,
 				F83388661CA850C100282009 /* TokenInputOutputStreamTests.swift in Sources */,
 				F8C49C4A1CA7363700691F92 /* LexerRuleConverterSpec.swift in Sources */,
