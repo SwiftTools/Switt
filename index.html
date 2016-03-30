@@ -19,26 +19,58 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="welcome-to-switt-project" class="anchor" href="#welcome-to-switt-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to Switt project.</h3>
+      <h1>
+<a id="switt" class="anchor" href="#switt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Switt</h1>
+
+<p>Tool Kit for reading Swift code</p>
+
+<h1>
+<a id="welcome-to-switt-project" class="anchor" href="#welcome-to-switt-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to Switt project.</h1>
 
 <p>Switt is a framework for reading Swift files into nice structures and generating nice code from these structures. It is in a very early stage of development, however, every contribution is welcomed.</p>
 
-<p>I doubt if anyone will read this site and support this project, so I will keep this web page a little bit messy.</p>
+<p>The project is under MIT license. The project is non-profit.</p>
 
-<h3>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h3>
+<p>Originally I've started mock generating project like Cuckoo, which is now not ready, because of lack of tools.</p>
+
+<p>At this stage the project has already Source Kit integration and home made lexical analyzer. See example: <a href="http://pastebin.com/xvFWnhFC">http://pastebin.com/xvFWnhFC</a></p>
+
+<h1>
+<a id="help-this-project" class="anchor" href="#help-this-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Help this project</h1>
+
+<p>If you like this project, you can:</p>
 
 <ol>
-<li>Commit changes with code generation if anyone else is interested in this project</li>
-<li>Implement type inference</li>
-<li>Implement scanning generic placeholders from String (SourceKit doesn't provide such information =( )</li>
+<li>Write tests</li>
+<li>Improve performance</li>
+<li>Go deep into code and do complex changes</li>
 </ol>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h1>
+<a id="history-of-development" class="anchor" href="#history-of-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>History of development</h1>
 
-<p>Contact me via skype: artyomrazinov (with a dot between m and r), or mail @gmail.com</p>
+<ol>
+<li>Mar 8: Initial commits, simple scanning for declarations with SourceKitten (I also made helper project SwiftFelisCatus)</li>
+<li>Mar 13: I realized that Source Kit can't provide some info and has errors and I moved towards implementing lexical analysis. I made simple grammar and parser.</li>
+<li>Mar 21: I read Dragon Book and realized that I was completely wrong. I implement proper lexer that tokenizes character stream</li>
+<li>Mar 30: Finished parser. Implement transformations of grammar. Faced with the problem with performance. It is really slow, but it is enough to start developing other parts of code</li>
+</ol>
+
+<h1>
+<a id="plans" class="anchor" href="#plans" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plans</h1>
+
+<ol>
+<li>Implement scanning declarations into nice struct with Source Kit and with a help of previously made lexical analyzer.</li>
+<li>Start developing mock framework</li>
+<li>Maybe to improve performance at this stage, if I can find free time.</li>
+<li>After mock framework will be stable I will improve performance.</li>
+<li>I have an idea to create structs for syntax tree. E.g.: you want to handle about 10 cases of declarations, not all 253 rules. So you want a nice enum with only 10 cases for declarations. This can be done using code generation. </li>
+</ol>
+
+<h1>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h1>
+
+<p>Contact me via skype: artyom(d-o-t)razinov, or mail artyom(d-o-t)<a href="mailto:razinov@gmail.com">razinov@gmail.com</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/SwiftTools/Switt">Switt</a> is maintained by <a href="https://github.com/SwiftTools">SwiftTools</a>.</span>
