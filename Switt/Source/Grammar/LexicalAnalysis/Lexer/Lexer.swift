@@ -104,10 +104,17 @@ class LexerTokenStream: TokenInputStream {
         
         var string: String = ""
         
-        while let char = inputStream.getCharacter() {
+        var char: Character?
+        
+        // repeat while char != nil, handle nil once
+        repeat {
+            char = inputStream.getCharacter()
             inputStream.moveNext()
             let nextCharPosition = inputStream.position
-            string.append(char)
+            
+            if let char = char {
+                string.append(char)
+            }
             
             var currentToken: BestToken?
             
@@ -134,6 +141,11 @@ class LexerTokenStream: TokenInputStream {
                         tokenizersById.removeValueForKey(ruleIdentifier)
                     case .Possible:
                         break
+                    case .FatalError:
+                        // TODO (URGENT)
+                        // Kludge: end stream
+                        currentIndex = Int.min / 2
+                        return nil
                     }
                 }
             }
@@ -162,7 +174,7 @@ class LexerTokenStream: TokenInputStream {
                     break
                 }
             }
-        }
+        } while char != nil
         
         return bestToken
     }

@@ -34,6 +34,7 @@ class RuleCollectionMath {
                 )
                 return rule
             case .CustomParser,
+                 .CustomTokenizer,
                  .Char,
                  .RuleReference,
                  .Sequence,
@@ -75,6 +76,7 @@ class RuleCollectionMath {
                     newRules.append(rule)
                 }
             case .CustomParser,
+                 .CustomTokenizer,
                  .Char,
                  .RuleReference,
                  .Sequence,
@@ -105,6 +107,7 @@ class RuleCollectionMath {
                 return rule
                 
             case .CustomParser,
+                 .CustomTokenizer,
                  .Char,
                  .RuleReference,
                  .Sequence,

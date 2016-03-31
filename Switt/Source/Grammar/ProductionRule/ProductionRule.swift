@@ -1,5 +1,6 @@
 indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
     case CustomParser(factory: CustomTokenParserFactory)
+    case CustomTokenizer(factory: CustomTokenizerFactory)
     case Char(ranges: [CharRange], invert: Bool)
     case RuleReference(identifier: RuleIdentifier)
     case Sequence(rules: [ProductionRule])
@@ -9,7 +10,7 @@ indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
     // TODO: remove stop rule.
     // Add start and stop rule to LexerRule.
     // Improve converter to lexer rule
-    case Lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool)
+    case Lazy(startRule: ProductionRule, rule: ProductionRule, stopRule: ProductionRule)
     case Multiple(atLeast: UInt, rule: ProductionRule)
     case Empty
     case Eof
@@ -18,6 +19,8 @@ indirect enum ProductionRule: CustomDebugStringConvertible, Equatable {
 func ==(left: ProductionRule, right: ProductionRule) -> Bool {
     switch (left, right) {
     case (.CustomParser(let factory1), .CustomParser(let factory2)):
+        return factory1 === factory2
+    case (.CustomTokenizer(let factory1), .CustomTokenizer(let factory2)):
         return factory1 === factory2
     case (.Char(let ranges1, let invert1), .Char(let ranges2, let invert2)):
         return ranges1 == ranges2 && invert1 == invert2
@@ -37,8 +40,8 @@ func ==(left: ProductionRule, right: ProductionRule) -> Bool {
         return ruleName1 == ruleName2
     case (.Terminal(let terminal1), .Terminal(let terminal2)):
         return terminal1 == terminal2
-    case (.Lazy(let rule1, let stopRule1, let required1), .Lazy(let rule2, let stopRule2, let required2)):
-        return rule1 == rule2 && stopRule1 == stopRule2 && required1 == required2
+    case (.Lazy(let startRule1, let rule1, let stopRule1), .Lazy(let startRule2, let rule2, let stopRule2)):
+        return startRule1 == startRule2 && rule1 == rule2 && stopRule1 == stopRule2
     default:
         return false
     }
@@ -52,6 +55,8 @@ extension ProductionRule {
             return invertString + (ranges.map { $0.debugDescription }).joinWithSeparator(" | ")
         case .CustomParser(let factory):
             return "custom parser(\(factory.dynamicType))"
+        case .CustomTokenizer(let factory):
+            return "custom tokenizer(\(factory.dynamicType))"
         case .Sequence(let rules):
             return "compound" + StringUtils.wrapAndIndent(
                 prefix: "(",
@@ -80,16 +85,27 @@ extension ProductionRule {
                 infix: (rules.map { $0.debugDescription }).joinWithSeparator("," + StringUtils.newLine),
                 postfix: ")"
             )
-        case .Lazy(let rule, let stopRule, let required):
+        case .Lazy(let startRule, let rule, let stopRule):
             return "lazy"
                 + StringUtils.wrapAndIndent(
                     prefix: "(",
-                    infix: rule.debugDescription,
+                    infix: StringUtils.wrapAndIndent(
+                        prefix: "startRule (",
+                        infix: startRule.debugDescription,
+                        postfix: "),"
+                        )
+                        + StringUtils.wrapAndIndent(
+                            prefix: "rule (",
+                            infix: rule.debugDescription,
+                            postfix: "),"
+                        )
+                        + StringUtils.wrapAndIndent(
+                            prefix: "stopRule (",
+                            infix: stopRule.debugDescription,
+                            postfix: ")"
+                    ),
                     postfix: ")"
-                ) + StringUtils.wrapAndIndent(
-                    prefix: ", stopRule" + (required ? "(required)" : "") + ": (",
-                    infix: stopRule.debugDescription,
-                    postfix: ")"
+                
             )
         case .RuleReference(let identifier):
             return identifier.debugDescription

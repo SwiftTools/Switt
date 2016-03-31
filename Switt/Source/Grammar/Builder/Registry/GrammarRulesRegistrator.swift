@@ -83,10 +83,12 @@ extension GrammarRulesRegistrator {
     func grammar(clearedRules clearedRules: [RuleRegistrationInfo], firstRule: RuleName) -> Grammar {
         var grammarRules = GrammarRules()
         
+        let lexerRuleConverter = LexerRuleConverterImpl()
+        
         for ruleRegistrationInfo in clearedRules {
             switch ruleRegistrationInfo {
             case .LexerRule(let lexerRuleInfo):
-                if let lexerRule = LexerRuleConverter.convertToLexerRule(lexerRuleInfo.rule) {
+                if let lexerRule = lexerRuleConverter.convertToLexerRule(lexerRuleInfo.rule) {
                     grammarRules.lexerRules.appendRule(
                         name: lexerRuleInfo.name,
                         rule: lexerRule,
@@ -96,7 +98,7 @@ extension GrammarRulesRegistrator {
                     abort() // TODO
                 }
             case .LexerFragment(let lexerFragmentInfo):
-                if let lexerRule = LexerRuleConverter.convertToLexerRule(lexerFragmentInfo.rule) {
+                if let lexerRule = lexerRuleConverter.convertToLexerRule(lexerFragmentInfo.rule) {
                     grammarRules.lexerRules.appendFragment(
                         identifier: lexerFragmentInfo.identifier,
                         rule: lexerRule

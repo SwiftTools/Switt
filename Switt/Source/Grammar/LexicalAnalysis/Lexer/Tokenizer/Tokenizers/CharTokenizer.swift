@@ -19,16 +19,16 @@ class CharTokenizer: Tokenizer {
         }
     }
     
-    func feed(char: Character) -> TokenizerState {
-        if alreadyFed {
-            return .Fail
-        } else {
+    func feed(char: Character?) -> TokenizerState {
+        if !alreadyFed, let char = char {
             alreadyFed = true
             if matches(char) {
                 return .Complete
             } else {
                 return .Fail
             }
+        } else {
+            return .Fail
         }
     }
     

@@ -25,24 +25,13 @@ class StripEmptyProductionRuleTransformer: ProductionRuleTransformer {
                 return .Multiple(atLeast: atLeast, rule: transform(rule))
             }
             
-        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
-            if RuleMath.isEmpty(rule) {
-                return ProductionRule.Empty
-            } else if RuleMath.isEmpty(stopRule) {
-                return .Multiple(atLeast: 0, rule: transform(rule))
-            } else {
-                return .Lazy(
-                    rule: transform(rule),
-                    stopRule: transform(stopRule),
-                    stopRuleIsRequired: stopRuleIsRequired
-                )
-            }
-            
         case .CustomParser,
+             .CustomTokenizer,
              .Char,
              .RuleReference,
              .Terminal,
              .Empty,
+             .Lazy,
              .Eof:
             return productionRule
         }

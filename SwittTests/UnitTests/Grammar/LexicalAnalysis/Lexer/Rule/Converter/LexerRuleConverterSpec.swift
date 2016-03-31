@@ -126,7 +126,7 @@ extension ProductionRule {
 class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     
     func test_convertToLexerRule_0() {
-        let actualRule = LexerRuleConverter.convertToLexerRule(
+        let actualRule = LexerRuleConverterImpl().convertToLexerRule(
             any(
                 required("a"),
                 compound(
@@ -143,7 +143,7 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
     }
     
     func test_convertToLexerRule_1() {
-        let actualRule = LexerRuleConverter.convertToLexerRule(
+        let actualRule = LexerRuleConverterImpl().convertToLexerRule(
             oneOrMore(.Identifier_character)
         )
         let expectedRule = LexerRule.Repetition(
@@ -151,72 +151,6 @@ class LexerRuleConverterTests: XCTestCase, GrammarRulesBuilder {
                 identifier: RuleIdentifier.Named(.Identifier_character)
             )
         )
-        expect(actualRule).to(equal(expectedRule))
-    }
-    
-    func test_simplifyRule_0() {
-        let actualRule = LexerRuleConverter.simplifyRule(
-            ~"a" | "b" ~ (??"c" | zeroOrMore("d"))
-        )
-        
-        expect(actualRule?.alternatives).toNot(beNil())
-    }
-    
-    func test_simplifyRule_1() {
-        let actualRule = LexerRuleConverter.simplifyRule(
-            any("a", "b")
-        )
-        
-        let expectedRule = any("a", "b")
-        
-        expect(actualRule).to(equal(expectedRule))
-    }
-    
-    func test_simplifyRule_3() {
-        let actualRule = LexerRuleConverter.simplifyRule(
-            compound(
-                required("x"),
-                zeroOrMore("y")
-            )
-        )
-        
-        let expectedRule = any(
-            compound(
-                required("x"),
-                oneOrMore("y")
-            ),
-            required("x")
-        )
-        
-        expect(actualRule).to(equal(expectedRule))
-    }
-    
-    func test_simplifyRule_4() {
-        let actualRule = LexerRuleConverter.simplifyRule(
-            compound(
-                required("a"),
-                any(
-                    optional("b"),
-                    zeroOrMore("c")
-                )
-            )
-        )
-        // a b? | a c*
-        // a b | a | a c+ | a
-        
-        let expectedRule = any(
-            compound(
-                required("a"),
-                required("b")
-            ),
-            required("a"),
-            compound(
-                required("a"),
-                oneOrMore("c")
-            ),
-            required("a")
-        )
-        
         expect(actualRule).to(equal(expectedRule))
     }
     

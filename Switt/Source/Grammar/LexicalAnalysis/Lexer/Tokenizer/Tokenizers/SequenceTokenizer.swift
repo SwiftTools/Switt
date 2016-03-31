@@ -8,7 +8,7 @@ class SequenceTokenizer: Tokenizer {
         self.tokenizers = rules.map { Lazy(tokenizerFactory.tokenizer($0)) }
     }
     
-    func feed(char: Character) -> TokenizerState {
+    func feed(char: Character?) -> TokenizerState {
         if let tokenizer = tokenizers.at(ruleIndex) {
             switch tokenizer.value.feed(char) {
             case .Possible:
@@ -30,6 +30,8 @@ class SequenceTokenizer: Tokenizer {
                             } else {
                                 return .Possible
                             }
+                        case .FatalError:
+                            return .FatalError
                         }
                     } else {
                         // Sequence ended. New char is outside of sequence
@@ -45,6 +47,8 @@ class SequenceTokenizer: Tokenizer {
                 } else {
                     return .Possible
                 }
+            case .FatalError:
+                return .FatalError
             }
         } else {
             return .Fail

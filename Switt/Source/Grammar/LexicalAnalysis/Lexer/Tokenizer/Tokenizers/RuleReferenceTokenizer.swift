@@ -5,7 +5,7 @@ class RuleReferenceTokenizer: Tokenizer {
         tokenizer = tokenizerFactory.tokenizer(ruleIdentifier)
     }
     
-    func feed(char: Character) -> TokenizerState {
+    func feed(char: Character?) -> TokenizerState {
         return tokenizer?.feed(char) ?? .Fail
     }
 }

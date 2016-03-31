@@ -24,12 +24,13 @@ class TestLexicalAnalyzerOnProjectFilesTests: XCTestCase {
     func test() {
         var folder = Path(#file).parent
         let rootFilename = "Switt.xcodeproj"
+        let rootFolderName = "Switt"
         
         while !(folder.contains { $0.fileName == rootFilename }) {
             folder = folder.parent
         }
         
-        let rootFolder = folder
+        let rootFolder = folder + rootFolderName
         
         let files = rootFolder.find { (path) -> Bool in
             path.pathExtension == "swift"

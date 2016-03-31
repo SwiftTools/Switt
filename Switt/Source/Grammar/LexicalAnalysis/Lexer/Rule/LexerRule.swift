@@ -1,14 +1,18 @@
 indirect enum LexerRule: CustomDebugStringConvertible, Equatable {
+    case CustomTokenizer(factory: LexerRuleCustomTokenParserFactory)
     case Char(ranges: [CharRange], invert: Bool)
     case RuleReference(identifier: RuleIdentifier)
     case Sequence(rules: [LexerRule])
     case Alternatives(rules: [LexerRule])
     case Terminal(terminal: String)
     case Repetition(rule: LexerRule)
-    case Lazy(rule: LexerRule, stopRule: LexerRule, stopRuleIsRequired: Bool)
+    case Eof
+    case Lazy(startRule: LexerRule, rule: LexerRule, stopRule: LexerRule)
 
     var debugDescription: String {
         switch self {
+        case .CustomTokenizer(let factory):
+            return "custom tokenizer(\(factory.dynamicType))"
         case .Char(let ranges, let invert):
             let invertString = invert ? "^" : ""
             return invertString + (ranges.map { $0.debugDescription }).joinWithSeparator(" | ")
@@ -34,16 +38,29 @@ indirect enum LexerRule: CustomDebugStringConvertible, Equatable {
             return ruleName.debugDescription
         case .Terminal(let terminal):
             return "'\(terminal)'"
-        case .Lazy(let rule, let stopRule, let required):
+        case .Eof:
+            return "<EOF>"
+        case .Lazy(let startRule, let rule, let stopRule):
             return "lazy"
                 + StringUtils.wrapAndIndent(
                     prefix: "(",
-                    infix: rule.debugDescription,
+                    infix: StringUtils.wrapAndIndent(
+                            prefix: "startRule (",
+                            infix: startRule.debugDescription,
+                            postfix: "),"
+                        )
+                        + StringUtils.wrapAndIndent(
+                            prefix: "rule (",
+                            infix: rule.debugDescription,
+                            postfix: "),"
+                        )
+                        + StringUtils.wrapAndIndent(
+                            prefix: "stopRule (",
+                            infix: stopRule.debugDescription,
+                            postfix: ")"
+                    ),
                     postfix: ")"
-                ) + StringUtils.wrapAndIndent(
-                    prefix: ", stopRule" + (required ? "(required)" : "") + ": (",
-                    infix: stopRule.debugDescription,
-                    postfix: ")"
+                    
             )
         }
     }

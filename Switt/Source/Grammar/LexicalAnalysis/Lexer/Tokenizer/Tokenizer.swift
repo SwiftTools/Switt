@@ -1,3 +1,3 @@
 protocol Tokenizer {
-    func feed(char: Character) -> TokenizerState
+    func feed(char: Character?) -> TokenizerState
 }

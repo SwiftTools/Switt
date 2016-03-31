@@ -11,7 +11,7 @@ class RepetitionTokenizer: Tokenizer {
         self.tokenizer = tokenizerFactory.tokenizer(rule)
     }
     
-    func feed(char: Character) -> TokenizerState {
+    func feed(char: Character?) -> TokenizerState {
         switch tokenizer.feed(char) {
         case .Possible:
             wasComplete = false
@@ -31,6 +31,8 @@ class RepetitionTokenizer: Tokenizer {
                 case .Complete:
                     wasComplete = true
                     return .Complete
+                case .FatalError:
+                    return .FatalError
                 }
             } else {
                 return .Fail
@@ -38,6 +40,8 @@ class RepetitionTokenizer: Tokenizer {
         case .Complete:
             wasComplete = true
             return .Complete
+        case .FatalError:
+            return .FatalError
         }
     }
 }

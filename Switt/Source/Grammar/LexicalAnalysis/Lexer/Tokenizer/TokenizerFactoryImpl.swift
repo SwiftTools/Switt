@@ -49,13 +49,17 @@ class TokenizerFactoryImpl: TokenizerFactory {
             tokenizer = TerminalTokenizer(
                 terminal: terminal
             )
-        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+        case .Lazy(let startRule, let rule, let stopRule):
             tokenizer = LazyTokenizer(
+                startRule: startRule,
                 rule: rule,
                 stopRule: stopRule,
-                stopRuleIsRequired: stopRuleIsRequired,
                 tokenizerFactory: self
             )
+        case .Eof:
+            tokenizer = EofTokenizer()
+        case .CustomTokenizer(let factory):
+            tokenizer = factory.tokenizer(self)
         }
         
         return tokenizer

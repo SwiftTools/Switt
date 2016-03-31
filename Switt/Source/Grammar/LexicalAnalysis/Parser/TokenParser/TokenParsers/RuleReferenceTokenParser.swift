@@ -18,7 +18,7 @@ class RuleReferenceTokenParser: TokenParser {
                 return result.flatMap { children in SyntaxTree.tree(ruleName, children) }
             }
         } else {
-            abort() // TODO
+            assertionFailure("Can't find parser rule referenced by identifier: \(ruleIdentifier)") // TODO
             return nil
         }
     }

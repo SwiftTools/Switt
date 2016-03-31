@@ -133,9 +133,8 @@ extension GrammarRulesBuilder {
     }
     
     // *?
-    // TODO: implement
-    func lazy(rule: ProductionRule, stopRule: ProductionRule, stopRuleIsRequired: Bool) -> ProductionRule {
-        return ProductionRule.Lazy(rule: rule, stopRule: stopRule, stopRuleIsRequired: stopRuleIsRequired)
+    func lazy(startRule startRule: ProductionRule, rule: ProductionRule, stopRule: ProductionRule) -> ProductionRule {
+        return ProductionRule.Lazy(startRule: startRule, rule: rule, stopRule: stopRule)
     }
     
     func notChar(chars: [UnicodeScalar]) -> ProductionRule {
@@ -146,10 +145,14 @@ extension GrammarRulesBuilder {
         return .Char(ranges: ranges, invert: true)
     }
     
-    // check
+    // custom
     
     func custom(factory: CustomTokenParserFactory) -> ProductionRule {
         return .CustomParser(factory: factory)
+    }
+    
+    func custom(factory: CustomTokenizerFactory) -> ProductionRule {
+        return .CustomTokenizer(factory: factory)
     }
     
     // times

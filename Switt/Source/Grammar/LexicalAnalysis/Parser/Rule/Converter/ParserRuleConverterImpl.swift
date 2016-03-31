@@ -30,6 +30,9 @@ final class ParserRuleConverterImpl: ParserRuleConverter {
                     parserRuleConverter: self
                 )
             )
+        case .CustomTokenizer:
+            return nil
+            
         case .Sequence(let rules):
             return ParserRule.Sequence(
                 rules: rules.flatMap {

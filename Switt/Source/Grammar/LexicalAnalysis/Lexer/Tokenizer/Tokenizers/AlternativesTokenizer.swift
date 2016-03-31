@@ -5,7 +5,7 @@ class AlternativesTokenizer: Tokenizer {
         self.tokenizers = rules.map { Lazy(tokenizerFactory.tokenizer($0)) }
     }
     
-    func feed(char: Character) -> TokenizerState {
+    func feed(char: Character?) -> TokenizerState {
         var completeTokenizers: [Lazy<Tokenizer>] = []
         var possibleTokenizers: [Lazy<Tokenizer>] = []
         
@@ -17,6 +17,8 @@ class AlternativesTokenizer: Tokenizer {
                 break
             case .Possible:
                 possibleTokenizers.append(tokenizer)
+            case .FatalError:
+                return .FatalError
             }
         }
         

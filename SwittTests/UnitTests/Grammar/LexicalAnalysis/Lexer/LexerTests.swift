@@ -31,8 +31,10 @@ class LexerTests: XCTestCase {
     func testOnSimpleGrammar() {
         var lexerRules = LexerRules()
         
-        lexerRules.appendRule(name: .QUESTION, rule: LexerRuleConverter.convertToLexerRule(~"?")!, channel: .Default)
-        lexerRules.appendRule(name: .MUL, rule: LexerRuleConverter.convertToLexerRule(~"*")!, channel: .Default)
+        let lexerRuleConverter = LexerRuleConverterImpl()
+        
+        lexerRules.appendRule(name: .QUESTION, rule: lexerRuleConverter.convertToLexerRule(~"?")!, channel: .Default)
+        lexerRules.appendRule(name: .MUL, rule: lexerRuleConverter.convertToLexerRule(~"*")!, channel: .Default)
         
         let lexer = LexerImpl(
             lexerRules: lexerRules,

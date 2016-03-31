@@ -13,7 +13,7 @@ private struct RemovingRecursionRules {
 private extension ProductionRule {
     func containsDirectLeftRecursion(ruleIdentifier: RuleIdentifier) -> Bool {
         switch self {
-        case .CustomParser, .Eof, .Terminal, .Char, .Empty:
+        case .CustomParser, .Eof, .Terminal, .Char, .Empty, .CustomTokenizer:
             return false
         case .RuleReference(let identifier):
             return identifier == ruleIdentifier
@@ -25,8 +25,8 @@ private extension ProductionRule {
             return rules.contains { $0.containsDirectLeftRecursion(ruleIdentifier) }
         case .Sequence(let rules):
             return rules.first?.containsDirectLeftRecursion(ruleIdentifier) == true
-        case .Lazy(let rule, _, _):
-            return rule.containsDirectLeftRecursion(ruleIdentifier)
+        case .Lazy(let startRule, _, _):
+            return startRule.containsDirectLeftRecursion(ruleIdentifier)
         }
     }
 }

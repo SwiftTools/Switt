@@ -7,18 +7,18 @@ class TerminalTokenizer: Tokenizer {
         self.index = terminal.startIndex
     }
     
-    func feed(char: Character) -> TokenizerState {
-        let currentChar = terminal.characters.at(index)
-        
-        if index < terminal.endIndex {
+    func feed(char: Character?) -> TokenizerState {
+        if let char = char, let currentChar = terminal.characters.at(index) {
             index = index.advancedBy(1)
-        }
-        
-        if currentChar == char {
-            if index == terminal.endIndex {
-                return .Complete
+            
+            if currentChar == char {
+                if index == terminal.endIndex {
+                    return .Complete
+                } else {
+                    return .Possible
+                }
             } else {
-                return .Possible
+                return .Fail
             }
         } else {
             return .Fail

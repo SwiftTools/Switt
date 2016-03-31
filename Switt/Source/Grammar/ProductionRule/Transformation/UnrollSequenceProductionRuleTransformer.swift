@@ -14,14 +14,15 @@ class UnrollSequenceProductionRuleTransformer: ProductionRuleTransformer {
             return .Optional(rule: transform(rule))
         case .Multiple(let atLeast, let rule):
             return .Multiple(atLeast: atLeast, rule: transform(rule))
-        case .Lazy(let rule, let stopRule, let stopRuleIsRequired):
+        case .Lazy(let startRule, let rule, let stopRule):
             return .Lazy(
+                startRule: transform(startRule),
                 rule: transform(rule),
-                stopRule: transform(stopRule),
-                stopRuleIsRequired: stopRuleIsRequired
+                stopRule: transform(stopRule)
             )
             
         case .CustomParser,
+             .CustomTokenizer,
              .Char,
              .RuleReference,
              .Terminal,

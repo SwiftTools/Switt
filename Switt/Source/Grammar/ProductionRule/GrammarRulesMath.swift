@@ -92,14 +92,16 @@ class GrammarRulesMath {
             return []
         case .CustomParser(let factory):
             return factory.involvedTerminals
+        case .CustomTokenizer(let factory):
+            return factory.involvedTerminals
         case .Multiple(_, let rule):
             return allTerminals(rule)
         case .Optional(let rule):
             return allTerminals(rule)
         case .Terminal(let terminal):
             return [terminal]
-        case .Lazy(let rule, let stopRule, _):
-            return allTerminals(rule) + allTerminals(stopRule)
+        case .Lazy(let startRule, let rule, let stopRule):
+            return allTerminals(startRule) + allTerminals(rule) + allTerminals(stopRule)
         }
     }
 }

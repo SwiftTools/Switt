@@ -415,28 +415,15 @@ class SwiftGrammarLexicalStructure: GrammarRulesRegistrator {
         
         // TODO: -> channel(HIDDEN)
         lexerRule(.Block_comment,
-            compound(
-                required("/*"),
-                lazy(
-                    any(
-                        required(.Block_comment),
-                        anyChar()
-                    ),
-                    stopRule: required("*/"),
-                    stopRuleIsRequired: true
-                )
-            ),
+            custom(BlockCommentTokenizerFactory()),
             channel: TokenChannel.Hidden
         )
         
         lexerRule(.Line_comment,
-            compound(
-                required("//"),
-                lazy(
-                    anyChar(),
-                    stopRule: required("\n"),
-                    stopRuleIsRequired: false
-                )
+            lazy(
+                startRule: ~"//",
+                rule: anyChar(),
+                stopRule: any(~"\n", eof())
             ),
             channel: TokenChannel.Hidden
         )
