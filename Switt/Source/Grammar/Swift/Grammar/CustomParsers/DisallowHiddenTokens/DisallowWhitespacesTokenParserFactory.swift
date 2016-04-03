@@ -1,5 +1,6 @@
 class DisallowHiddenTokensTokenParserFactory: CustomTokenParserFactory {
     private let productionRule: ProductionRule
+    private var parserRule: ParserRule?? = nil
     
     init(productionRule: ProductionRule) {
         self.productionRule = productionRule
@@ -10,7 +11,12 @@ class DisallowHiddenTokensTokenParserFactory: CustomTokenParserFactory {
     }
     
     func tokenParser(tokenParserFactory: TokenParserFactory, parserRuleConverter: ParserRuleConverter) -> TokenParser {
-        if let parserRule = parserRuleConverter.convertToParserRule(productionRule: productionRule) {
+        // Quick fix of #8:
+        if parserRule == nil {
+            parserRule = parserRuleConverter.convertToParserRule(productionRule: productionRule)
+        }
+        
+        if let parserRule = (parserRule?.flatMap { $0 }) {
             return DisallowHiddenTokensTokenParser(parserRule: parserRule, tokenParserFactory: tokenParserFactory)
         } else {
             // TODO: handle error

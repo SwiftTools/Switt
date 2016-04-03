@@ -41,6 +41,8 @@
 		F80888971CA8268200B57C32 /* TokenConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80888961CA8268200B57C32 /* TokenConvertible.swift */; };
 		F808889B1CA82CB200B57C32 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808889A1CA82CB200B57C32 /* Token.swift */; };
 		F80D92CD1C942C28009A36B0 /* FunctionScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */; };
+		F811636A1CB157590005FEB6 /* HashMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81163681CB157590005FEB6 /* HashMath.swift */; };
+		F811636B1CB157590005FEB6 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81163691CB157590005FEB6 /* Stack.swift */; };
 		F8156ADF1C9DA7B70087B821 /* SyntaxTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8156ADE1C9DA7B70087B821 /* SyntaxTree.swift */; };
 		F8156AE51C9DA7E00087B821 /* LexicalAnalysisResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8156AE41C9DA7E00087B821 /* LexicalAnalysisResult.swift */; };
 		F8156AE71C9DA7EF0087B821 /* ProductionRuleScannerErrorStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8156AE61C9DA7EF0087B821 /* ProductionRuleScannerErrorStream.swift */; };
@@ -403,6 +405,8 @@
 		F80888961CA8268200B57C32 /* TokenConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenConvertible.swift; sourceTree = "<group>"; };
 		F808889A1CA82CB200B57C32 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		F80D92CC1C942C28009A36B0 /* FunctionScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionScanner.swift; sourceTree = "<group>"; };
+		F81163681CB157590005FEB6 /* HashMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashMath.swift; sourceTree = "<group>"; };
+		F81163691CB157590005FEB6 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		F8156ADE1C9DA7B70087B821 /* SyntaxTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTree.swift; sourceTree = "<group>"; };
 		F8156AE41C9DA7E00087B821 /* LexicalAnalysisResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalysisResult.swift; sourceTree = "<group>"; };
 		F8156AE61C9DA7EF0087B821 /* ProductionRuleScannerErrorStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionRuleScannerErrorStream.swift; sourceTree = "<group>"; };
@@ -1607,6 +1611,8 @@
 		F836877C1C8F0533005442E5 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				F81163681CB157590005FEB6 /* HashMath.swift */,
+				F81163691CB157590005FEB6 /* Stack.swift */,
 				F836877D1C8F0533005442E5 /* Optional+TryUnwrap.swift */,
 				F8CEF5371C96081500451D98 /* StringUtils.swift */,
 				F8156AFE1C9E9B500087B821 /* CollectionExtensions.swift */,
@@ -2237,6 +2243,7 @@
 				F8156AEB1C9DA8110087B821 /* ProductionRuleScanner.swift in Sources */,
 				F83388511CA834B600282009 /* GrammarRulesRegistrator.swift in Sources */,
 				F83684B41C8F00C5005442E5 /* EnumDeclaration.swift in Sources */,
+				F811636B1CB157590005FEB6 /* Stack.swift in Sources */,
 				F83684CD1C8F00C5005442E5 /* ProtocolDeclaration.swift in Sources */,
 				F83684B31C8F00C5005442E5 /* EnumcaseDeclaration.swift in Sources */,
 				F80888361CA7E34B00B57C32 /* InputStringStream.swift in Sources */,
@@ -2341,6 +2348,7 @@
 				F83024711CA8732600E2EA7F /* DirectLeftRecursionRemoverImpl.swift in Sources */,
 				F83684CF1C8F00C5005442E5 /* TypealiasDeclaration.swift in Sources */,
 				F83684D91C8F00C5005442E5 /* SourceKitStructureEnumScanner.swift in Sources */,
+				F811636A1CB157590005FEB6 /* HashMath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2451,8 +2459,9 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_FAST_MATH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2467,7 +2476,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2498,7 +2508,9 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_FAST_MATH = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2508,6 +2520,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

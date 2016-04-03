@@ -1,5 +1,6 @@
 class PrefixOperatorTokenParserFactory: CustomTokenParserFactory {
     private let operatorRule: ProductionRule
+    private var parserRule: ParserRule?? = nil
     
     init(operatorRule: ProductionRule) {
         self.operatorRule = operatorRule
@@ -10,7 +11,12 @@ class PrefixOperatorTokenParserFactory: CustomTokenParserFactory {
     }
     
     func tokenParser(tokenParserFactory: TokenParserFactory, parserRuleConverter: ParserRuleConverter) -> TokenParser {
-        if let parserRule = parserRuleConverter.convertToParserRule(productionRule: operatorRule) {
+        // Quick fix of #8:
+        if parserRule == nil {
+            parserRule = parserRuleConverter.convertToParserRule(productionRule: operatorRule)
+        }
+        
+        if let parserRule = (parserRule?.flatMap { $0 }) {
             return PrefixOperatorTokenParser(operatorRule: parserRule, tokenParserFactory: tokenParserFactory)
         } else {
             // TODO: handle error

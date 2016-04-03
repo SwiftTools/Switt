@@ -41,9 +41,9 @@ class SwiftGrammarExpressions: GrammarRulesRegistrator {
         )
         
         parserRule(.try_operator,
-            ~"try"
-                | "try" ~ "?"
+            ~"try" ~ "?"
                 | "try" ~ "!"
+                | "try"
         )
         
         parserRule(.binary_expression,
