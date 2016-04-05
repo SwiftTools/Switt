@@ -9,7 +9,7 @@ import Nimble
 import SwiftFelisCatus
 
 class SwiftFileScannerSpec: QuickSpec {
-    override func spec() {
+    override func spec() {        
         describe("SwiftFileScanner") {
             var swiftFileScanner: SwiftFileScanner!
             
