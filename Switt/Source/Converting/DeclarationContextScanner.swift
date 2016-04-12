@@ -29,46 +29,50 @@ final class DeclarationContextsScanner {
         var scannedContext = ScannedDeclarationContexts()
         
         for declaration in declarationContexts {
-            if let importDeclaration = declaration.import_declaration() {
+            guard let child = declaration.children?.first else {
+                continue
+            }
+            
+            if let importDeclaration = child as? SwiftParser.Import_declarationContext {
                 scannedContext.importDeclarations.append(importDeclaration)
                 
-            } else if let constantDeclaration = declaration.constant_declaration() {
+            } else if let constantDeclaration = child as? SwiftParser.Constant_declarationContext {
                 scannedContext.constantDeclarations.append(constantDeclaration)
                 
-            } else if let variableDeclaration = declaration.variable_declaration() {
+            } else if let variableDeclaration = child as? SwiftParser.Variable_declarationContext {
                 scannedContext.variableDeclarations.append(variableDeclaration)
                 
-            } else if let typealiasDeclaration = declaration.typealias_declaration() {
+            } else if let typealiasDeclaration = child as? SwiftParser.Typealias_declarationContext {
                 scannedContext.typealiasDeclarations.append(typealiasDeclaration)
                 
-            } else if let functionDeclaration = declaration.function_declaration() {
+            } else if let functionDeclaration = child as? SwiftParser.Function_declarationContext {
                 scannedContext.functionDeclarations.append(functionDeclaration)
                 
-            } else if let enumDeclaration = declaration.enum_declaration() {
+            } else if let enumDeclaration = child as? SwiftParser.Enum_declarationContext {
                 scannedContext.enumDeclarations.append(enumDeclaration)
                 
-            } else if let structDeclaration = declaration.struct_declaration() {
+            } else if let structDeclaration = child as? SwiftParser.Struct_declarationContext {
                 scannedContext.structDeclarations.append(structDeclaration)
                 
-            } else if let classDeclaration = declaration.class_declaration() {
+            } else if let classDeclaration = child as? SwiftParser.Class_declarationContext {
                 scannedContext.classDeclarations.append(classDeclaration)
                 
-            } else if let protocolDeclaration = declaration.protocol_declaration() {
+            } else if let protocolDeclaration = child as? SwiftParser.Protocol_declarationContext {
                 scannedContext.protocolDeclarations.append(protocolDeclaration)
                 
-            } else if let initializerDeclaration = declaration.initializer_declaration() {
+            } else if let initializerDeclaration = child as? SwiftParser.Initializer_declarationContext {
                 scannedContext.initializerDeclarations.append(initializerDeclaration)
                 
-            } else if let deinitializerDeclaration = declaration.deinitializer_declaration() {
+            } else if let deinitializerDeclaration = child as? SwiftParser.Deinitializer_declarationContext {
                 scannedContext.deinitializerDeclarations.append(deinitializerDeclaration)
                 
-            } else if let extensionDeclaration = declaration.extension_declaration() {
+            } else if let extensionDeclaration = child as? SwiftParser.Extension_declarationContext {
                 scannedContext.extensionDeclarations.append(extensionDeclaration)
                 
-            } else if let subscriptDeclaration = declaration.subscript_declaration() {
+            } else if let subscriptDeclaration = child as? SwiftParser.Subscript_declarationContext {
                 scannedContext.subscriptDeclarations.append(subscriptDeclaration)
                 
-            } else if let operatorDeclaration = declaration.operator_declaration() {
+            } else if let operatorDeclaration = child as? SwiftParser.Operator_declarationContext {
                 scannedContext.operatorDeclarations.append(operatorDeclaration)
             }
         }

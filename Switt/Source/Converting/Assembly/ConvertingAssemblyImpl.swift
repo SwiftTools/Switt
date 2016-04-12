@@ -3,7 +3,7 @@ class ConvertingAssemblyImpl: ConvertingAssembly {
     // Impls:
     //\l$1: $1Impl(assembly: self)$2
     
-    weak var weakConverter: ConvertingAssemblyUniversalConverter?
+    var weakConverter: ConvertingAssemblyUniversalConverter?
     
     func converter() -> ConvertingAssemblyUniversalConverter {
         if let converter = weakConverter {
@@ -31,7 +31,14 @@ class ConvertingAssemblyImpl: ConvertingAssembly {
             funcFromContextConverter: FuncFromContextConverterImpl(assembly: self),
             functionNameFromContextConverter: FunctionNameFromContextConverterImpl(assembly: self),
             accessibilityFromContextConverter: AccessibilityFromContextConverterImpl(assembly: self),
-            functionSignatureFromContextConverter: FunctionSignatureFromContextConverterImpl(assembly: self)
+            functionSignatureFromContextConverter: FunctionSignatureFromContextConverterImpl(assembly: self),
+            parameterNameFromContextConverter: ParameterNameFromContextConverterImpl(),
+            typeAnnotationFromContextConverter: TypeAnnotationFromContextConverterImpl(assembly: self),
+            typeFromContextConverter: TypeFromContextConverterImpl(assembly: self),
+            attributesFromContextConverter: AttributesFromContextConverterImpl(assembly: self),
+            functionResultFromContextConverter: FunctionResultFromContextConverterImpl(assembly: self),
+            genericArgumentsFromContextConverter:  GenericArgumentsFromContextConverterImpl(assembly: self),
+            parameterFromContextConverter:  ParameterFromContextConverterImpl(assembly: self)
         )
     }
     

@@ -9,3 +9,10 @@ public protocol Func {
     var parameters: [Parameter] { get }
     var returnType: Type { get }
 }
+
+struct FuncData: Func {
+    var name: String
+    var accessibility: Accessibility
+    var parameters: [Parameter]
+    var returnType: Type
+}

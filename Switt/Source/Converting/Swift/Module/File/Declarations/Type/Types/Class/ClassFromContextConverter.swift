@@ -33,10 +33,13 @@ class ClassFromContextConverterImpl: ClassFromContextConverter {
             if let declarations: SwiftParser.DeclarationsContext = context.class_body()?.declarations() {
                 let declarationContexts = assembly.declarationContextsScanner().scan(declarations)
                 
-                classes = declarationContexts.classDeclarations.flatMap(assembly.converter().convert)
-                structs = declarationContexts.structDeclarations.flatMap(assembly.converter().convert)
-                typealiases = declarationContexts.typealiasDeclarations.flatMap(assembly.converter().convert)
-                funcs = declarationContexts.functionDeclarations.flatMap(assembly.converter().convert)
+                print(declarationContexts)
+                print(declarationContexts.classDeclarations.count)
+                
+                classes = declarationContexts.classDeclarations.flatMap { assembly.converter().convert($0) }
+                structs = declarationContexts.structDeclarations.flatMap { assembly.converter().convert($0) }
+                typealiases = declarationContexts.typealiasDeclarations.flatMap { assembly.converter().convert($0) }
+                funcs = declarationContexts.functionDeclarations.flatMap { assembly.converter().convert($0) }
             }
             
             return ClassData(

@@ -27,8 +27,11 @@ class ProtocolFromContextConverterImpl: ProtocolFromContextConverter {
             var vars = [ProtocolVar]()
             var subscripts = [ProtocolSubscript]()
             
-            let declarationContexts = context.protocol_body()?.protocol_member_declarations().flatMap { protocolMemberDeclarationContexts($0)
-            }
+            let declarationContexts = GrammarMath.unroll(
+                context: context.protocol_body()?.protocol_member_declarations(),
+                element: { $0.protocol_member_declaration() },
+                list: { $0.protocol_member_declarations() }
+            )
             
             if let declarationContexts = declarationContexts {
                 for declarationContext in declarationContexts {
@@ -68,20 +71,5 @@ class ProtocolFromContextConverterImpl: ProtocolFromContextConverter {
         } else {
             return nil
         }
-    }
-    
-    private func protocolMemberDeclarationContexts(context: SwiftParser.Protocol_member_declarationsContext)
-        -> [SwiftParser.Protocol_member_declarationContext]
-    {
-        var contexts: [SwiftParser.Protocol_member_declarationContext] = []
-        
-        if let left = context.protocol_member_declaration() {
-            contexts.append(left)
-        }
-        if let right = (context.protocol_member_declarations().flatMap { protocolMemberDeclarationContexts($0) }) {
-            contexts.appendContentsOf(right)
-        }
-        
-        return contexts
     }
 }

@@ -1,3 +1,3 @@
 public struct ProtocolCompositionType {
-    var names: [String]
+    var types: NonemptyArray<ProtocolTypeIdentifier>
 }

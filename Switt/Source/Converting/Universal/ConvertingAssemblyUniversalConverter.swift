@@ -16,6 +16,7 @@ import SwiftGrammar
 //    ([A-Za-z]*?)(FromContextConverter)(,?)$
 //func convert(context: Int?) -> $1? {\n    return \l$1$2.convert(context)\n}\n
 
+// TODO: do something with it, it is ridiculous
 protocol ConvertingAssemblyUniversalConverter: class,
     SwiftFileFromContextConverter,
     ClassFromContextConverter,
@@ -31,7 +32,14 @@ protocol ConvertingAssemblyUniversalConverter: class,
     FuncFromContextConverter,
     FunctionNameFromContextConverter,
     AccessibilityFromContextConverter,
-    FunctionSignatureFromContextConverter
+    FunctionSignatureFromContextConverter,
+    ParameterNameFromContextConverter,
+    TypeAnnotationFromContextConverter,
+    TypeFromContextConverter,
+    AttributesFromContextConverter,
+    FunctionResultFromContextConverter,
+    GenericArgumentsFromContextConverter,
+    ParameterFromContextConverter
 {
 }
 
@@ -51,6 +59,13 @@ class ConvertingAssemblyUniversalConverterImpl: ConvertingAssemblyUniversalConve
     var functionNameFromContextConverter: FunctionNameFromContextConverter
     var accessibilityFromContextConverter: AccessibilityFromContextConverter
     var functionSignatureFromContextConverter: FunctionSignatureFromContextConverter
+    var parameterNameFromContextConverter: ParameterNameFromContextConverter
+    var typeAnnotationFromContextConverter: TypeAnnotationFromContextConverter
+    var typeFromContextConverter: TypeFromContextConverter
+    var attributesFromContextConverter: AttributesFromContextConverter
+    var functionResultFromContextConverter: FunctionResultFromContextConverter
+    var genericArgumentsFromContextConverter: GenericArgumentsFromContextConverter
+    var parameterFromContextConverter: ParameterFromContextConverter
     
     init(
         swiftFileFromContextConverter: SwiftFileFromContextConverter,
@@ -67,7 +82,14 @@ class ConvertingAssemblyUniversalConverterImpl: ConvertingAssemblyUniversalConve
         funcFromContextConverter: FuncFromContextConverter,
         functionNameFromContextConverter: FunctionNameFromContextConverter,
         accessibilityFromContextConverter: AccessibilityFromContextConverter,
-        functionSignatureFromContextConverter: FunctionSignatureFromContextConverter
+        functionSignatureFromContextConverter: FunctionSignatureFromContextConverter,
+        parameterNameFromContextConverter: ParameterNameFromContextConverter,
+        typeAnnotationFromContextConverter: TypeAnnotationFromContextConverter,
+        typeFromContextConverter: TypeFromContextConverter,
+        attributesFromContextConverter: AttributesFromContextConverter,
+        functionResultFromContextConverter: FunctionResultFromContextConverter,
+        genericArgumentsFromContextConverter: GenericArgumentsFromContextConverter,
+        parameterFromContextConverter: ParameterFromContextConverter
         )
     {
         self.swiftFileFromContextConverter = swiftFileFromContextConverter
@@ -85,6 +107,13 @@ class ConvertingAssemblyUniversalConverterImpl: ConvertingAssemblyUniversalConve
         self.functionNameFromContextConverter = functionNameFromContextConverter
         self.accessibilityFromContextConverter = accessibilityFromContextConverter
         self.functionSignatureFromContextConverter = functionSignatureFromContextConverter
+        self.parameterNameFromContextConverter = parameterNameFromContextConverter
+        self.typeAnnotationFromContextConverter = typeAnnotationFromContextConverter
+        self.typeFromContextConverter = typeFromContextConverter
+        self.attributesFromContextConverter = attributesFromContextConverter
+        self.functionResultFromContextConverter = functionResultFromContextConverter
+        self.genericArgumentsFromContextConverter = genericArgumentsFromContextConverter
+        self.parameterFromContextConverter = parameterFromContextConverter
     }
     
     func convert(context: SwiftParser.Top_levelContext?) -> SwiftFile? {
@@ -145,5 +174,37 @@ class ConvertingAssemblyUniversalConverterImpl: ConvertingAssemblyUniversalConve
     
     func convert(context: SwiftParser.Function_signatureContext?) -> FunctionSignature? {
         return functionSignatureFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.Local_parameter_nameContext?) -> ParameterName? {
+        return parameterNameFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.External_parameter_nameContext?) -> ParameterName? {
+        return parameterNameFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.Type_annotationContext?) -> TypeAnnotation? {
+        return typeAnnotationFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.TypeContext?) -> Type? {
+        return typeFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.AttributesContext?) -> Attributes? {
+        return attributesFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.Function_resultContext?) -> FunctionResult? {
+        return functionResultFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.Generic_argument_clauseContext?) -> GenericArguments? {
+        return genericArgumentsFromContextConverter.convert(context)
+    }
+    
+    func convert(context: SwiftParser.Parameter_clausesContext?) -> [[Parameter]]? {
+        return parameterFromContextConverter.convert(context)
     }
 }

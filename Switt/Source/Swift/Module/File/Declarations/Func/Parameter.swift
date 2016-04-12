@@ -4,7 +4,13 @@
 //
 
 public protocol Parameter {
-    var externalName: String? { get }
-    var localName: String { get }
-    var type: String { get }
+    var externalName: ParameterName? { get }
+    var localName: ParameterName { get }
+    var type: TypeAnnotation { get }
+}
+
+struct ParameterData: Parameter {
+    var externalName: ParameterName?
+    var localName: ParameterName
+    var type: TypeAnnotation
 }

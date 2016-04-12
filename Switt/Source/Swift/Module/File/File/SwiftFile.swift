@@ -9,3 +9,10 @@ protocol SwiftFile {
     var protocols: [Protocol] { get }
     var enums: [Enum] { get }
 }
+
+struct SwiftFileData: SwiftFile {
+    var classes: [Class]
+    var structs: [Struct]
+    var protocols: [Protocol]
+    var enums: [Enum]
+}

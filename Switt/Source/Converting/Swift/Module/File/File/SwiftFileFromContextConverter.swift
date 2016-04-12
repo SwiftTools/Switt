@@ -18,10 +18,10 @@ class SwiftFileFromContextConverterImpl: SwiftFileFromContextConverter {
             let declarationContexts = assembly.declarationContextsScanner().scan(declarations)
             
             return SwiftFileData(
-                classes: declarationContexts.classDeclarations.flatMap(assembly.converter().convert),
-                structs: declarationContexts.structDeclarations.flatMap(assembly.converter().convert),
-                protocols: declarationContexts.protocolDeclarations.flatMap(assembly.converter().convert),
-                enums: declarationContexts.enumDeclarations.flatMap(assembly.converter().convert)
+                classes: declarationContexts.classDeclarations.flatMap { assembly.converter().convert($0) },
+                structs: declarationContexts.structDeclarations.flatMap { assembly.converter().convert($0) },
+                protocols: declarationContexts.protocolDeclarations.flatMap { assembly.converter().convert($0) },
+                enums: declarationContexts.enumDeclarations.flatMap { assembly.converter().convert($0) }
             )
         } else {
             return nil

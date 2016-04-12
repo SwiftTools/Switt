@@ -1,2 +1,2 @@
 github "nvzqz/FileKit"
-github "SwiftTools/SwiftGrammar"
+git "~/src/SwiftGrammar"
