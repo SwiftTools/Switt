@@ -41,8 +41,8 @@ class SwiftFileParserSpec: QuickSpec {
                 
                 expect(parsedFunc.name).to(equal(FunctionName.Function("doWork")))
                     
-                switch parsedFunc.signature.result.type {
-                case .Array(.Identifier(let typeIdentifier)):
+                switch parsedFunc.signature.result?.type {
+                case .Some(.Array(.Identifier(let typeIdentifier))):
                     expect(typeIdentifier.elements.first.name).to(equal("String"))
                     expect(typeIdentifier.elements.first.genericArguments).to(beNil())
                 default:

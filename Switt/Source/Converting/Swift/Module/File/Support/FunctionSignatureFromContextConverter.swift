@@ -13,7 +13,8 @@ class FunctionSignatureFromContextConverterImpl: FunctionSignatureFromContextCon
     
     func convert(context: SwiftParser.Function_signatureContext?) -> FunctionSignature? {
         guard let context = context else { return nil }
-        guard let result = assembly.converter().convert(context.function_result()) else { return nil }
+        
+        let result = assembly.converter().convert(context.function_result())
             
         let throwing = ThrowingFromTerminalsConverter.convert(context)
         
