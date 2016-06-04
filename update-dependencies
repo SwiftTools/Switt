@@ -1,0 +1,42 @@
+#!/bin/bash
+
+function carthageUpdate() {
+    pushd . > /dev/null
+    cd `dirname $0`
+    scriptRoot=`pwd`
+
+    # not every dependency builds fine for other platforms
+    carthage update --platform osx --no-use-binaries
+
+    popd > /dev/null   
+}
+
+function waitForKeyPress() {
+    # It should be visible
+    echo "                                                           ";
+    echo "                                                           ";
+    echo "        ██████  ██████  ███████ ███████ ███████            ";
+    echo "        ██   ██ ██   ██ ██      ██      ██                 ";
+    echo "        ██████  ██████  █████   ███████ ███████            ";
+    echo "        ██      ██   ██ ██           ██      ██            ";
+    echo "        ██      ██   ██ ███████ ███████ ███████            ";
+    echo "                                                           ";
+    echo "                                                           ";
+    echo "███     ███████ ███    ██ ████████ ███████ ██████      ███ ";
+    echo "██      ██      ████   ██    ██    ██      ██   ██      ██ ";
+    echo "██      █████   ██ ██  ██    ██    █████   ██████       ██ ";
+    echo "██      ██      ██  ██ ██    ██    ██      ██   ██      ██ ";
+    echo "███     ███████ ██   ████    ██    ███████ ██   ██     ███ ";
+    echo "                                                           ";
+    echo "                                                           ";
+    read
+}
+
+function closeTerminal() {
+    local program=`basename $0`
+    osascript -e "tell application \"Terminal\" to close (every window whose name contains \"$program\")" & exit
+}
+
+carthageUpdate
+waitForKeyPress
+closeTerminal

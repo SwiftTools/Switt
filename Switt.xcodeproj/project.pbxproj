@@ -53,7 +53,6 @@
 		F8A842151CB1C24700A1555C /* Antlr4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A842121CB1C24700A1555C /* Antlr4.framework */; };
 		F8A8421A1CB1C29800A1555C /* Antlr4.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8A842121CB1C24700A1555C /* Antlr4.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8A8421B1CB1C29D00A1555C /* Antlr4.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8A842121CB1C24700A1555C /* Antlr4.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F8A843BD1CB1CF8200A1555C /* FileKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CAEE531CAC92A600D6CCAA /* FileKit.framework */; };
 		F8CAEE381CAC761500D6CCAA /* Switt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83684281C8F0055005442E5 /* Switt.framework */; };
 		F8CAEE451CAC831700D6CCAA /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685101C8F016C005442E5 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8CAEE461CAC831700D6CCAA /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F83685121C8F016C005442E5 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -305,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F85F9E2A1CB45CEA00B831CB /* SwiftGrammar.framework in Frameworks */,
-				F8A843BD1CB1CF8200A1555C /* FileKit.framework in Frameworks */,
 				F8A842131CB1C24700A1555C /* Antlr4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
