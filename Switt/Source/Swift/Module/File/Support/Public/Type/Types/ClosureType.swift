@@ -1,5 +1,5 @@
 public struct ClosureType {
-    var argument: Type
-    var throwing: Throwing?
-    var returnType: Type
+    public var argument: Type
+    public var throwing: Throwing?
+    public var returnType: Type
 }

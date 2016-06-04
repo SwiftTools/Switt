@@ -1,4 +1,4 @@
 public struct TypeAnnotation {
-    var attributes: Attributes?
-    var type: Type
+    public var attributes: Attributes?
+    public var type: Type
 }

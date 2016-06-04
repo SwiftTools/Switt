@@ -1,11 +1,11 @@
 public struct TupleType {
-    var elements: NonemptyArray<TupleTypeElement>
-    var isVariadic: Bool // (Int, Int...)
+    public var elements: NonemptyArray<TupleTypeElement>
+    public var isVariadic: Bool // (Int, Int...)
 }
 
 public struct TupleTypeElement {
-    var attributes: Attributes?
-    var isInout: Bool
-    var name: String?
-    var type: Type
+    public var attributes: Attributes?
+    public var isInout: Bool
+    public var name: String?
+    public var type: Type
 }

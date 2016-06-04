@@ -1,3 +1,3 @@
 public struct GenericArguments {
-    var types: NonemptyArray<Type>
+    public var types: NonemptyArray<Type>
 }
