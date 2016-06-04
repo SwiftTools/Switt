@@ -1,3 +1,5 @@
+// The contents should not be changed without significant reason
+
 class TestSwiftFile {
     static let file: String = #file
 }

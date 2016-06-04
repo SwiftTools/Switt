@@ -1,4 +1,4 @@
-protocol Protocol {
+public protocol Protocol {
     var name: String { get }
     var accessibility: Accessibility { get }
     

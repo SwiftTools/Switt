@@ -17,8 +17,10 @@ class FunctionSignatureFromContextConverterImpl: FunctionSignatureFromContextCon
             
         let throwing = ThrowingFromTerminalsConverter.convert(context)
         
+        let parameters = assembly.converter().convert(context.parameter_clauses()) ?? []
+        
         return FunctionSignature(
-            parameters: assembly.converter().convert(context.parameter_clauses()) ?? [],
+            curry: NonemptyArray(array: parameters) ?? NonemptyArray(first: []),
             throwing: throwing,
             result: result
         )

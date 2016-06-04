@@ -1,30 +1,42 @@
 import Antlr4
 import SwiftGrammar
 
-protocol SwiftFileParser {
-    func parse(file: String) -> SwiftFile?
+public protocol SwiftFileParser {
+    func parseFile(file: String) -> SwiftFile?
+    func parseCode(code: String) -> SwiftFile?
 }
 
-class SwiftFileParserImpl: SwiftFileParser {
-    func parse(file: String) -> SwiftFile? {
+public class SwiftFileParserImpl: SwiftFileParser {
+    public init() {
+    }
+    
+    public func parseFile(file: String) -> SwiftFile? {
+        if NSFileManager().fileExistsAtPath(file) {
+            return parseStream(ANTLRFileStream(file))
+        } else {
+            return nil
+        }
+    }
+    
+    public func parseCode(code: String) -> SwiftFile? {
+        return parseStream(StringStream(code))
+    }
+    
+    private func parseStream(stream: CharStream) -> SwiftFile? {
         do {
-            if NSFileManager().fileExistsAtPath(file) {
-                let lexer = SwiftLexer(ANTLRFileStream(file))
-                let tokens = CommonTokenStream(lexer)
-                let parser = try SwiftParser(tokens)
-                
-                let topLevel = try parser.top_level()
-                
-                let assembly = ConvertingAssemblyImpl()
-                
-                let converter = assembly.converter()
-                
-                let result = converter.convert(topLevel)
-                
-                return result
-            } else {
-                return nil
-            }
+            let lexer = SwiftLexer(stream)
+            let tokens = CommonTokenStream(lexer)
+            let parser = try SwiftParser(tokens)
+            
+            let topLevel = try parser.top_level()
+            
+            let assembly = ConvertingAssemblyImpl()
+            
+            let converter = assembly.converter()
+            
+            let result = converter.convert(topLevel)
+            
+            return result
         } catch {
             return nil
         }

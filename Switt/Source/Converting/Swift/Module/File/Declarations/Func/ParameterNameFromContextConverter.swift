@@ -18,8 +18,14 @@ class ParameterNameFromContextConverterImpl: ParameterNameFromContextConverter {
     func convert(context: ParserRuleContext?, identifierContext: SwiftParser.IdentifierContext?) -> ParameterName? {
         if let context = context {
             if let identifier = identifierContext?.getText() {
-                return ParameterName.Some(identifier)
+                if identifier == "_" {
+                    return ParameterName.None
+                } else {
+                    return ParameterName.Some(identifier)
+                }
             } else {
+                // Not sure if this code is executed
+                assertionFailure("This code is actually executed")
                 return context.mapTerminal([SwiftParser.UNDERSCORE: ParameterName.None])
             }
         } else {

@@ -12,7 +12,13 @@ public struct NonemptyArray<T> {
     
     public private(set) var array: [T]
     
-    init?(array: [T]) {
+    public init(first: T, latter: [T] = []) {
+        self.first = first
+        self.latter = latter
+        self.array = [first] + latter
+    }
+    
+    public init?(array: [T]) {
         if let first = array.first {
             self.first = first
             self.latter = array.dropFirst().map { $0 }
@@ -20,5 +26,9 @@ public struct NonemptyArray<T> {
         } else {
             return nil
         }
+    }
+    
+    public var count: Int {
+        return array.count
     }
 }

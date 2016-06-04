@@ -1,14 +1,23 @@
 public struct TypeIdentifier {
-    var elements: NonemptyArray<TypeIdentifierElement>
+    public var elements: NonemptyArray<TypeIdentifierElement>
+    
+    public init(elements: NonemptyArray<TypeIdentifierElement>) {
+        self.elements = elements
+    }
 }
 
 public struct TypeIdentifierElement {
-    var name: String
-    var genericArguments: GenericArguments?
+    public var name: String
+    public var genericArguments: GenericArguments?
+    
+    public init(name: String, genericArguments: GenericArguments? = nil) {
+        self.name = name
+        self.genericArguments = genericArguments
+    }
 }
 
 // A<Int, String>.B<A<Int, String>>.SomeTypealias
 public struct ProtocolTypeIdentifier {
-    var path: [TypeIdentifierElement] // A<Int, String> B<A<Int, String>>
-    var name: String // SomeTypealias
+    public var path: [TypeIdentifierElement] // A<Int, String> B<A<Int, String>>
+    public var name: String // SomeTypealias
 }

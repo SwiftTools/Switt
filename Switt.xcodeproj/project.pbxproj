@@ -33,6 +33,8 @@
 		F85F9E2A1CB45CEA00B831CB /* SwiftGrammar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F85F9E291CB45CEA00B831CB /* SwiftGrammar.framework */; };
 		F85F9E2B1CB45D2500B831CB /* SwiftGrammar.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F85F9E291CB45CEA00B831CB /* SwiftGrammar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F85F9E2C1CB45D3600B831CB /* SwiftGrammar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F85F9E291CB45CEA00B831CB /* SwiftGrammar.framework */; };
+		F86A05B01D029ADD004B5066 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D905C51CB9A094009B640C /* CollectionExtensions.swift */; };
+		F86A05B11D029BA7004B5066 /* HashMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D905C61CB9A094009B640C /* HashMath.swift */; };
 		F8704B241CB9AF3300E21DCF /* FunctionSignatureFromContextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8704B231CB9AF3300E21DCF /* FunctionSignatureFromContextConverter.swift */; };
 		F8704B261CB9B24600E21DCF /* Unwrapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8704B251CB9B24600E21DCF /* Unwrapping.swift */; };
 		F8704B281CB9B2E000E21DCF /* CodeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8704B271CB9B2E000E21DCF /* CodeBlock.swift */; };
@@ -1088,7 +1090,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8704B301CB9C61E00E21DCF /* ProtocolScanningTests.swift in Sources */,
+				F86A05B01D029ADD004B5066 /* CollectionExtensions.swift in Sources */,
 				F84706221C8F0F98007902CE /* TestSwiftFile.swift in Sources */,
+				F86A05B11D029BA7004B5066 /* HashMath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
