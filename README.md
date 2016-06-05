@@ -8,7 +8,11 @@ Switt is a framework for reading Swift files into nice structures and generating
 
 The project is under MIT license. The project is non-profit.
 
-Originally I've started mock generating project like Cuckoo, which is now not ready, because of lack of tools.
+This project is only used in the boilerplate-free mock framework I've recently released to public (it's still unusable):
+- Framework: https://github.com/SwiftTools/Swick
+- Generator: https://github.com/SwiftTools/SwickGen
+
+This project uses ANTLRv4 and my framework with Swift grammar: https://github.com/SwiftTools/SwiftGrammar
 
 # How to build
 
