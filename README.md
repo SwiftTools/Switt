@@ -1,3 +1,9 @@
+# THIS PROJECT IS NO MORE SUPPORTED
+
+I've decided to build a nice mock framework for Swift with code-generation. And, yes, I made it work. However, we can not use this solution or even this kind of solution on big projects due to significantly long compilation time of the project itself and the tests. Automatically generated mocks will produce too much code and building unit test target will last like forever. Swift compiler is poorly optimized, and it seems that it wouldn't be changed in future. Apple prefers to add more "features" and break backward compatibility than making Swift compiler faster and more stable. P.S. Sorry for my rageful English.
+
+---
+
 # Switt
 
 Tool Kit for reading Swift code
